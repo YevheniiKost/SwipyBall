@@ -1,0 +1,3 @@
+[submodule "Assets/YevheniiKostenko/CoreKit"]
+	path = Assets/YevheniiKostenko/CoreKit
+	url = https://github.com/YevheniiKost/CoreKit.git
