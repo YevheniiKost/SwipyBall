@@ -1,9 +1,9 @@
 ﻿using System;
 using UnityEngine;
-using YevheniiKostenko.SwipyBall.Scripts.Core.Entities;
-using YevheniiKostenko.SwipyBall.Scripts.Presentation.GameLevel;
+using YevheniiKostenko.SwipyBall.Core.Entities;
+using YevheniiKostenko.SwipyBall.Presentation.GameLevel;
 
-namespace YevheniiKostenko.SwipyBall.Scripts.Domain
+namespace YevheniiKostenko.SwipyBall.Domain.Game
 {
     public interface IPlayerModel
     {

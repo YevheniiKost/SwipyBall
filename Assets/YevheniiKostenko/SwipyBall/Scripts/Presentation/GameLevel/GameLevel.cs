@@ -1,11 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using YeKostenko.CoreKit.DI;
-using YevheniiKostenko.SwipyBall.Scripts.Core.Entities;
-using YevheniiKostenko.SwipyBall.Scripts.Domain;
 
-namespace YevheniiKostenko.SwipyBall.Scripts.Presentation.GameLevel
+using YeKostenko.CoreKit.DI;
+
+using YevheniiKostenko.SwipyBall.Core.Entities;
+using YevheniiKostenko.SwipyBall.Domain.Game;
+
+namespace YevheniiKostenko.SwipyBall.Presentation.GameLevel
 {
     public class GameLevel : MonoBehaviour
     {

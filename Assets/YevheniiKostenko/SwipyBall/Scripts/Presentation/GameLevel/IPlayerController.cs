@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace YevheniiKostenko.SwipyBall.Scripts.Presentation.GameLevel
+namespace YevheniiKostenko.SwipyBall.Presentation.GameLevel
 {
     public interface IPlayerController : IDisposable
     {

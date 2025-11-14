@@ -2,10 +2,10 @@
 using YeKostenko.CoreKit.Logging;
 using YeKostenko.CoreKit.StateMachine;
 using YeKostenko.CoreKit.UI;
-using YevheniiKostenko.SwipyBall.Scripts.Domain;
-using YevheniiKostenko.SwipyBall.Scripts.Presentation.UI;
+using YevheniiKostenko.SwipyBall.Domain;
+using YevheniiKostenko.SwipyBall.Presentation.UI;
 
-namespace YevheniiKostenko.SwipyBall.Scripts.Core.GameStateMachine.States
+namespace YevheniiKostenko.SwipyBall.Core.GameStateMachine.States
 {
     public class BootState : BaseGameState
     {

@@ -5,7 +5,7 @@ using YeKostenko.CoreKit.DI;
 using YeKostenko.CoreKit.Input;
 using YeKostenko.CoreKit.UI;
 
-namespace YevheniiKostenko.SwipyBall.Scripts.Presentation.UI
+namespace YevheniiKostenko.SwipyBall.Presentation.UI
 {
     public class InputPanelView : UIWindow, IInputPanelView
     {

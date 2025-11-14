@@ -1,7 +1,7 @@
 ﻿using System;
-using YevheniiKostenko.SwipyBall.Scripts.Core.Entities;
+using YevheniiKostenko.SwipyBall.Core.Entities;
 
-namespace YevheniiKostenko.SwipyBall.Scripts.Core
+namespace YevheniiKostenko.SwipyBall.Core
 {
     public interface IUINavigation
     {

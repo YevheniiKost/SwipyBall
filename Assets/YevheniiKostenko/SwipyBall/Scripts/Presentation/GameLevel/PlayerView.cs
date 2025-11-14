@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace YevheniiKostenko.SwipyBall.Scripts.Presentation.GameLevel
+namespace YevheniiKostenko.SwipyBall.Presentation.GameLevel
 {
     public class PlayerView : MonoBehaviour, IPlayerView
     {

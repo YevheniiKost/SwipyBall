@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace YevheniiKostenko.SwipyBall.Scripts.Data.Config
+namespace YevheniiKostenko.SwipyBall.Data.Config
 {
     [CreateAssetMenu(fileName = "GlobalGameConfig", menuName = "SwipyBall/Config/GlobalGameConfig")]
     public class GlobalGameConfig : ScriptableObject

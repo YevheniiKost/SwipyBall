@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace YevheniiKostenko.SwipyBall.Scripts.Presentation
+namespace YevheniiKostenko.SwipyBall.Presentation
 {
     public class SpriteElement : MonoBehaviour
     {

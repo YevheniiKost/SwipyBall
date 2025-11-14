@@ -1,23 +1,24 @@
-﻿using YevheniiKostenko.SwipyBall.Scripts.Domain;
+﻿using YevheniiKostenko.SwipyBall.Domain.Game;
+using YevheniiKostenko.SwipyBall.Scripts.Domain.Input;
 
-namespace YevheniiKostenko.SwipyBall.Scripts.Presentation.GameLevel
+namespace YevheniiKostenko.SwipyBall.Presentation.GameLevel
 {
     internal class PlayerController : IPlayerController
     {
         private readonly PlayerView _playerView;
-        private readonly IGameModel _gameModel;
+        private readonly IInputModel _inputModel;
         private readonly IPlayerModel _playerModel;
         
-        public PlayerController(PlayerView playerView, IGameModel gameModel, IPlayerModel playerModel)
+        public PlayerController(PlayerView playerView, IInputModel inputModel, IPlayerModel playerModel)
         {
             _playerView = playerView;
-            _gameModel = gameModel;
+            _inputModel = inputModel;
             _playerModel = playerModel;
         }
 
         public void Initialize()
         {
-            _gameModel.Swipe += OnSwipe;
+            _inputModel.Swipe += OnSwipe;
             
             _playerModel.Jumped += OnJumped;
             _playerModel.Pushed += OnPushed;
@@ -31,7 +32,7 @@ namespace YevheniiKostenko.SwipyBall.Scripts.Presentation.GameLevel
 
         public void Dispose()
         {
-            _gameModel.Swipe -= OnSwipe;
+            _inputModel.Swipe -= OnSwipe;
         }
         
         private void OnSwipe(float angle)

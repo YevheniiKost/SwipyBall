@@ -1,11 +1,10 @@
 ﻿using System;
-using YevheniiKostenko.SwipyBall.Scripts.Core.Entities;
+using YevheniiKostenko.SwipyBall.Core.Entities;
 
-namespace YevheniiKostenko.SwipyBall.Scripts.Domain
+namespace YevheniiKostenko.SwipyBall.Domain.Game
 {
     public interface IGameModel
     {
-        event Action<float> Swipe;
         event Action HitsUpdated;
         event Action GameStarted;
         event Action<GameResult> GameEnded;
@@ -17,7 +16,6 @@ namespace YevheniiKostenko.SwipyBall.Scripts.Domain
 
         bool CanStartGame();
         void StartGame();
-        void SwipeDetected(float angle);
         void HitPlayer();
         void PlayerReachGoal();
         void AddScore(int score);

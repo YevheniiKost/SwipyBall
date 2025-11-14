@@ -4,9 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using YeKostenko.CoreKit.DI;
 using YeKostenko.CoreKit.UI;
-using YevheniiKostenko.SwipyBall.Scripts.Core.Entities;
+using YevheniiKostenko.SwipyBall.Core.Entities;
 
-namespace YevheniiKostenko.SwipyBall.Scripts.Presentation.UI
+namespace YevheniiKostenko.SwipyBall.Presentation.UI
 {
     public class FinishGameWindow : UIWindow, IFinishGameWindowView
     {

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace YevheniiKostenko.SwipyBall.Scripts.Domain
+namespace YevheniiKostenko.SwipyBall.Domain.Game
 {
     public readonly struct PlayerJumpHandler
     {

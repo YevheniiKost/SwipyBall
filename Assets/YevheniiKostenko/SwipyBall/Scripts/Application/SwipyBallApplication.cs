@@ -2,15 +2,17 @@
 using YeKostenko.CoreKit.App;
 using YeKostenko.CoreKit.UI;
 
-using YevheniiKostenko.SwipyBall.Scripts.Core;
-using YevheniiKostenko.SwipyBall.Scripts.Core.GameStateMachine;
-using YevheniiKostenko.SwipyBall.Scripts.Core.GameStateMachine.States;
-using YevheniiKostenko.SwipyBall.Scripts.Data.config;
-using YevheniiKostenko.SwipyBall.Scripts.Domain;
-using YevheniiKostenko.SwipyBall.Scripts.Presentation.GameLevel;
-using YevheniiKostenko.SwipyBall.Scripts.Presentation.UI;
+using YevheniiKostenko.SwipyBall.Core;
+using YevheniiKostenko.SwipyBall.Core.GameStateMachine;
+using YevheniiKostenko.SwipyBall.Core.GameStateMachine.States;
 
-namespace YevheniiKostenko.SwipyBall.Scripts.Application
+using YevheniiKostenko.SwipyBall.Data.config;
+using YevheniiKostenko.SwipyBall.Domain.Game;
+using YevheniiKostenko.SwipyBall.Presentation.GameLevel;
+using YevheniiKostenko.SwipyBall.Presentation.UI;
+using YevheniiKostenko.SwipyBall.Scripts.Domain.Input;
+
+namespace YevheniiKostenko.SwipyBall.Application
 {
     public class SwipyBallApplication : BaseApp
     {
@@ -23,6 +25,7 @@ namespace YevheniiKostenko.SwipyBall.Scripts.Application
             container.Bind<IConfigProvider>().To<ConfigProvider>().AsSingleton();
             
             container.Bind<IGameModel>().To<GameModel>().AsSingleton();
+            container.Bind<IInputModel>().To<InputModel>().AsSingleton();
 
             container.Bind<IUINavigation>().ToInstance(new UINavigation(UIRoot.Instance.UIManager));
             container.Bind<IInputPanelPresenter>().To<InputPanelPresenter>().AsTransient();

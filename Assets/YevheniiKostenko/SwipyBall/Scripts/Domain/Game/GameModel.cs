@@ -1,9 +1,9 @@
 ﻿using System;
 using UnityEngine;
-using YevheniiKostenko.SwipyBall.Scripts.Core.Entities;
+using YevheniiKostenko.SwipyBall.Core.Entities;
 using Logger = YeKostenko.CoreKit.Logging.Logger;
 
-namespace YevheniiKostenko.SwipyBall.Scripts.Domain
+namespace YevheniiKostenko.SwipyBall.Domain.Game
 {
     public class GameModel : IGameModel
     {
@@ -42,13 +42,7 @@ namespace YevheniiKostenko.SwipyBall.Scripts.Domain
             _gameScore = 0;
             GameStarted?.Invoke();
         }
-
-        public void SwipeDetected(float angle)
-        {
-            Logger.Log($"Swipe detected with angle: {angle}");
-            Swipe?.Invoke(angle);
-        }
-
+        
         public void HitPlayer()
         {
             if (!_isGameStarted)

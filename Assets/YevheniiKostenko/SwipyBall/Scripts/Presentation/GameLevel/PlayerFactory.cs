@@ -1,25 +1,26 @@
 ﻿using UnityEngine;
-using YevheniiKostenko.SwipyBall.Scripts.Data.config;
-using YevheniiKostenko.SwipyBall.Scripts.Domain;
+using YevheniiKostenko.SwipyBall.Data.config;
+using YevheniiKostenko.SwipyBall.Domain.Game;
+using YevheniiKostenko.SwipyBall.Scripts.Domain.Input;
 
-namespace YevheniiKostenko.SwipyBall.Scripts.Presentation.GameLevel
+namespace YevheniiKostenko.SwipyBall.Presentation.GameLevel
 {
     internal sealed class PlayerFactory : IPlayerFactory
     {
         private readonly IConfigProvider _configProvider;
-        private readonly IGameModel _gameModel;
+        private readonly IInputModel _inputModel;
         
-        public PlayerFactory(IConfigProvider configProvider, IGameModel gameModel)
+        public PlayerFactory(IConfigProvider configProvider, IInputModel inputModel)
         {
             _configProvider = configProvider;
-            _gameModel = gameModel;
+            _inputModel = inputModel;
         }
         
         public PlayerView Create(Vector3 position)
         {
             PlayerView playerView = Object.Instantiate(_configProvider.GetPlayerPrefab()).GetComponent<PlayerView>();
             PlayerModel playerModel = new PlayerModel(_configProvider.GetPlayerConfig());
-            PlayerController playerController = new PlayerController(playerView, _gameModel, playerModel);
+            PlayerController playerController = new PlayerController(playerView, _inputModel, playerModel);
             playerView.Init(playerController);
             
             return playerView;

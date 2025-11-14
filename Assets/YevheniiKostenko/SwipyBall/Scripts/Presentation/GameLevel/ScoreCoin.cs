@@ -2,7 +2,7 @@
 using UnityEngine;
 using YevheniiKostenko.CoreKit.Animation;
 
-namespace YevheniiKostenko.SwipyBall.Scripts.Presentation.GameLevel
+namespace YevheniiKostenko.SwipyBall.Presentation.GameLevel
 {
     public class ScoreCoin : CollectableItem, ICollectable
     {

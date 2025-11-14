@@ -1,7 +1,7 @@
 ﻿using YeKostenko.CoreKit.StateMachine;
-using YevheniiKostenko.SwipyBall.Scripts.Core.Entities;
+using YevheniiKostenko.SwipyBall.Core.Entities;
 
-namespace YevheniiKostenko.SwipyBall.Scripts.Core.GameStateMachine.States
+namespace YevheniiKostenko.SwipyBall.Core.GameStateMachine.States
 {
     public class FinishGameState : BaseGameState
     {

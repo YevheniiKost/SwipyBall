@@ -1,11 +1,11 @@
 ﻿using System;
 using Cysharp.Threading.Tasks;
 using YeKostenko.CoreKit.UI;
-using YevheniiKostenko.SwipyBall.Scripts.Core;
-using YevheniiKostenko.SwipyBall.Scripts.Core.Entities;
-using YevheniiKostenko.SwipyBall.Scripts.Presentation.UI;
+using YevheniiKostenko.SwipyBall.Core;
+using YevheniiKostenko.SwipyBall.Core.Entities;
+using YevheniiKostenko.SwipyBall.Presentation.UI;
 
-namespace YevheniiKostenko.SwipyBall.Scripts.Application
+namespace YevheniiKostenko.SwipyBall.Application
 {
     public class UINavigation : IUINavigation
     {

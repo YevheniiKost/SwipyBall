@@ -1,4 +1,4 @@
-﻿namespace YevheniiKostenko.SwipyBall.Scripts.Core.Entities
+﻿namespace YevheniiKostenko.SwipyBall.Core.Entities
 {
     public class PlayerConfig
     {

@@ -1,11 +1,11 @@
 ﻿using System;
 using Cysharp.Threading.Tasks;
-using Unity.Android.Gradle.Manifest;
-using YeKostenko.CoreKit.StateMachine;
-using YevheniiKostenko.SwipyBall.Scripts.Core.Entities;
-using YevheniiKostenko.SwipyBall.Scripts.Domain;
 
-namespace YevheniiKostenko.SwipyBall.Scripts.Core.GameStateMachine.States
+using YeKostenko.CoreKit.StateMachine;
+using YevheniiKostenko.SwipyBall.Core.Entities;
+using YevheniiKostenko.SwipyBall.Domain.Game;
+
+namespace YevheniiKostenko.SwipyBall.Core.GameStateMachine.States
 {
     public class GameState : BaseGameState
     {

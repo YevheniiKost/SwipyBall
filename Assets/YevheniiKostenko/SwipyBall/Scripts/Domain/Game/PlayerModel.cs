@@ -1,8 +1,8 @@
 ﻿using System;
 using UnityEngine;
-using YevheniiKostenko.SwipyBall.Scripts.Core.Entities;
+using YevheniiKostenko.SwipyBall.Core.Entities;
 
-namespace YevheniiKostenko.SwipyBall.Scripts.Domain
+namespace YevheniiKostenko.SwipyBall.Domain.Game
 {
     internal class PlayerModel : IPlayerModel
     {
