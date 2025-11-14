@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c10efaa0c7f24660990fd4b4c1ded294, type: 3}
+  m_Name: GlobalGameConfig
+  m_EditorClassIdentifier: 
+  _maxAngleDeviation: 500
+  _maxAngle: 180
+  _timeBetweenJumps: 0.1
+  _jumpForce: 9
+  _pushForce: 1.5
+  _groundCheckDistance: 0.7
+  _maxJumpCount: 2
+  _nextJumpDecreaseFactor: 0.5
+  _playerPrefab: {fileID: 5348968077799727659, guid: 06e40587de71d4545b026478fd9d6586, type: 3}
