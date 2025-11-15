@@ -21,11 +21,21 @@ namespace YevheniiKostenko.SwipyBall.Application
             _manager.CloseTopWindowAsync().Forget();
         }
 
+        public void CloseAllWindows()
+        {
+            _manager.CloseAllAsync().Forget();
+        }
+
         public void OpenInputPanel()
         {
             _manager.OpenWindowAsync<InputPanelView>().Forget();
         }
-        
+
+        public void OpenGameScreen()
+        {
+            _manager.OpenWindowAsync<GameScreen>().Forget();
+        }
+
         public void OpenFinishGameWindow(GameResult gameResult, Action onRestartButtonClick, Action onExitButtonClick)
         {
             _manager.OpenWindowAsync<FinishGameWindow>(new FinishGameUIContext(gameResult, onRestartButtonClick, onExitButtonClick)).Forget();

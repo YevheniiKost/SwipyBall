@@ -32,6 +32,13 @@ namespace YevheniiKostenko.SwipyBall.Data.Config
 
         [SerializeField]
         private GameObject _playerPrefab;
+
+        [Header("Game Config")]
+        [SerializeField]
+        private int _coinValue;
+        
+        [SerializeField]
+        private int _spikeDamage;
         
         public float MaxAngleDeviation => _maxAngleDeviation;
         public float MaxAngle => _maxAngle;
@@ -42,5 +49,7 @@ namespace YevheniiKostenko.SwipyBall.Data.Config
         public int MaxJumpCount => _maxJumpCount;
         public float NextJumpDecreaseFactor => _nextJumpDecreaseFactor;
         public GameObject PlayerPrefab => _playerPrefab;
+        public int CoinValue => _coinValue;
+        public int SpikeDamage => _spikeDamage;
     }
 }

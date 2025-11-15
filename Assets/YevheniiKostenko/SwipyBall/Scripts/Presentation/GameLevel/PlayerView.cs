@@ -12,6 +12,14 @@ namespace YevheniiKostenko.SwipyBall.Presentation.GameLevel
         
         private IPlayerController _playerController;
         
+        public event Action<int> OnHit
+        {
+            add => _playerController.OnHit += value; 
+            remove => _playerController.OnHit -= value;
+        }
+        
+        public Transform Transform => transform;
+        
         public void Init(IPlayerController playerController) 
         {
             _playerController = playerController;
@@ -31,18 +39,28 @@ namespace YevheniiKostenko.SwipyBall.Presentation.GameLevel
         {
             _rigidbody.AddForce(direction, ForceMode2D.Impulse);
         }
-        
+
+        public void Hit(int damage)
+        {
+            _playerController.RegisterHit(damage);
+        }
+
         public bool IsGrounded(float groundCheckDistance)
         {
             Debug.DrawLine(_rigidbody.position, _rigidbody.position + Vector2.down * groundCheckDistance, Color.green, 0.01f);
             return Physics2D.Raycast(_rigidbody.position, Vector2.down, groundCheckDistance, _groundMask);
         }
 
+        public void Destroy()
+        {
+            Destroy(gameObject);
+        }
+
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.TryGetComponent<ICollectable>(out var collectable))
+            if (other.TryGetComponent<ICollectableView>(out var view))
             {
-                collectable.Collect();
+                _playerController?.InteractWithCollectable(view.Collectable);
             }
         }
         

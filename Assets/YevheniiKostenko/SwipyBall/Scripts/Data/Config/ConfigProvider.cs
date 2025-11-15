@@ -22,7 +22,15 @@ namespace YevheniiKostenko.SwipyBall.Data.config
                 _globalGameConfig.MaxJumpCount,
                 _globalGameConfig.NextJumpDecreaseFactor);
         }
-        
+
+        public GameConfig GetGameConfig()
+        {
+            GetConfigIsNeeded();
+
+            return new GameConfig(_globalGameConfig.CoinValue,
+                _globalGameConfig.SpikeDamage);
+        }
+
         public GameObject GetPlayerPrefab()
         {
             GetConfigIsNeeded();

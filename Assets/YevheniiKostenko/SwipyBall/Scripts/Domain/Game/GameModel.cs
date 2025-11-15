@@ -14,13 +14,13 @@ namespace YevheniiKostenko.SwipyBall.Domain.Game
         private int _gameScore;
         
         public event Action<float> Swipe;
-        public event Action HitsUpdated;
+        public event Action LivesUpdated;
         public event Action GameStarted;
         public event Action<GameResult> GameEnded;
-        public event Action<int> ScoreUpdated;
+        public event Action ScoreUpdated;
 
         public bool IsGameStarted => _isGameStarted;
-        public int HitPoints => _hitPoints;
+        public int Lives => _hitPoints;
         public int GameScore => _gameScore;
 
         public bool CanStartGame()
@@ -42,8 +42,8 @@ namespace YevheniiKostenko.SwipyBall.Domain.Game
             _gameScore = 0;
             GameStarted?.Invoke();
         }
-        
-        public void HitPlayer()
+
+        public void HitPlayer(int damage)
         {
             if (!_isGameStarted)
             {
@@ -51,7 +51,13 @@ namespace YevheniiKostenko.SwipyBall.Domain.Game
                 return;
             }
 
-            UpdateHitPoints(_hitPoints - 1);
+            if (damage < 0)
+            {
+                Logger.LogError($"Invalid damage: {damage}. Damage must be non-negative.");
+                return;
+            }
+
+            UpdateHitPoints(_hitPoints - damage);
 
             if (_hitPoints <= 0)
             {
@@ -85,8 +91,25 @@ namespace YevheniiKostenko.SwipyBall.Domain.Game
             }
 
             _gameScore += score;
-            ScoreUpdated?.Invoke(_gameScore);
+            ScoreUpdated?.Invoke();
             Logger.Log($"Score updated: {_gameScore}");
+        }
+
+        public void AddHealth(int health)
+        {
+            if (!_isGameStarted)
+            {
+                Logger.LogWarning("Cannot add health, game is not started.");
+                return;
+            }
+
+            if (health < 0)
+            {
+                Logger.LogError($"Invalid health: {health}. Health must be non-negative.");
+                return;
+            }
+
+            UpdateHitPoints(Mathf.Min(_hitPoints + health, MaxHitpoints));
         }
 
         private void EndGame(bool isPlayerWon)
@@ -105,7 +128,7 @@ namespace YevheniiKostenko.SwipyBall.Domain.Game
             }
 
             _hitPoints = hitPoints;
-            HitsUpdated?.Invoke();
+            LivesUpdated?.Invoke();
         }
     }
 }

@@ -25,6 +25,7 @@ namespace YevheniiKostenko.SwipyBall.Core.GameStateMachine.States
         public override void Enter(object payload = null)
         {
             _uiNavigation.OpenInputPanel();
+            _uiNavigation.OpenGameScreen();
             
             _gameModel.GameEnded += OnGameEnded;
             
@@ -48,7 +49,7 @@ namespace YevheniiKostenko.SwipyBall.Core.GameStateMachine.States
         
         private void OnGameEnded(GameResult gameResult)
         {
-            _uiNavigation.CloseTopWindow();
+            _uiNavigation.CloseAllWindows();
             StateMachine.ChangeState<FinishGameState>(gameResult);
         }
     }

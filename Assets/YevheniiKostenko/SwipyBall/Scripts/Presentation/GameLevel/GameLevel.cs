@@ -17,11 +17,11 @@ namespace YevheniiKostenko.SwipyBall.Presentation.GameLevel
         [SerializeField]
         private ExitPortal _exitPortal;
         
-        private PlayerView _playerInstance;
+        private IPlayerView _playerInstance;
         private IGameModel _gameModel;
         private IPlayerFactory _playerFactory;
         
-        private List<ScoreCoin> _scoreCoins = new();
+        private Dictionary<ICollectable, ICollectableView> _collectables = new();
         
         [Inject]
         private void Construct(IGameModel gameModel, IPlayerFactory playerFactory)
@@ -33,24 +33,28 @@ namespace YevheniiKostenko.SwipyBall.Presentation.GameLevel
             _gameModel.GameEnded += OnGameEnded;
         }
 
-        private void Awake()
+        private void Start()
         {
-            foreach (ICollectable collectable in GetComponentsInChildren<ICollectable>(true))
+            foreach (ICollectableView view in GetComponentsInChildren<ICollectableView>(true))
             {
-                if (collectable is ScoreCoin coin)
-                {
-                    coin.Collected = OnScoreCollected;
-                     _scoreCoins.Add(coin);
-                }
+                view.Collectable.Collected = OnCollected;
+                _collectables.Add(view.Collectable, view);
             }
         }
 
-        private void OnScoreCollected(ICollectable collectable)
+        private void OnCollected(ICollectable collectable)
         {
             if (_gameModel?.IsGameStarted == true)
             {
-                _gameModel.AddScore(1);
-                collectable.Deactivate();
+                if(collectable.Type == CollectableType.Coin)
+                    _gameModel.AddScore(collectable.Value);
+                else if(collectable.Type == CollectableType.Hp)
+                    _gameModel.AddHealth(collectable.Value);
+                
+                if (_collectables.TryGetValue(collectable, out ICollectableView view))
+                {
+                    view.Deactivate();
+                }
             }
         }
 
@@ -65,18 +69,19 @@ namespace YevheniiKostenko.SwipyBall.Presentation.GameLevel
         private void SpawnPlayer()
         {
             _playerInstance = _playerFactory.Create(_spawnPoint.position);
+            _playerInstance.OnHit += OnPlayerHit;
             
             if (_targetCamera != null)
             {
-                _targetCamera.SetCameraTarget(_playerInstance.transform);
+                _targetCamera.SetCameraTarget(_playerInstance.Transform);
             }
         }
         
         private void ActivateCollectables()
         {
-            foreach (ScoreCoin coin in _scoreCoins)
+            foreach (ICollectableView view in _collectables.Values)
             {
-                coin.Activate();
+                view.Activate();
             }
         }
 
@@ -84,20 +89,23 @@ namespace YevheniiKostenko.SwipyBall.Presentation.GameLevel
         {
             if (_playerInstance != null)
             {
-                Destroy(_playerInstance.gameObject);
+                _playerInstance.OnHit -= OnPlayerHit;
+                _playerInstance.Destroy();
                 _playerInstance = null;
                 _targetCamera.ResetCameraTarget();
             }
             
             _exitPortal.OnExitPortalEntered -= OnPlayerEnterPortal;
         }
-        
+
         private void OnPlayerEnterPortal()
         {
-            if (_gameModel != null)
-            {
-                _gameModel.PlayerReachGoal();
-            }
+            _gameModel?.PlayerReachGoal();
+        }
+
+        private void OnPlayerHit(int damage)
+        {
+            _gameModel?.HitPlayer(damage);
         }
     }
 }

@@ -6,6 +6,7 @@ namespace YevheniiKostenko.SwipyBall.Data.config
     public interface IConfigProvider
     {
         PlayerConfig GetPlayerConfig();
+        GameConfig GetGameConfig();
         
         GameObject GetPlayerPrefab();
     }

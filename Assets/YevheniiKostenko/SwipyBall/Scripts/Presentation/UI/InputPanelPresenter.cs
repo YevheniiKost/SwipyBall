@@ -1,4 +1,3 @@
-using YevheniiKostenko.SwipyBall.Domain.Game;
 using YevheniiKostenko.SwipyBall.Scripts.Domain.Input;
 
 namespace YevheniiKostenko.SwipyBall.Presentation.UI
@@ -7,6 +6,8 @@ namespace YevheniiKostenko.SwipyBall.Presentation.UI
     {
         private readonly IInputModel _inputModel;
         
+        private IInputPanelView _view;
+        
         public InputPanelPresenter(IInputModel inputModel)
         {
             _inputModel = inputModel;
@@ -14,6 +15,7 @@ namespace YevheniiKostenko.SwipyBall.Presentation.UI
         
         public void AttachView(IInputPanelView view)
         {
+            _view = view;
             view.OnSwipe += OnSwipe;
         }
 
@@ -24,7 +26,11 @@ namespace YevheniiKostenko.SwipyBall.Presentation.UI
 
         public void DetachView()
         {
-            
+            if (_view != null)
+            {
+                _view.OnSwipe -= OnSwipe;
+                _view = null;
+            }
         }
     }
 }

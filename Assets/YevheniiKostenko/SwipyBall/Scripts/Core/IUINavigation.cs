@@ -6,7 +6,9 @@ namespace YevheniiKostenko.SwipyBall.Core
     public interface IUINavigation
     {
         void CloseTopWindow();
+        void CloseAllWindows();
         void OpenInputPanel();
+        void OpenGameScreen();
         void OpenFinishGameWindow(GameResult gameResult, Action onRestartButtonClick, Action onExitButtonClick);
     }
 }

@@ -16,6 +16,5 @@ namespace YevheniiKostenko.SwipyBall.Domain.Game
         
         void Swipe(float angle);
         void SetGroundedState(bool isGrounded);
-        void Landed();
     }
 }

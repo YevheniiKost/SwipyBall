@@ -1,18 +1,23 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
+using YeKostenko.CoreKit.DI;
 using YevheniiKostenko.CoreKit.Animation;
+using YevheniiKostenko.SwipyBall.Domain.Game;
 
 namespace YevheniiKostenko.SwipyBall.Presentation.GameLevel
 {
-    public class ScoreCoin : CollectableItem, ICollectable
+    public class ScoreCoinView : CollectableItem, ICollectableView
     {
         [SerializeField]
         private UniversalAnimator _animator;
-        public Action<ICollectable> Collected { get; set; }
 
-        public void Collect()
+        public ICollectable Collectable => _coinModel;
+
+        private ICollectable _coinModel;
+
+        [Inject]
+        private void Construct(ICollectableFactory collectableFactory)
         {
-            Collected?.Invoke(this);
+            _coinModel = collectableFactory.CreateCoin();
         }
 
         public void Activate()

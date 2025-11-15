@@ -30,8 +30,10 @@ namespace YevheniiKostenko.SwipyBall.Application
             container.Bind<IUINavigation>().ToInstance(new UINavigation(UIRoot.Instance.UIManager));
             container.Bind<IInputPanelPresenter>().To<InputPanelPresenter>().AsTransient();
             container.Bind<IFinishGameWindowPresenter>().To<FinishGameWindowPresenter>().AsTransient();
+            container.Bind<IGameScreenPresenter>().To<GameScreenPresenter>().AsTransient();
             
             container.Bind<IPlayerFactory>().To<PlayerFactory>().AsSingleton();
+            container.Bind<ICollectableFactory>().To<CollectableFactory>().AsSingleton();
             
             GameStateContext context = new  GameStateContext(container);
             GameStateMachine gameStateMachine = new GameStateMachine(context);

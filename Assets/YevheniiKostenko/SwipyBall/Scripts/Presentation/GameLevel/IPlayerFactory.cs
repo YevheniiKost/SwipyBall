@@ -4,6 +4,6 @@ namespace YevheniiKostenko.SwipyBall.Presentation.GameLevel
 {
     public interface IPlayerFactory
     {
-        PlayerView Create(Vector3 position);
+        IPlayerView Create(Vector3 position);
     }
 }

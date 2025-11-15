@@ -52,7 +52,7 @@ namespace YevheniiKostenko.SwipyBall.Domain.Game
             _isGrounded = isGrounded;
         }
 
-        public void Landed()
+        private void Landed()
         {
             _jumpCount = 0;
         }

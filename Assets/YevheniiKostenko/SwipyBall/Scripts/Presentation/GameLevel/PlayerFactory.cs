@@ -16,7 +16,7 @@ namespace YevheniiKostenko.SwipyBall.Presentation.GameLevel
             _inputModel = inputModel;
         }
         
-        public PlayerView Create(Vector3 position)
+        public IPlayerView Create(Vector3 position)
         {
             PlayerView playerView = Object.Instantiate(_configProvider.GetPlayerPrefab()).GetComponent<PlayerView>();
             PlayerModel playerModel = new PlayerModel(_configProvider.GetPlayerConfig());

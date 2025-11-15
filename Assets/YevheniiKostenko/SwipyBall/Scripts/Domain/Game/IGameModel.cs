@@ -5,19 +5,20 @@ namespace YevheniiKostenko.SwipyBall.Domain.Game
 {
     public interface IGameModel
     {
-        event Action HitsUpdated;
         event Action GameStarted;
         event Action<GameResult> GameEnded;
-        event Action<int> ScoreUpdated;
+        event Action ScoreUpdated;
+        event Action LivesUpdated;
         
         bool IsGameStarted { get; }
-        int HitPoints { get; }
+        int Lives { get; }
         int GameScore { get; }
 
         bool CanStartGame();
         void StartGame();
-        void HitPlayer();
+        void HitPlayer(int damage);
         void PlayerReachGoal();
         void AddScore(int score);
+        void AddHealth(int health);
     }
 }

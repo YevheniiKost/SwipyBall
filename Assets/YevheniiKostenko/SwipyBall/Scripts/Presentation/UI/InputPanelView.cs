@@ -19,23 +19,10 @@ namespace YevheniiKostenko.SwipyBall.Presentation.UI
         [Inject]
         public void Construct(IInputPanelPresenter presenter)
         {
-            _swipeDetector.OnSwipe += direction =>
-            {
-                OnSwipe?.Invoke(direction);
-            };
+            _swipeDetector.OnSwipe += SwipeHandler;
             
             _inputPanelPresenter = presenter;
             _inputPanelPresenter.AttachView(this);
-        }
-
-        public override UniTask OnCreateAsync(IUIContext context)
-        {
-            return base.OnCreateAsync(context);
-        }
-
-        public override UniTask OnOpenAsync()
-        {
-            return base.OnOpenAsync();
         }
 
         public override UniTask OnCloseAsync()
@@ -46,7 +33,14 @@ namespace YevheniiKostenko.SwipyBall.Presentation.UI
                 _inputPanelPresenter = null;
             }
             
+            _swipeDetector.OnSwipe -= SwipeHandler;
+            
             return base.OnCloseAsync();
+        }
+        
+        private void SwipeHandler(float angle)
+        {
+            OnSwipe?.Invoke(angle);
         }
     }
 }
