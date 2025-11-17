@@ -18,6 +18,7 @@ namespace YevheniiKostenko.SwipyBall.Data.config
                 _globalGameConfig.TimeBetweenJumps,
                 _globalGameConfig.JumpForce,
                 _globalGameConfig.PushForce,
+                _globalGameConfig.HitPushForce,
                 _globalGameConfig.GroundCheckDistance,
                 _globalGameConfig.MaxJumpCount,
                 _globalGameConfig.NextJumpDecreaseFactor);

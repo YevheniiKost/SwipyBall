@@ -17,13 +17,19 @@ namespace YevheniiKostenko.SwipyBall.Presentation.GameLevel
             _model = damageSourceFactory.CreateSpike();
         }
 
-        private void OnTriggerEnter2D(Collider2D other)
+        private void OnCollisionEnter2D(Collision2D other)
         {
-            if (other.TryGetComponent<IPlayerView>(out var player) && _model.CanHit)
+            if (other.collider.TryGetComponent<IPlayerView>(out var player) && _model.CanHit)
             {
-                player.Hit(_model.Damage);
+                Vector2 hitDirection = (transform.position - player.Transform.position).normalized;
+                player.Hit(_model.Damage, hitDirection);
                 _model.RegisterHit();
             }
+        }
+
+        private void Update()
+        {
+            _model?.Tick(Time.deltaTime);
         }
     }
 }

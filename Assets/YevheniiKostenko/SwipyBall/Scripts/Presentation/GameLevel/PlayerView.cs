@@ -40,15 +40,20 @@ namespace YevheniiKostenko.SwipyBall.Presentation.GameLevel
             _rigidbody.AddForce(direction, ForceMode2D.Impulse);
         }
 
-        public void Hit(int damage)
+        public void Hit(int damage, Vector2 hitDirection)
         {
-            _playerController.RegisterHit(damage);
+            _playerController.RegisterHit(damage, hitDirection);
         }
 
         public bool IsGrounded(float groundCheckDistance)
         {
             Debug.DrawLine(_rigidbody.position, _rigidbody.position + Vector2.down * groundCheckDistance, Color.green, 0.01f);
             return Physics2D.Raycast(_rigidbody.position, Vector2.down, groundCheckDistance, _groundMask);
+        }
+
+        public void ShowDamageEffect()
+        {
+            
         }
 
         public void Destroy()

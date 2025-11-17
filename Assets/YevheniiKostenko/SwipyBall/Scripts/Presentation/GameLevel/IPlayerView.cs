@@ -11,8 +11,9 @@ namespace YevheniiKostenko.SwipyBall.Presentation.GameLevel
         
         void Jump(Vector2 direction);
         void Push(Vector2 direction);
-        void Hit(int damage);
+        void Hit(int damage, Vector2 direction);
         bool IsGrounded(float groundCheckDistance);
+        void ShowDamageEffect();
         
         void Destroy();
     }

@@ -21,8 +21,8 @@ namespace YevheniiKostenko.SwipyBall.Domain.Game
         public bool IsGrounded => _isGrounded;
         public PlayerConfig Config => _config;
 
-        public event Action<PlayerJumpHandler> Jumped;
-        public event Action<PlayerJumpHandler> Pushed;
+        public event Action<PlayerForceMoveHandler> Jumped;
+        public event Action<PlayerForceMoveHandler> Pushed;
 
         public void Swipe(float angle)
         {
@@ -52,6 +52,12 @@ namespace YevheniiKostenko.SwipyBall.Domain.Game
             _isGrounded = isGrounded;
         }
 
+        public void RegisterHit(int damage, Vector2 direction)
+        {
+            Vector2 oppositeDirection = -direction.normalized;
+            Pushed?.Invoke(new PlayerForceMoveHandler(oppositeDirection * _config.HitPushForce));
+        }
+
         private void Landed()
         {
             _jumpCount = 0;
@@ -71,7 +77,7 @@ namespace YevheniiKostenko.SwipyBall.Domain.Game
                 jumpForceDirection *= Mathf.Pow(_config.NextJumpDecreaseFactor, _jumpCount);
             }
 
-            Jumped?.Invoke(new PlayerJumpHandler(jumpForceDirection));
+            Jumped?.Invoke(new PlayerForceMoveHandler(jumpForceDirection));
             
             _jumpCount++;
             _lastJumpTime = Time.time;
@@ -84,7 +90,7 @@ namespace YevheniiKostenko.SwipyBall.Domain.Game
             Vector2 pushForceDirection = isRight ? Vector2.right : Vector2.left;
             pushForceDirection *= _config.PushForce;
             
-            Pushed?.Invoke(new PlayerJumpHandler(pushForceDirection));
+            Pushed?.Invoke(new PlayerForceMoveHandler(pushForceDirection));
         }
 
         

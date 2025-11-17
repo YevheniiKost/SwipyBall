@@ -20,6 +20,9 @@ namespace YevheniiKostenko.SwipyBall.Data.Config
 
         [SerializeField]
         private float _pushForce;
+        
+        [SerializeField]
+        private float _hitPushForce;
 
         [SerializeField]
         private float _groundCheckDistance;
@@ -45,6 +48,7 @@ namespace YevheniiKostenko.SwipyBall.Data.Config
         public float TimeBetweenJumps => _timeBetweenJumps;
         public float JumpForce => _jumpForce;
         public float PushForce => _pushForce;
+        public float HitPushForce => _hitPushForce;
         public float GroundCheckDistance => _groundCheckDistance;
         public int MaxJumpCount => _maxJumpCount;
         public float NextJumpDecreaseFactor => _nextJumpDecreaseFactor;

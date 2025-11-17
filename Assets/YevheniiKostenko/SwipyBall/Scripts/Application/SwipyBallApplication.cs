@@ -34,6 +34,7 @@ namespace YevheniiKostenko.SwipyBall.Application
             
             container.Bind<IPlayerFactory>().To<PlayerFactory>().AsSingleton();
             container.Bind<ICollectableFactory>().To<CollectableFactory>().AsSingleton();
+            container.Bind<IDamageSourceFactory>().To<DamageSourceFactory>().AsSingleton();
             
             GameStateContext context = new  GameStateContext(container);
             GameStateMachine gameStateMachine = new GameStateMachine(context);

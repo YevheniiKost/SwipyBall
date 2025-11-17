@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 using YevheniiKostenko.SwipyBall.Domain.Game;
 using YevheniiKostenko.SwipyBall.Scripts.Domain.Input;
 
@@ -38,9 +39,10 @@ namespace YevheniiKostenko.SwipyBall.Presentation.GameLevel
             collectable.Collect();
         }
 
-        public void RegisterHit(int damage)
+        public void RegisterHit(int damage, Vector2 hitDirection)
         {
             OnHit?.Invoke(damage);
+            _playerModel.RegisterHit(damage, hitDirection);
         }
 
         public void Dispose()
@@ -53,14 +55,14 @@ namespace YevheniiKostenko.SwipyBall.Presentation.GameLevel
             _playerModel.Swipe(angle);
         }
         
-        private void OnJumped(PlayerJumpHandler handler)
+        private void OnJumped(PlayerForceMoveHandler handler)
         {
-            _playerView.Jump(handler.JumpForce);
+            _playerView.Jump(handler.MoveForce);
         }
 
-        private void OnPushed(PlayerJumpHandler handler)
+        private void OnPushed(PlayerForceMoveHandler handler)
         {
-            _playerView.Push(handler.JumpForce);
+            _playerView.Push(handler.MoveForce);
         }
     }
 }

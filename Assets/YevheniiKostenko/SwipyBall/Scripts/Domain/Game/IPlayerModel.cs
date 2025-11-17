@@ -1,7 +1,6 @@
 ﻿using System;
 using UnityEngine;
 using YevheniiKostenko.SwipyBall.Core.Entities;
-using YevheniiKostenko.SwipyBall.Presentation.GameLevel;
 
 namespace YevheniiKostenko.SwipyBall.Domain.Game
 {
@@ -11,10 +10,11 @@ namespace YevheniiKostenko.SwipyBall.Domain.Game
         bool IsGrounded { get; }
         PlayerConfig Config { get; }
 
-        event Action<PlayerJumpHandler> Jumped;
-        event Action<PlayerJumpHandler> Pushed;
+        event Action<PlayerForceMoveHandler> Jumped;
+        event Action<PlayerForceMoveHandler> Pushed;
         
         void Swipe(float angle);
         void SetGroundedState(bool isGrounded);
+        void RegisterHit(int damage, Vector2 direction);
     }
 }
