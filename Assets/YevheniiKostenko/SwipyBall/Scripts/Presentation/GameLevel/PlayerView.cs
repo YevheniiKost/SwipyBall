@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using YevheniiKostenko.SwipyBall.Presentation.Vfx;
 
 namespace YevheniiKostenko.SwipyBall.Presentation.GameLevel
 {
@@ -9,6 +10,8 @@ namespace YevheniiKostenko.SwipyBall.Presentation.GameLevel
         private Rigidbody2D _rigidbody;
         [SerializeField]
         private LayerMask _groundMask;
+        [SerializeField]
+        private PlayerAnimator _animator;
         
         private IPlayerController _playerController;
         
@@ -53,11 +56,12 @@ namespace YevheniiKostenko.SwipyBall.Presentation.GameLevel
 
         public void ShowDamageEffect()
         {
-            
+            _animator.PlayDamageAnimation();
         }
 
         public void Destroy()
         {
+            VfxManager.Instance.Play(VfxType.PlayerDeath, this.transform.position);
             Destroy(gameObject);
         }
 

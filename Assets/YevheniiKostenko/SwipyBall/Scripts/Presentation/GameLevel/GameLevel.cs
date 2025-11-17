@@ -23,6 +23,8 @@ namespace YevheniiKostenko.SwipyBall.Presentation.GameLevel
         
         private Dictionary<ICollectable, ICollectableView> _collectables = new();
         
+        private List<IActivatableView> _activatableViews = new();
+        
         [Inject]
         private void Construct(IGameModel gameModel, IPlayerFactory playerFactory)
         {
@@ -39,6 +41,11 @@ namespace YevheniiKostenko.SwipyBall.Presentation.GameLevel
             {
                 view.Collectable.Collected = OnCollected;
                 _collectables.Add(view.Collectable, view);
+            }
+            
+            foreach (IActivatableView activatableView in GetComponentsInChildren<IActivatableView>(true))
+            {
+                _activatableViews.Add(activatableView);
             }
         }
 
@@ -63,7 +70,7 @@ namespace YevheniiKostenko.SwipyBall.Presentation.GameLevel
             SpawnPlayer();
 
             _exitPortal.OnExitPortalEntered += OnPlayerEnterPortal;
-            ActivateCollectables();
+            ActivateViews();
         }
 
         private void SpawnPlayer()
@@ -77,9 +84,9 @@ namespace YevheniiKostenko.SwipyBall.Presentation.GameLevel
             }
         }
         
-        private void ActivateCollectables()
+        private void ActivateViews()
         {
-            foreach (ICollectableView view in _collectables.Values)
+            foreach (IActivatableView view in _activatableViews)
             {
                 view.Activate();
             }

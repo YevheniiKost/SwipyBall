@@ -100,6 +100,7 @@ GameObject:
   - component: {fileID: 6874038855020889486}
   - component: {fileID: 1888853604188423410}
   - component: {fileID: 1882688226206411912}
+  - component: {fileID: 5750848814053303224}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -254,11 +255,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rigidbody: {fileID: 1888853604188423410}
-  _jumpForce: 9
-  _pushForce: 1.5
-  _groundCheckDistance: 0.7
-  _maxJumpCount: 2
-  _nextJumpDecreaseFactor: 0.7
   _groundMask:
     serializedVersion: 2
     m_Bits: 64
+  _animator: {fileID: 5750848814053303224}
+--- !u!114 &5750848814053303224
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5348968077799727659}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ff6792e887e4abda44200c7856ececd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playerSprites:
+  - {fileID: 1048969182055274543}
+  _params:
+    DamageColor: {r: 0.09411765, g: 0.29411766, b: 0.59607846, a: 1}
+    DamageDuration: 0.1

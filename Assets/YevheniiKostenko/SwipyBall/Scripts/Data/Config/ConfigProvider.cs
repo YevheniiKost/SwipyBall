@@ -29,7 +29,10 @@ namespace YevheniiKostenko.SwipyBall.Data.config
             GetConfigIsNeeded();
 
             return new GameConfig(_globalGameConfig.CoinValue,
-                _globalGameConfig.SpikeDamage);
+                _globalGameConfig.SpikeDamage,
+                _globalGameConfig.BombDamage,
+                _globalGameConfig.BombExplosionRadius,
+                _globalGameConfig.BombExplosionDelay);
         }
 
         public GameObject GetPlayerPrefab()

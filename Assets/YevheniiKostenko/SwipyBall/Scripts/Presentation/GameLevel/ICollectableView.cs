@@ -2,11 +2,8 @@
 
 namespace YevheniiKostenko.SwipyBall.Presentation.GameLevel
 {
-    public interface ICollectableView
+    public interface ICollectableView : IActivatableView
     {
         ICollectable Collectable { get; }
-        
-        void Activate();
-        void Deactivate();
     }
 }

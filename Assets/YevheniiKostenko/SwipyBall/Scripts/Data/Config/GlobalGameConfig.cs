@@ -43,6 +43,14 @@ namespace YevheniiKostenko.SwipyBall.Data.Config
         [SerializeField]
         private int _spikeDamage;
         
+        [Header("Bomb Config")]
+        [SerializeField]
+        private int _bombDamage;
+        [SerializeField]
+        private float _bombExplosionRadius;
+        [SerializeField]
+        private float _bombExplosionDelay;
+        
         public float MaxAngleDeviation => _maxAngleDeviation;
         public float MaxAngle => _maxAngle;
         public float TimeBetweenJumps => _timeBetweenJumps;
@@ -55,5 +63,8 @@ namespace YevheniiKostenko.SwipyBall.Data.Config
         public GameObject PlayerPrefab => _playerPrefab;
         public int CoinValue => _coinValue;
         public int SpikeDamage => _spikeDamage;
+        public int BombDamage => _bombDamage;
+        public float BombExplosionRadius => _bombExplosionRadius;
+        public float BombExplosionDelay => _bombExplosionDelay;
     }
 }

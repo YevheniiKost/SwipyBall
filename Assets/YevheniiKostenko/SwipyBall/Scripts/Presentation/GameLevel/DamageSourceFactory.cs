@@ -16,5 +16,12 @@ namespace YevheniiKostenko.SwipyBall.Presentation.GameLevel
         {
             return new SpikeModel(_configProvider.GetGameConfig().SpikeDamage);
         }
+        
+        public IBombModel CreateBomb()
+        {
+            return new BombModel(_configProvider.GetGameConfig().BombDamage,
+                _configProvider.GetGameConfig().BombExplosionRadius,
+                _configProvider.GetGameConfig().BombExplosionDelay);
+        }
     }
 }

@@ -43,6 +43,7 @@ namespace YevheniiKostenko.SwipyBall.Presentation.GameLevel
         {
             OnHit?.Invoke(damage);
             _playerModel.RegisterHit(damage, hitDirection);
+            _playerView?.ShowDamageEffect();
         }
 
         public void Dispose()
