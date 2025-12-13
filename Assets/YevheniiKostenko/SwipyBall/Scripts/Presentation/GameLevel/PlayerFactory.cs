@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using YevheniiKostenko.SwipyBall.Data.config;
 using YevheniiKostenko.SwipyBall.Domain.Game;
-using YevheniiKostenko.SwipyBall.Scripts.Domain.Input;
+using YevheniiKostenko.SwipyBall.Domain.Input;
 
 namespace YevheniiKostenko.SwipyBall.Presentation.GameLevel
 {

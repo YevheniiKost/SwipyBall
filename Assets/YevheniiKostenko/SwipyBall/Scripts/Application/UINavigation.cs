@@ -1,8 +1,10 @@
 ﻿using System;
 using Cysharp.Threading.Tasks;
+
 using YeKostenko.CoreKit.UI;
-using YevheniiKostenko.SwipyBall.Core;
+
 using YevheniiKostenko.SwipyBall.Core.Entities;
+using YevheniiKostenko.SwipyBall.Presentation;
 using YevheniiKostenko.SwipyBall.Presentation.UI;
 
 namespace YevheniiKostenko.SwipyBall.Application

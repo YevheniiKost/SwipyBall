@@ -1,6 +1,6 @@
 ﻿using YeKostenko.CoreKit.DI;
 
-namespace YevheniiKostenko.SwipyBall.Core.GameStateMachine
+namespace YevheniiKostenko.SwipyBall.Domain.GameStateMachine
 {
     public class GameStateContext
     {

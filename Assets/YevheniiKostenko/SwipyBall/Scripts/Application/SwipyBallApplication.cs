@@ -2,15 +2,15 @@
 using YeKostenko.CoreKit.App;
 using YeKostenko.CoreKit.UI;
 
-using YevheniiKostenko.SwipyBall.Core;
-using YevheniiKostenko.SwipyBall.Core.GameStateMachine;
-using YevheniiKostenko.SwipyBall.Core.GameStateMachine.States;
-
 using YevheniiKostenko.SwipyBall.Data.config;
 using YevheniiKostenko.SwipyBall.Domain.Game;
+using YevheniiKostenko.SwipyBall.Domain.GameStateMachine;
+using YevheniiKostenko.SwipyBall.Domain.GameStateMachine.States;
+
+using YevheniiKostenko.SwipyBall.Presentation;
 using YevheniiKostenko.SwipyBall.Presentation.GameLevel;
 using YevheniiKostenko.SwipyBall.Presentation.UI;
-using YevheniiKostenko.SwipyBall.Scripts.Domain.Input;
+using YevheniiKostenko.SwipyBall.Domain.Input;
 
 namespace YevheniiKostenko.SwipyBall.Application
 {
@@ -40,9 +40,11 @@ namespace YevheniiKostenko.SwipyBall.Application
             GameStateMachine gameStateMachine = new GameStateMachine(context);
             gameStateMachine.RegisterState(new BootState(gameStateMachine));
             gameStateMachine.RegisterState(new MainMenuState(gameStateMachine));
-            gameStateMachine.RegisterState(new GameState(gameStateMachine));
+            gameStateMachine.RegisterState(new PlayingState(gameStateMachine));
             gameStateMachine.RegisterState(new FinishGameState(gameStateMachine));
             gameStateMachine.ChangeState<BootState>();
+            
+            container.Bind<IGameStateMachine>().ToInstance(gameStateMachine);
         }
 
         protected override void OnAppDestroy()

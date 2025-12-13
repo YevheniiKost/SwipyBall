@@ -1,40 +1,27 @@
-﻿using System;
-using Cysharp.Threading.Tasks;
+﻿using Cysharp.Threading.Tasks;
 
 using YeKostenko.CoreKit.StateMachine;
 using YevheniiKostenko.SwipyBall.Core.Entities;
 using YevheniiKostenko.SwipyBall.Domain.Game;
 
-namespace YevheniiKostenko.SwipyBall.Core.GameStateMachine.States
+namespace YevheniiKostenko.SwipyBall.Domain.GameStateMachine.States
 {
-    public class GameState : BaseGameState
+    public class PlayingState : BaseGameState, IPlayingState
     {
-        private IUINavigation _uiNavigation;
         private IGameModel _gameModel;
         
-        public GameState(StateMachine<GameStateContext> stateMachine) : base(stateMachine)
+        public PlayingState(StateMachine<GameStateContext> stateMachine) : base(stateMachine)
         {
         }
 
         public override void Prepare(object payload = null)
         {
-            _uiNavigation = Context.Container.Resolve<IUINavigation>();
             _gameModel = Context.Container.Resolve<IGameModel>();
         }
 
         public override void Enter(object payload = null)
         {
-            _uiNavigation.OpenInputPanel();
-            _uiNavigation.OpenGameScreen();
-            
             _gameModel.GameEnded += OnGameEnded;
-            
-            StartGame().Forget();
-        }
-
-        private async UniTask StartGame()
-        {
-            await UniTask.Delay(TimeSpan.FromSeconds(1));
             
             if (_gameModel.CanStartGame())
             {
@@ -49,7 +36,6 @@ namespace YevheniiKostenko.SwipyBall.Core.GameStateMachine.States
         
         private void OnGameEnded(GameResult gameResult)
         {
-            _uiNavigation.CloseAllWindows();
             StateMachine.ChangeState<FinishGameState>(gameResult);
         }
     }

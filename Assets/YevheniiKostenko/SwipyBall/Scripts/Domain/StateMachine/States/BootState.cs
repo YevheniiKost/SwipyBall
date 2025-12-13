@@ -1,13 +1,10 @@
 ﻿using YeKostenko.CoreKit.DI;
 using YeKostenko.CoreKit.Logging;
 using YeKostenko.CoreKit.StateMachine;
-using YeKostenko.CoreKit.UI;
-using YevheniiKostenko.SwipyBall.Domain;
-using YevheniiKostenko.SwipyBall.Presentation.UI;
 
-namespace YevheniiKostenko.SwipyBall.Core.GameStateMachine.States
+namespace YevheniiKostenko.SwipyBall.Domain.GameStateMachine.States
 {
-    public class BootState : BaseGameState
+    public class BootState : BaseGameState, IBootState
     {
         public BootState(StateMachine<GameStateContext> stateMachine) : base(stateMachine)
         {
@@ -25,7 +22,7 @@ namespace YevheniiKostenko.SwipyBall.Core.GameStateMachine.States
             Container container = Context.Container;
             container.InjectIntoAllSceneMonos();
           
-            StateMachine.ChangeState<GameState>();
+            StateMachine.ChangeState<PlayingState>();
         }
 
         public override void Exit()

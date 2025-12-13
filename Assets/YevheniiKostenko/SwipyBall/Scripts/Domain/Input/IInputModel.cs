@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace YevheniiKostenko.SwipyBall.Scripts.Domain.Input
+namespace YevheniiKostenko.SwipyBall.Domain.Input
 {
     public interface IInputModel
     {

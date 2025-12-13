@@ -1,6 +1,6 @@
 ﻿using YeKostenko.CoreKit.StateMachine;
 
-namespace YevheniiKostenko.SwipyBall.Core.GameStateMachine.States
+namespace YevheniiKostenko.SwipyBall.Domain.GameStateMachine.States
 {
     public class MainMenuState : BaseGameState
     {

@@ -1,4 +1,4 @@
-using YevheniiKostenko.SwipyBall.Scripts.Domain.Input;
+using YevheniiKostenko.SwipyBall.Domain.Input;
 
 namespace YevheniiKostenko.SwipyBall.Presentation.UI
 {

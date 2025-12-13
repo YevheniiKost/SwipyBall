@@ -1,7 +1,7 @@
 ﻿using System;
 using YeKostenko.CoreKit.Logging;
 
-namespace YevheniiKostenko.SwipyBall.Scripts.Domain.Input
+namespace YevheniiKostenko.SwipyBall.Domain.Input
 {
     internal class InputModel : IInputModel
     {
