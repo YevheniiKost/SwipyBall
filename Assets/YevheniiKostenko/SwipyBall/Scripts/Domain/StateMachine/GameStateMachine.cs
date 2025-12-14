@@ -13,7 +13,10 @@ namespace YevheniiKostenko.SwipyBall.Domain.GameStateMachine
 
         protected override void OnChangeState(IState previousState, IState newState)
         {
-            if(previousState is IGameState previousGameState && newState is IGameState newGameState)
+            IGameState previousGameState = previousState != null ? previousState as IGameState : IGameState.None;
+            IGameState newGameState = newState as IGameState;
+
+            if (previousGameState != null && newGameState != null)
             {
                 OnStateChanged?.Invoke(previousGameState, newGameState);
             }

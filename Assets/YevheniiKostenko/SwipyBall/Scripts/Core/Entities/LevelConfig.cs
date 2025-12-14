@@ -2,6 +2,11 @@
 {
     public class LevelConfig
     {
-        public string LevelId { get; }
+        public int LevelId { get; }
+        
+        public LevelConfig(int levelId)
+        {
+            LevelId = levelId;
+        }
     }
 }

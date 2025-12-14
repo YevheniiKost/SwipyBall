@@ -1,10 +1,13 @@
-﻿using Cysharp.Threading.Tasks;
+﻿using System;
+using Cysharp.Threading.Tasks;
 using YevheniiKostenko.SwipyBall.Domain.GameStateMachine;
 
 namespace YevheniiKostenko.SwipyBall.Presentation.Game
 {
     public abstract class GameStatePresenterBase<TState> : IGameStatePresenter where TState : IGameState
     {
+        public Type GameStateType => typeof(TState);
+
         public UniTask OnEnterAsync(IGameState state)
         {
             if(state is not TState typedState)

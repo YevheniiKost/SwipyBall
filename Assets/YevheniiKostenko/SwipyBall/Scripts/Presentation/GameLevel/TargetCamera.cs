@@ -1,9 +1,10 @@
 ﻿using Unity.Cinemachine;
 using UnityEngine;
+using YevheniiKostenko.CoreKit.Scripts.Utils;
 
 namespace YevheniiKostenko.SwipyBall.Presentation.GameLevel
 {
-    public class TargetCamera : MonoBehaviour
+    public class TargetCamera : SingletonMonoBehaviour<TargetCamera>
     {
         [SerializeField]
         private CinemachineCamera _cinemachineCamera;

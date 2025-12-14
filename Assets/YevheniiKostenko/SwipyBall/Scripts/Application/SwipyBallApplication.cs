@@ -11,6 +11,7 @@ using YevheniiKostenko.SwipyBall.Presentation;
 using YevheniiKostenko.SwipyBall.Presentation.GameLevel;
 using YevheniiKostenko.SwipyBall.Presentation.UI;
 using YevheniiKostenko.SwipyBall.Domain.Input;
+using YevheniiKostenko.SwipyBall.Presentation.Game;
 
 namespace YevheniiKostenko.SwipyBall.Application
 {
@@ -20,7 +21,8 @@ namespace YevheniiKostenko.SwipyBall.Application
         {
             Container container = new Container();
             
-            UIRoot.Instance.Initialize(new UIDependencyInjector(container));
+            UIRoot.Instance.Initialize(new MonoBehDependencyInjector(container));
+            LevelRoot.Instance.Initialize(new MonoBehDependencyInjector(container));
             
             container.Bind<IConfigProvider>().To<ConfigProvider>().AsSingleton();
             
@@ -42,9 +44,9 @@ namespace YevheniiKostenko.SwipyBall.Application
             gameStateMachine.RegisterState(new MainMenuState(gameStateMachine));
             gameStateMachine.RegisterState(new PlayingState(gameStateMachine));
             gameStateMachine.RegisterState(new FinishGameState(gameStateMachine));
-            gameStateMachine.ChangeState<BootState>();
-            
             container.Bind<IGameStateMachine>().ToInstance(gameStateMachine);
+            
+            gameStateMachine.ChangeState<BootState>();
         }
 
         protected override void OnAppDestroy()

@@ -10,23 +10,26 @@ namespace YevheniiKostenko.SwipyBall.Presentation.Game
 {
     public class GameFlowController : MonoBehaviour
     {
+        [SerializeField]
+        private LevelRoot _levelRoot;
+        
         private IGameStateMachine _gameStateMachine;
 
-        private Dictionary<Type, IGameStatePresenter> _statePresenters;
+        private List<IGameStatePresenter> _statePresenters;
         private UniTask _transitionTask = UniTask.CompletedTask;
-        
+
         [Inject]
         private void Construct(IGameStateMachine stateMachine, IUINavigation uiNavigation)
         {
             _gameStateMachine = stateMachine;
 
-            _statePresenters = new Dictionary<Type, IGameStatePresenter>
+            _statePresenters = new List<IGameStatePresenter>
             {
-                { typeof(IBootState), new BootStatePresenter() },
-                { typeof(IPlayingState), new PlayingStatePresenter(uiNavigation) },
-                { typeof(IFinishGameState), new FinishGameStatePresenter(uiNavigation) }
+                { new BootStatePresenter() },
+                { new PlayingStatePresenter(uiNavigation, _levelRoot) },
+                { new FinishGameStatePresenter(uiNavigation) }
             };
-            
+
             _gameStateMachine.OnStateChanged += OnGameStateChanged;
         }
 
@@ -46,15 +49,34 @@ namespace YevheniiKostenko.SwipyBall.Presentation.Game
 
         private async UniTask HandleAsyncStateTransition(IGameState previousState, IGameState newState)
         {
-            if (previousState != null && _statePresenters.TryGetValue(previousState.GetType(), out var previousPresenter))
+            if (previousState != null && TryGetPresenter(previousState, out var previousPresenter))
             {
                 await previousPresenter.OnExitAsync(previousState);
             }
 
-            if (newState != null && _statePresenters.TryGetValue(newState.GetType(), out var newPresenter))
+            if (newState != null && TryGetPresenter(newState, out var newPresenter))
             {
                 await newPresenter.OnEnterAsync(newState);
             }
+        }
+        
+        private bool TryGetPresenter(IGameState state, out IGameStatePresenter presenter)
+        {
+            presenter = null;
+            
+            if (state == null)
+                return false;
+
+            foreach (var p in _statePresenters)
+            {
+                if (p.GameStateType.IsInstanceOfType(state))
+                {
+                    presenter = p;
+                    return true;
+                }
+            }
+
+            return false;
         }
     }
 }

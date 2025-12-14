@@ -2,5 +2,6 @@
 {
     public interface IPlayingState : IGameState
     {
+        int CurrentLevelIndex { get; }
     }
 }

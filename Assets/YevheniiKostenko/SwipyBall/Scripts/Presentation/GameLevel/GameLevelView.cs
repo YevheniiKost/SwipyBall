@@ -8,12 +8,10 @@ using YevheniiKostenko.SwipyBall.Domain.Game;
 
 namespace YevheniiKostenko.SwipyBall.Presentation.GameLevel
 {
-    public class GameLevel : MonoBehaviour
+    public class GameLevelView : MonoBehaviour
     {
         [SerializeField]
         private Transform _spawnPoint;
-        [SerializeField]
-        private TargetCamera _targetCamera;
         [SerializeField]
         private ExitPortal _exitPortal;
         
@@ -31,8 +29,28 @@ namespace YevheniiKostenko.SwipyBall.Presentation.GameLevel
             _gameModel = gameModel;
             _playerFactory = playerFactory;
             
-            _gameModel.GameStarted += OnGameStarted;
             _gameModel.GameEnded += OnGameEnded;
+        }
+        
+        public void OnGameStarted()
+        {
+            SpawnPlayer();
+
+            _exitPortal.OnExitPortalEntered += OnPlayerEnterPortal;
+            ActivateViews();
+        }
+        
+        private void OnGameEnded(GameResult result)
+        {
+            if (_playerInstance != null)
+            {
+                _playerInstance.OnHit -= OnPlayerHit;
+                _playerInstance.Destroy();
+                _playerInstance = null;
+                TargetCamera.Instance.ResetCameraTarget();
+            }
+            
+            _exitPortal.OnExitPortalEntered -= OnPlayerEnterPortal;
         }
 
         private void Start()
@@ -65,44 +83,20 @@ namespace YevheniiKostenko.SwipyBall.Presentation.GameLevel
             }
         }
 
-        private void OnGameStarted()
-        {
-            SpawnPlayer();
-
-            _exitPortal.OnExitPortalEntered += OnPlayerEnterPortal;
-            ActivateViews();
-        }
-
         private void SpawnPlayer()
         {
             _playerInstance = _playerFactory.Create(_spawnPoint.position);
             _playerInstance.OnHit += OnPlayerHit;
-            
-            if (_targetCamera != null)
-            {
-                _targetCamera.SetCameraTarget(_playerInstance.Transform);
-            }
+
+            TargetCamera.Instance.SetCameraTarget(_playerInstance.Transform);
         }
-        
+
         private void ActivateViews()
         {
             foreach (IActivatableView view in _activatableViews)
             {
                 view.Activate();
             }
-        }
-
-        private void OnGameEnded(GameResult result)
-        {
-            if (_playerInstance != null)
-            {
-                _playerInstance.OnHit -= OnPlayerHit;
-                _playerInstance.Destroy();
-                _playerInstance = null;
-                _targetCamera.ResetCameraTarget();
-            }
-            
-            _exitPortal.OnExitPortalEntered -= OnPlayerEnterPortal;
         }
 
         private void OnPlayerEnterPortal()

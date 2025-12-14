@@ -27,3 +27,7 @@ MonoBehaviour:
   _bombDamage: 3
   _bombExplosionRadius: 2
   _bombExplosionDelay: 1
+  _levelConfigs:
+  - _levelId: 1
+  - _levelId: 2
+  - _levelId: 3

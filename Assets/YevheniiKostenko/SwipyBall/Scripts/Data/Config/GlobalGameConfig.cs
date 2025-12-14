@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace YevheniiKostenko.SwipyBall.Data.Config
 {
@@ -51,6 +52,10 @@ namespace YevheniiKostenko.SwipyBall.Data.Config
         [SerializeField]
         private float _bombExplosionDelay;
         
+        [Header("Level Config")]
+        [SerializeField]
+        private SerializableLevelConfig[] _levelConfigs;
+        
         public float MaxAngleDeviation => _maxAngleDeviation;
         public float MaxAngle => _maxAngle;
         public float TimeBetweenJumps => _timeBetweenJumps;
@@ -66,5 +71,6 @@ namespace YevheniiKostenko.SwipyBall.Data.Config
         public int BombDamage => _bombDamage;
         public float BombExplosionRadius => _bombExplosionRadius;
         public float BombExplosionDelay => _bombExplosionDelay;
+        public List<SerializableLevelConfig> LevelConfigs => new List<SerializableLevelConfig>(_levelConfigs);
     }
 }
