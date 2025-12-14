@@ -1,7 +1,8 @@
-﻿using YevheniiKostenko.SwipyBall.Scripts.Core;
-using YevheniiKostenko.SwipyBall.Scripts.Domain;
+﻿using YevheniiKostenko.SwipyBall.Core;
+using YevheniiKostenko.SwipyBall.Domain;
+using YevheniiKostenko.SwipyBall.Domain.Game;
 
-namespace YevheniiKostenko.SwipyBall.Scripts.Presentation.UI
+namespace YevheniiKostenko.SwipyBall.Presentation.UI
 {
     public interface IFinishGameWindowPresenter
     {

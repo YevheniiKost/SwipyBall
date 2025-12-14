@@ -1,23 +1,28 @@
-﻿using YevheniiKostenko.SwipyBall.Scripts.Domain;
+﻿using System;
+using UnityEngine;
+using YevheniiKostenko.SwipyBall.Domain.Game;
+using YevheniiKostenko.SwipyBall.Domain.Input;
 
-namespace YevheniiKostenko.SwipyBall.Scripts.Presentation.GameLevel
+namespace YevheniiKostenko.SwipyBall.Presentation.GameLevel
 {
     internal class PlayerController : IPlayerController
     {
-        private readonly PlayerView _playerView;
-        private readonly IGameModel _gameModel;
+        private readonly IPlayerView _playerView;
+        private readonly IInputModel _inputModel;
         private readonly IPlayerModel _playerModel;
         
-        public PlayerController(PlayerView playerView, IGameModel gameModel, IPlayerModel playerModel)
+        public PlayerController(IPlayerView playerView, IInputModel inputModel, IPlayerModel playerModel)
         {
             _playerView = playerView;
-            _gameModel = gameModel;
+            _inputModel = inputModel;
             _playerModel = playerModel;
         }
 
+        public event Action<int> OnHit;
+
         public void Initialize()
         {
-            _gameModel.Swipe += OnSwipe;
+            _inputModel.Swipe += OnSwipe;
             
             _playerModel.Jumped += OnJumped;
             _playerModel.Pushed += OnPushed;
@@ -29,9 +34,21 @@ namespace YevheniiKostenko.SwipyBall.Scripts.Presentation.GameLevel
             _playerModel.SetGroundedState(isGrounded);
         }
 
+        public void InteractWithCollectable(ICollectable collectable)
+        {
+            collectable.Collect();
+        }
+
+        public void RegisterHit(int damage, Vector2 hitDirection)
+        {
+            OnHit?.Invoke(damage);
+            _playerModel.RegisterHit(damage, hitDirection);
+            _playerView?.ShowDamageEffect();
+        }
+
         public void Dispose()
         {
-            _gameModel.Swipe -= OnSwipe;
+            _inputModel.Swipe -= OnSwipe;
         }
         
         private void OnSwipe(float angle)
@@ -39,14 +56,14 @@ namespace YevheniiKostenko.SwipyBall.Scripts.Presentation.GameLevel
             _playerModel.Swipe(angle);
         }
         
-        private void OnJumped(PlayerJumpHandler handler)
+        private void OnJumped(PlayerForceMoveHandler handler)
         {
-            _playerView.Jump(handler.JumpForce);
+            _playerView.Jump(handler.MoveForce);
         }
 
-        private void OnPushed(PlayerJumpHandler handler)
+        private void OnPushed(PlayerForceMoveHandler handler)
         {
-            _playerView.Push(handler.JumpForce);
+            _playerView.Push(handler.MoveForce);
         }
     }
 }

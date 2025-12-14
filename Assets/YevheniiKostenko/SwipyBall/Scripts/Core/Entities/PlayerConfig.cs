@@ -1,4 +1,4 @@
-﻿namespace YevheniiKostenko.SwipyBall.Scripts.Core.Entities
+﻿namespace YevheniiKostenko.SwipyBall.Core.Entities
 {
     public class PlayerConfig
     {
@@ -8,6 +8,7 @@
         
         public float JumpForce { get; }
         public float PushForce { get; }
+        public float HitPushForce { get; }
         public float GroundCheckDistance { get; }
         public int MaxJumpCount { get; }
         public float NextJumpDecreaseFactor { get; }
@@ -18,6 +19,7 @@
             float timeBetweenJumps,
             float jumpForce,
             float pushForce,
+            float hitPushForce,
             float groundCheckDistance,
             int maxJumpCount,
             float nextJumpDecreaseFactor)
@@ -27,6 +29,7 @@
             TimeBetweenJumps = timeBetweenJumps;
             JumpForce = jumpForce;
             PushForce = pushForce;
+            HitPushForce = hitPushForce;
             GroundCheckDistance = groundCheckDistance;
             MaxJumpCount = maxJumpCount;
             NextJumpDecreaseFactor = nextJumpDecreaseFactor;

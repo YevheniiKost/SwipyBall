@@ -1,11 +1,13 @@
 ﻿using System;
 using Cysharp.Threading.Tasks;
-using YeKostenko.CoreKit.UI;
-using YevheniiKostenko.SwipyBall.Scripts.Core;
-using YevheniiKostenko.SwipyBall.Scripts.Core.Entities;
-using YevheniiKostenko.SwipyBall.Scripts.Presentation.UI;
 
-namespace YevheniiKostenko.SwipyBall.Scripts.Application
+using YeKostenko.CoreKit.UI;
+
+using YevheniiKostenko.SwipyBall.Core.Entities;
+using YevheniiKostenko.SwipyBall.Presentation;
+using YevheniiKostenko.SwipyBall.Presentation.UI;
+
+namespace YevheniiKostenko.SwipyBall.Application
 {
     public class UINavigation : IUINavigation
     {
@@ -21,11 +23,21 @@ namespace YevheniiKostenko.SwipyBall.Scripts.Application
             _manager.CloseTopWindowAsync().Forget();
         }
 
+        public void CloseAllWindows()
+        {
+            _manager.CloseAllAsync().Forget();
+        }
+
         public void OpenInputPanel()
         {
             _manager.OpenWindowAsync<InputPanelView>().Forget();
         }
-        
+
+        public void OpenGameScreen()
+        {
+            _manager.OpenWindowAsync<GameScreen>().Forget();
+        }
+
         public void OpenFinishGameWindow(GameResult gameResult, Action onRestartButtonClick, Action onExitButtonClick)
         {
             _manager.OpenWindowAsync<FinishGameWindow>(new FinishGameUIContext(gameResult, onRestartButtonClick, onExitButtonClick)).Forget();
