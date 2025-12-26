@@ -16,7 +16,7 @@ namespace YevheniiKostenko.SwipyBall.Domain.Game
         public event Action<float> Swipe;
         public event Action LivesUpdated;
         public event Action GameStarted;
-        public event Action<GameResult> GameEnded;
+        public event Action<bool> GameEnded;
         public event Action ScoreUpdated;
 
         public bool IsGameStarted => _isGameStarted;
@@ -116,7 +116,7 @@ namespace YevheniiKostenko.SwipyBall.Domain.Game
         {
             Logger.Log($"Game ended. Player won: {isPlayerWon}");
             _isGameStarted = false;
-            GameEnded?.Invoke(new GameResult(isPlayerWon));
+            GameEnded?.Invoke(isPlayerWon);
         }
 
         private void UpdateHitPoints(int hitPoints)

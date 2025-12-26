@@ -40,7 +40,7 @@ namespace YevheniiKostenko.SwipyBall.Presentation.GameLevel
             ActivateViews();
         }
         
-        private void OnGameEnded(GameResult result)
+        private void OnGameEnded(bool isPlayerWin)
         {
             if (_playerInstance != null)
             {

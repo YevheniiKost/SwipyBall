@@ -1,10 +1,10 @@
-﻿using Cysharp.Threading.Tasks;
+﻿using YeKostenko.CoreKit.StateMachine;
 
-using YeKostenko.CoreKit.StateMachine;
 using YevheniiKostenko.SwipyBall.Core.Entities;
 using YevheniiKostenko.SwipyBall.Data.config;
+using YevheniiKostenko.SwipyBall.Data.Progress;
 using YevheniiKostenko.SwipyBall.Domain.Game;
-using YevheniiKostenko.SwipyBall.Scripts.Data.Config;
+using YevheniiKostenko.SwipyBall.Data.Config;
 
 namespace YevheniiKostenko.SwipyBall.Domain.GameStateMachine.States
 {
@@ -12,9 +12,9 @@ namespace YevheniiKostenko.SwipyBall.Domain.GameStateMachine.States
     {
         private IGameModel _gameModel;
         private IConfigProvider _configProvider;
+        private IProgressStorage _progressStorage;
         
-        private GameLevelsConfig _gameLevelsConfig;
-
+        private GameLevelsConfig _levelsConfig;
         private LevelConfig _currentLevelConfig;
         
         public PlayingState(StateMachine<GameStateContext> stateMachine) : base(stateMachine)
@@ -27,17 +27,33 @@ namespace YevheniiKostenko.SwipyBall.Domain.GameStateMachine.States
         {
             _gameModel = Context.Container.Resolve<IGameModel>();
             _configProvider = Context.Container.Resolve<IConfigProvider>();
+            _progressStorage = Context.Container.Resolve<IProgressStorage>();
             
-            _gameLevelsConfig = _configProvider.GetLevelsConfig();
+            _progressStorage.Init();
+            
+            _levelsConfig = _configProvider.GetLevelsConfig();
 
-            if (_currentLevelConfig == null)
+            _currentLevelConfig = GetCurrentLevel();
+        }
+
+        private LevelConfig GetCurrentLevel()
+        {
+            PlayerProgress progress = _progressStorage.Progress;
+            if(progress.CompletedLevels.Count == 0)
             {
-                _currentLevelConfig = _gameLevelsConfig.GetFirstLevelConfig();
+                return _levelsConfig.GetFirstLevelConfig();
             }
-            else
+
+            int maxCompletedLevel = -1;
+            foreach (int levelId in progress.CompletedLevels)
             {
-                _currentLevelConfig = _gameLevelsConfig.GetNextLevelConfig(_currentLevelConfig.LevelId);
+                if (levelId > maxCompletedLevel)
+                {
+                    maxCompletedLevel = levelId;
+                }
             }
+            
+            return _levelsConfig.GetNextLevelConfig(maxCompletedLevel);
         }
 
         public override void Enter(object payload = null)
@@ -55,8 +71,9 @@ namespace YevheniiKostenko.SwipyBall.Domain.GameStateMachine.States
             _gameModel.GameEnded -= OnGameEnded;
         }
         
-        private void OnGameEnded(GameResult gameResult)
-        {
+        private void OnGameEnded(bool isPlayerWin)
+        { 
+            GameResult gameResult = new GameResult(isPlayerWin, CurrentLevelIndex);
             StateMachine.ChangeState<FinishGameState>(gameResult);
         }
     }

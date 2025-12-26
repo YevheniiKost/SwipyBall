@@ -1,5 +1,8 @@
-﻿using YeKostenko.CoreKit.DI;
+﻿using System.Collections.Generic;
+
+using YeKostenko.CoreKit.DI;
 using YeKostenko.CoreKit.App;
+using YeKostenko.CoreKit.Scripts.Saving;
 using YeKostenko.CoreKit.UI;
 
 using YevheniiKostenko.SwipyBall.Data.config;
@@ -12,6 +15,7 @@ using YevheniiKostenko.SwipyBall.Presentation.GameLevel;
 using YevheniiKostenko.SwipyBall.Presentation.UI;
 using YevheniiKostenko.SwipyBall.Domain.Input;
 using YevheniiKostenko.SwipyBall.Presentation.Game;
+using YevheniiKostenko.SwipyBall.Data.Progress;
 
 namespace YevheniiKostenko.SwipyBall.Application
 {
@@ -23,6 +27,13 @@ namespace YevheniiKostenko.SwipyBall.Application
             
             UIRoot.Instance.Initialize(new MonoBehDependencyInjector(container));
             LevelRoot.Instance.Initialize(new MonoBehDependencyInjector(container));
+
+            var saveService = new SaveService(new FileJsonStorage(UnityEngine.Application.persistentDataPath),
+                new NewtonsoftJsonSerializer(),
+                new List<ISaveDataProvider>(), new SaveMigrationService(new List<ISaveMigration>()));
+            
+            container.Bind<SaveService>().ToInstance(saveService);
+            container.Bind<IProgressStorage>().To<ProgressStorage>().AsSingleton();
             
             container.Bind<IConfigProvider>().To<ConfigProvider>().AsSingleton();
             

@@ -1,4 +1,5 @@
 ﻿using Cysharp.Threading.Tasks;
+using YeKostenko.CoreKit.Logging;
 using YevheniiKostenko.SwipyBall.Domain.GameStateMachine.States;
 using YevheniiKostenko.SwipyBall.Presentation.GameLevel;
 
@@ -18,6 +19,9 @@ namespace YevheniiKostenko.SwipyBall.Presentation.Game
         protected override async UniTask OnEnterAsync(IPlayingState state)
         {
             GameLevelView levelView = null;
+            
+            int levelIndex = state.CurrentLevelIndex;
+            Logger.Log($"Level started: {levelIndex}");
             
             if (state.CurrentLevelIndex != _levelRoot.LoadedLevelIndex)
             {

@@ -2,8 +2,8 @@
 
 using Cysharp.Threading.Tasks;
 
-using YeKostenko.CoreKit.UI;
-using YevheniiKostenko.CoreKit.Scripts.Utils;
+using YeKostenko.CoreKit.DI;
+using YevheniiKostenko.CoreKit.Utils;
 using YevheniiKostenko.SwipyBall.Presentation.GameLevel;
 
 namespace YevheniiKostenko.SwipyBall.Presentation.Game

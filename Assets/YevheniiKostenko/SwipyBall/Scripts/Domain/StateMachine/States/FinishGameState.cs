@@ -1,14 +1,17 @@
 ﻿using YeKostenko.CoreKit.StateMachine;
 using YevheniiKostenko.SwipyBall.Core.Entities;
+using YevheniiKostenko.SwipyBall.Data.Progress;
 
 namespace YevheniiKostenko.SwipyBall.Domain.GameStateMachine.States
 {
     public class FinishGameState : BaseGameState, IFinishGameState
     {
         private GameResult _gameResult;
+        private readonly IProgressStorage _progressStorage;
         
         public FinishGameState(StateMachine<GameStateContext> stateMachine) : base(stateMachine)
         {
+            _progressStorage = Context.Container.Resolve<IProgressStorage>();
         }
         
         public GameResult GameResult => _gameResult;
@@ -22,6 +25,15 @@ namespace YevheniiKostenko.SwipyBall.Domain.GameStateMachine.States
             if (payload is not GameResult gameResult)
             {
                 throw new System.ArgumentException("Payload must be of type GameResult", nameof(payload));
+            }
+            
+            _gameResult = gameResult;
+            
+            if (_gameResult.IsPlayerWon)
+            {
+                PlayerProgress progress = _progressStorage.Progress;
+                progress.CompletedLevels.Add(_gameResult.LevelIndex);
+                _progressStorage.SaveProgress(progress);
             }
         }
 
