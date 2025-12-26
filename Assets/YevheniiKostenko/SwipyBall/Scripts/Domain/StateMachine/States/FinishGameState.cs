@@ -1,5 +1,6 @@
 ﻿using YeKostenko.CoreKit.StateMachine;
 using YevheniiKostenko.SwipyBall.Core.Entities;
+using YevheniiKostenko.SwipyBall.Data.Progress;
 using YevheniiKostenko.SwipyBall.Data.Config;
 
 namespace YevheniiKostenko.SwipyBall.Domain.GameStateMachine.States
@@ -7,12 +8,14 @@ namespace YevheniiKostenko.SwipyBall.Domain.GameStateMachine.States
     public class FinishGameState : BaseGameState, IFinishGameState
     {
         private GameResult _gameResult;
+        private readonly IProgressStorage _progressStorage;
         
         private IConfigProvider _configProvider;
         private GameLevelsConfig _gameLevelsConfig;
         
         public FinishGameState(StateMachine<GameStateContext> stateMachine) : base(stateMachine)
         {
+            _progressStorage = Context.Container.Resolve<IProgressStorage>();
         }
         
         public GameResult GameResult => _gameResult;
@@ -32,7 +35,19 @@ namespace YevheniiKostenko.SwipyBall.Domain.GameStateMachine.States
 
         public override void Enter(object payload = null)
         {
-         
+            if (payload is not FinishGameStateArgs finishGameStateArgs)
+            {
+                throw new System.ArgumentException("Payload must be of type GameResult", nameof(payload));
+            }
+            
+            _gameResult = finishGameStateArgs.GameResult;
+            
+            if (_gameResult.IsPlayerWon)
+            {
+                PlayerProgress progress = _progressStorage.Progress;
+                progress.CompletedLevels.Add(_gameResult.LevelIndex);
+                _progressStorage.SaveProgress(progress);
+            }
         }
 
         public void Restart()

@@ -1,6 +1,9 @@
 ﻿using System.Collections.Generic;
+
 using UnityEngine;
+
 using YevheniiKostenko.SwipyBall.Core.Entities;
+using YevheniiKostenko.SwipyBall.Data.Config;
 
 namespace YevheniiKostenko.SwipyBall.Data.Config
 {

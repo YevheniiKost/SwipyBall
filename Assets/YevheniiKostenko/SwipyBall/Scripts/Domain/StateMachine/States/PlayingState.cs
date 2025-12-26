@@ -59,7 +59,7 @@ namespace YevheniiKostenko.SwipyBall.Domain.GameStateMachine.States
         private void OnGameEnded(bool isPlayerWon)
         {
             StateMachine.ChangeState<FinishGameState>(
-                new FinishGameStateArgs(new GameResult(_levelIndex, isPlayerWon)));
+              new FinishGameStateArgs(new GameResult(isPlayerWon, _levelIndex)));
         }
     }
 }

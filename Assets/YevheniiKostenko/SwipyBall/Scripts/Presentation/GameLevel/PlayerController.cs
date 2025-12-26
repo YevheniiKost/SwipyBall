@@ -4,6 +4,7 @@ using YevheniiKostenko.SwipyBall.Core.Entities;
 using YevheniiKostenko.SwipyBall.Core.Time;
 using YevheniiKostenko.SwipyBall.Domain.Game;
 using YevheniiKostenko.SwipyBall.Domain.Input;
+using Logger = YeKostenko.CoreKit.Logging.Logger;
 
 namespace YevheniiKostenko.SwipyBall.Presentation.GameLevel
 {
@@ -51,11 +52,18 @@ namespace YevheniiKostenko.SwipyBall.Presentation.GameLevel
 
         public void RegisterHit(int damage, Vector2 hitDirection)
         {
-            if (_playerModel.CanBeHit())
+            try
             {
-                _gameModel.HitPlayer(damage);
-                _playerModel.RegisterHit(damage, hitDirection);
-                _playerView?.ShowDamageEffect();
+                if (_playerModel.CanBeHit())
+                {
+                    _gameModel.HitPlayer(damage);
+                    _playerModel.RegisterHit(damage, hitDirection);
+                    _playerView?.ShowDamageEffect();
+                }
+            }
+            catch (Exception e)
+            {
+                Logger.LogError($"Error registering hit on player: {e}");
             }
         }
 

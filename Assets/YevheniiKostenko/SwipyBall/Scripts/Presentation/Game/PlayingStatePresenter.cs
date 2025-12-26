@@ -33,7 +33,10 @@ namespace YevheniiKostenko.SwipyBall.Presentation.Game
         {
             _state = state;
             GameLevelView levelView = null;
-
+            
+            int levelIndex = state.CurrentLevelIndex;
+            Logger.Log($"Level started: {levelIndex}");
+            
             if (state.CurrentLevelIndex != _levelRoot.LoadedLevelIndex)
             {
                 _levelRoot.UnloadCurrentLevel();

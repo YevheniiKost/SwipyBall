@@ -5,6 +5,7 @@ using YeKostenko.CoreKit.DI;
 
 using YevheniiKostenko.SwipyBall.Core.Entities;
 using YevheniiKostenko.SwipyBall.Domain.Game;
+using Logger = YeKostenko.CoreKit.Logging.Logger;
 
 namespace YevheniiKostenko.SwipyBall.Presentation.GameLevel
 {
@@ -99,7 +100,14 @@ namespace YevheniiKostenko.SwipyBall.Presentation.GameLevel
 
         private void OnPlayerEnterPortal()
         {
-            _gameModel?.PlayerReachGoal();
+            try
+            {
+                _gameModel?.PlayerReachGoal();
+            }
+            catch (System.Exception ex)
+            {
+                Logger.LogError($"Error while processing player entering portal: {ex}");
+            }
         }
     }
 }

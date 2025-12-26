@@ -5,7 +5,7 @@
         public readonly int LevelIndex;
         public readonly bool IsPlayerWon;
         
-        public GameResult(int levelIndex, bool isPlayerWon)
+        public GameResult(bool isPlayerWon, int levelIndex)
         {
             IsPlayerWon = isPlayerWon;
             LevelIndex = levelIndex;
