@@ -1,0 +1,35 @@
+﻿using System;
+using UnityEngine;
+using YeKostenko.CoreKit.DI;
+using YevheniiKostenko.SwipyBall.Domain.Game;
+
+namespace YevheniiKostenko.SwipyBall.Presentation.GameLevel
+{
+    public class SpikeView : MonoBehaviour, IDamageSourceView
+    {
+        private ISpikeModel _model;
+        
+        public IDamageSource DamageSource  => _model;
+
+        [Inject]
+        public void Construct(IDamageSourceFactory damageSourceFactory)
+        {
+            _model = damageSourceFactory.CreateSpike();
+        }
+
+        private void OnCollisionEnter2D(Collision2D other)
+        {
+            if (other.collider.TryGetComponent<IPlayerView>(out var player) && _model.CanHit)
+            {
+                Vector2 hitDirection = (transform.position - player.Transform.position).normalized;
+                player.Hit(_model.Damage, hitDirection);
+                _model.RegisterHit();
+            }
+        }
+
+        private void Update()
+        {
+            _model?.Tick(Time.deltaTime);
+        }
+    }
+}

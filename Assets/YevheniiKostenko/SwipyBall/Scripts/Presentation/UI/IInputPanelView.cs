@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace YevheniiKostenko.SwipyBall.Scripts.Presentation.UI
+namespace YevheniiKostenko.SwipyBall.Presentation.UI
 {
     public interface IInputPanelView
     {

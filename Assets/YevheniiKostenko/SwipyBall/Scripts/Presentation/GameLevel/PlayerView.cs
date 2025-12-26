@@ -1,7 +1,8 @@
 ﻿using System;
 using UnityEngine;
+using YevheniiKostenko.SwipyBall.Presentation.Vfx;
 
-namespace YevheniiKostenko.SwipyBall.Scripts.Presentation.GameLevel
+namespace YevheniiKostenko.SwipyBall.Presentation.GameLevel
 {
     public class PlayerView : MonoBehaviour, IPlayerView
     {
@@ -9,8 +10,18 @@ namespace YevheniiKostenko.SwipyBall.Scripts.Presentation.GameLevel
         private Rigidbody2D _rigidbody;
         [SerializeField]
         private LayerMask _groundMask;
+        [SerializeField]
+        private PlayerAnimator _animator;
         
         private IPlayerController _playerController;
+        
+        public event Action<int> OnHit
+        {
+            add => _playerController.OnHit += value; 
+            remove => _playerController.OnHit -= value;
+        }
+        
+        public Transform Transform => transform;
         
         public void Init(IPlayerController playerController) 
         {
@@ -31,18 +42,34 @@ namespace YevheniiKostenko.SwipyBall.Scripts.Presentation.GameLevel
         {
             _rigidbody.AddForce(direction, ForceMode2D.Impulse);
         }
-        
+
+        public void Hit(int damage, Vector2 hitDirection)
+        {
+            _playerController.RegisterHit(damage, hitDirection);
+        }
+
         public bool IsGrounded(float groundCheckDistance)
         {
             Debug.DrawLine(_rigidbody.position, _rigidbody.position + Vector2.down * groundCheckDistance, Color.green, 0.01f);
             return Physics2D.Raycast(_rigidbody.position, Vector2.down, groundCheckDistance, _groundMask);
         }
 
+        public void ShowDamageEffect()
+        {
+            _animator.PlayDamageAnimation();
+        }
+
+        public void Destroy()
+        {
+            VfxManager.Instance.Play(VfxType.PlayerDeath, this.transform.position);
+            Destroy(gameObject);
+        }
+
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.TryGetComponent<ICollectable>(out var collectable))
+            if (other.TryGetComponent<ICollectableView>(out var view))
             {
-                collectable.Collect();
+                _playerController?.InteractWithCollectable(view.Collectable);
             }
         }
         
