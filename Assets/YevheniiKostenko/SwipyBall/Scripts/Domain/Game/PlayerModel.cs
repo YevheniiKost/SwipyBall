@@ -30,12 +30,6 @@ namespace YevheniiKostenko.SwipyBall.Domain.Game
             // left -> 180
             // right -> 0
 
-            if (CanJump(angle))
-            {
-                Jump(angle);
-                return;
-            }
-
             if (CanPush(angle))
             {
                 Push(angle);
@@ -56,6 +50,15 @@ namespace YevheniiKostenko.SwipyBall.Domain.Game
         {
             Vector2 oppositeDirection = -direction.normalized;
             Pushed?.Invoke(new PlayerForceMoveHandler(oppositeDirection * _config.HitPushForce));
+        }
+
+        public void Tick(float deltaTime)
+        {
+            if (CanJump(90))
+            {
+                Jump(90);
+                return;
+            }
         }
 
         private void Landed()
