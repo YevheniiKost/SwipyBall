@@ -32,7 +32,7 @@ namespace YevheniiKostenko.SwipyBall.Presentation.GameLevel
         public void Jump(Vector2 direction)
         {
             _rigidbody.linearVelocityY = 0; // Reset vertical velocity before applying jump force
-            _rigidbody.linearVelocityX = 0;
+           // _rigidbody.linearVelocityX = 0;
             _rigidbody.AddForce(direction, ForceMode2D.Impulse);
             
             DrawJumpVector(direction);

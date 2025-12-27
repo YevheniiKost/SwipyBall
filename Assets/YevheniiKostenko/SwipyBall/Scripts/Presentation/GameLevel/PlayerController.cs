@@ -32,6 +32,7 @@ namespace YevheniiKostenko.SwipyBall.Presentation.GameLevel
         {
             bool isGrounded = _playerView.IsGrounded(_playerModel.Config.GroundCheckDistance);
             _playerModel.SetGroundedState(isGrounded);
+            _playerModel.Tick(deltaTime);
         }
 
         public void InteractWithCollectable(ICollectable collectable)
