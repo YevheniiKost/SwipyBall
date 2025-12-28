@@ -47,6 +47,8 @@ namespace YevheniiKostenko.SwipyBall.Application
             container.Bind<IGameStateMachine>().ToInstance(gameStateMachine);
             
             gameStateMachine.ChangeState<BootState>();
+
+            UnityEngine.Application.targetFrameRate = 60;
         }
 
         protected override void OnAppDestroy()

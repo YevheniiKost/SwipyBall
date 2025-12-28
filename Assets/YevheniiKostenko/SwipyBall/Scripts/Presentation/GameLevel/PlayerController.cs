@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using YevheniiKostenko.SwipyBall.Core.Entities;
 using YevheniiKostenko.SwipyBall.Domain.Game;
 using YevheniiKostenko.SwipyBall.Domain.Input;
 
@@ -23,9 +24,11 @@ namespace YevheniiKostenko.SwipyBall.Presentation.GameLevel
         public void Initialize()
         {
             _inputModel.Swipe += OnSwipe;
+            _inputModel.DirectionInput += OnDirectionInput;
             
             _playerModel.Jumped += OnJumped;
             _playerModel.Pushed += OnPushed;
+            _playerModel.Landed += OnLanded;
         }
 
         public void Tick(float deltaTime)
@@ -33,6 +36,7 @@ namespace YevheniiKostenko.SwipyBall.Presentation.GameLevel
             bool isGrounded = _playerView.IsGrounded(_playerModel.Config.GroundCheckDistance);
             _playerModel.SetGroundedState(isGrounded);
             _playerModel.Tick(deltaTime);
+            _inputModel.Tick(deltaTime);
         }
 
         public void InteractWithCollectable(ICollectable collectable)
@@ -50,11 +54,26 @@ namespace YevheniiKostenko.SwipyBall.Presentation.GameLevel
         public void Dispose()
         {
             _inputModel.Swipe -= OnSwipe;
+            
+            
+            _playerModel.Jumped -= OnJumped;
+            _playerModel.Pushed -= OnPushed;
+            _playerModel.Landed -= OnLanded;
         }
-        
+
+        private void OnLanded()
+        {
+            _playerView.ShowLandedEffect();
+        }
+
         private void OnSwipe(float angle)
         {
             _playerModel.Swipe(angle);
+        }
+        
+        private void OnDirectionInput(InputDirection direction)
+        {
+            _playerModel.Move(direction);
         }
         
         private void OnJumped(PlayerForceMoveHandler handler)

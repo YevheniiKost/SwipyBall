@@ -187,6 +187,9 @@ MonoBehaviour:
   - _type: 3
     _prefab: {fileID: 1208325828911564848, guid: 40bc8b11ea4cac440bde58c00c826b61, type: 3}
     _preloadedCount: 1
+  - _type: 1
+    _prefab: {fileID: 4593725549300877650, guid: a356d45323071924599db9c1146363db, type: 3}
+    _preloadedCount: 1
 --- !u!4 &356292379
 Transform:
   m_ObjectHideFlags: 0
