@@ -55,7 +55,6 @@ namespace YevheniiKostenko.SwipyBall.Presentation.GameLevel
         {
             _inputModel.Swipe -= OnSwipe;
             
-            
             _playerModel.Jumped -= OnJumped;
             _playerModel.Pushed -= OnPushed;
             _playerModel.Landed -= OnLanded;

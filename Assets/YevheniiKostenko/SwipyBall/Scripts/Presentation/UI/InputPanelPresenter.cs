@@ -21,14 +21,16 @@ namespace YevheniiKostenko.SwipyBall.Presentation.UI
             view.LeftButtonPressed += OnLeftButtonPressed;
             view.RightButtonPressed += OnRightButtonPressed;
         }
-        
+
         public void DetachView()
         {
-            if (_view != null)
-            {
-                _view.OnSwipe -= OnSwipe;
-                _view = null;
-            }
+            if (_view == null) return;
+            
+            _view.OnSwipe -= OnSwipe;
+            _view.LeftButtonPressed -= OnLeftButtonPressed;
+            _view.RightButtonPressed -= OnRightButtonPressed;
+            
+            _view = null;
         }
 
         private void OnSwipe(float angle) => _inputModel.SwipeDetected(angle);
@@ -36,5 +38,6 @@ namespace YevheniiKostenko.SwipyBall.Presentation.UI
         private void OnLeftButtonPressed() => _inputModel.DirectionInputDetected(InputDirection.Left);
 
         private void OnRightButtonPressed() => _inputModel.DirectionInputDetected(InputDirection.Right);
+        
     }
 }

@@ -24,11 +24,11 @@ namespace YevheniiKostenko.SwipyBall.Domain.Input
 
         public void Tick(float deltaTime)
         {
-            if (UnityEngine.Input.GetKeyDown(KeyCode.A))
+            if (UnityEngine.Input.GetKey(KeyCode.A))
             {
                 DirectionInputDetected(InputDirection.Left);
             }
-            else if (UnityEngine.Input.GetKeyDown(KeyCode.D))
+            else if (UnityEngine.Input.GetKey(KeyCode.D))
             {
                 DirectionInputDetected(InputDirection.Right);
             }
