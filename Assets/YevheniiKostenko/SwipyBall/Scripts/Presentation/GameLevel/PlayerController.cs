@@ -24,7 +24,7 @@ namespace YevheniiKostenko.SwipyBall.Presentation.GameLevel
         public void Initialize()
         {
             _inputModel.Swipe += OnSwipe;
-            _inputModel.DirectionInput += OnDirectionInput;
+            _inputModel.DirectionInputDown += OnDirectionInputDown;
             
             _playerModel.Jumped += OnJumped;
             _playerModel.Pushed += OnPushed;
@@ -36,7 +36,6 @@ namespace YevheniiKostenko.SwipyBall.Presentation.GameLevel
             bool isGrounded = _playerView.IsGrounded(_playerModel.Config.GroundCheckDistance);
             _playerModel.SetGroundedState(isGrounded);
             _playerModel.Tick(deltaTime);
-            _inputModel.Tick(deltaTime);
         }
 
         public void InteractWithCollectable(ICollectable collectable)
@@ -70,7 +69,7 @@ namespace YevheniiKostenko.SwipyBall.Presentation.GameLevel
             _playerModel.Swipe(angle);
         }
         
-        private void OnDirectionInput(InputDirection direction)
+        private void OnDirectionInputDown(InputDirection direction)
         {
             _playerModel.Move(direction);
         }

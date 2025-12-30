@@ -1,37 +1,41 @@
 ﻿using System;
-using UnityEngine;
 using YevheniiKostenko.SwipyBall.Core.Entities;
-using Logger = YeKostenko.CoreKit.Logging.Logger;
+using YevheniiKostenko.SwipyBall.Data.Input;
 
 namespace YevheniiKostenko.SwipyBall.Domain.Input
 {
     internal class InputModel : IInputModel
     {
         public event Action<float> Swipe;
-        public event Action<InputDirection> DirectionInput;
+        public event Action<InputDirection> DirectionInputDown;
+        public event Action<InputDirection> DirectionInputUp;
 
-        public void SwipeDetected(float angle)
+        public void RegisterInputProvider(IInputProvider provider)
         {
-            Logger.Log($"Swipe detected with angle: {angle}");
-            Swipe?.Invoke(angle);
+            if (provider == null)
+                return;
+            
+            provider.DirectionInputDown += OnDirectionInputDown;
+            provider.DirectionInputUp += OnDirectionInputUp;
         }
 
-        public void DirectionInputDetected(InputDirection direction)
+        public void ClearInputProvider(IInputProvider provider)
         {
-            Logger.Log($"Direction input detected: {direction}");
-            DirectionInput?.Invoke(direction);
+            if (provider == null)
+                return;
+            
+            provider.DirectionInputDown -= OnDirectionInputDown;
+            provider.DirectionInputUp -= OnDirectionInputUp;
         }
-
-        public void Tick(float deltaTime)
+        
+        private void OnDirectionInputDown(InputDirection direction)
         {
-            if (UnityEngine.Input.GetKey(KeyCode.A))
-            {
-                DirectionInputDetected(InputDirection.Left);
-            }
-            else if (UnityEngine.Input.GetKey(KeyCode.D))
-            {
-                DirectionInputDetected(InputDirection.Right);
-            }
+            DirectionInputDown?.Invoke(direction);
+        }
+        
+        private void OnDirectionInputUp(InputDirection direction)
+        {
+            DirectionInputUp?.Invoke(direction);
         }
     }
 }

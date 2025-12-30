@@ -1,7 +1,7 @@
 ﻿using YeKostenko.CoreKit.DI;
 using YeKostenko.CoreKit.App;
 using YeKostenko.CoreKit.UI;
-
+using YevheniiKostenko.SwipyBall.Core.Time;
 using YevheniiKostenko.SwipyBall.Data.config;
 using YevheniiKostenko.SwipyBall.Domain.Game;
 using YevheniiKostenko.SwipyBall.Domain.GameStateMachine;
@@ -23,7 +23,9 @@ namespace YevheniiKostenko.SwipyBall.Application
             
             UIRoot.Instance.Initialize(new MonoBehDependencyInjector(container));
             LevelRoot.Instance.Initialize(new MonoBehDependencyInjector(container));
+            ITImeProvider timeProvider = UnityTimeProvider.Instance;
             
+            container.Bind<ITImeProvider>().ToInstance(timeProvider);
             container.Bind<IConfigProvider>().To<ConfigProvider>().AsSingleton();
             
             container.Bind<IGameModel>().To<GameModel>().AsSingleton();

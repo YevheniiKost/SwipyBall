@@ -8,7 +8,6 @@ using Cysharp.Threading.Tasks;
 using YeKostenko.CoreKit.DI;
 using YeKostenko.CoreKit.Input;
 using YeKostenko.CoreKit.UI;
-using YevheniiKostenko.SwipyBall.Core.Entities;
 
 namespace YevheniiKostenko.SwipyBall.Presentation.UI
 {
@@ -36,13 +35,20 @@ namespace YevheniiKostenko.SwipyBall.Presentation.UI
         private IInputPanelPresenter _inputPanelPresenter;
         
         public event Action<float> OnSwipe;
-        public event Action LeftButtonPressed;
-        public event Action RightButtonPressed;
+        public event Action LeftButtonUp;
+        public event Action LeftButtonDown;
+        public event Action RightButtonUp;
+        public event Action RightButtonDown;
 
         [Inject]
         public void Construct(IInputPanelPresenter presenter)
         {
             _swipeDetector.OnSwipe += SwipeHandler;
+            
+            _leftButton.OnPointerDownEvent += OnLeftButtonDown;
+            _leftButton.OnPointerUpEvent += OnLeftButtonUp;
+            _rightButton.OnPointerDownEvent += OnRightButtonDown;
+            _rightButton.OnPointerUpEvent += OnRightButtonUp;
             
             _inputPanelPresenter = presenter;
             _inputPanelPresenter.AttachView(this);
@@ -57,6 +63,10 @@ namespace YevheniiKostenko.SwipyBall.Presentation.UI
             }
             
             _swipeDetector.OnSwipe -= SwipeHandler;
+            _leftButton.OnPointerDownEvent -= OnLeftButtonDown;
+            _leftButton.OnPointerUpEvent -= OnLeftButtonUp;
+            _rightButton.OnPointerDownEvent -= OnRightButtonDown;
+            _rightButton.OnPointerUpEvent -= OnRightButtonUp;
             
             return base.OnCloseAsync();
         }
@@ -74,28 +84,13 @@ namespace YevheniiKostenko.SwipyBall.Presentation.UI
             // Smooth fade of button images
             FadeButton(_leftButtonImage, leftDown);
             FadeButton(_rightButtonImage, rightDown);
-
-            // Input events
-            if (leftDown)
-            {
-                OnLeftButtonPressed();
-            }
-            else if (rightDown)
-            {
-                OnRightButtonPressed();
-            }
         }
         
-        private void OnRightButtonPressed()
-        {
-            RightButtonPressed?.Invoke();
-        }
+        private void OnRightButtonDown() => RightButtonDown?.Invoke();
+        private void OnLeftButtonDown() => LeftButtonDown?.Invoke();
+        private void OnRightButtonUp() => RightButtonUp?.Invoke();
+        private void OnLeftButtonUp() => LeftButtonUp?.Invoke();
 
-        private void OnLeftButtonPressed()
-        {
-            LeftButtonPressed?.Invoke();  
-        }
-        
         private void FadeButton(Image image, bool isPressed)
         {
             if (image == null) return;

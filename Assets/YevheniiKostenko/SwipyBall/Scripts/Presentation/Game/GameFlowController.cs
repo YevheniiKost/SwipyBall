@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using YeKostenko.CoreKit.DI;
+using YevheniiKostenko.SwipyBall.Core.Time;
 using YevheniiKostenko.SwipyBall.Domain.GameStateMachine;
 using YevheniiKostenko.SwipyBall.Domain.GameStateMachine.States;
+using YevheniiKostenko.SwipyBall.Domain.Input;
 
 namespace YevheniiKostenko.SwipyBall.Presentation.Game
 {
@@ -19,14 +21,15 @@ namespace YevheniiKostenko.SwipyBall.Presentation.Game
         private UniTask _transitionTask = UniTask.CompletedTask;
 
         [Inject]
-        private void Construct(IGameStateMachine stateMachine, IUINavigation uiNavigation)
+        private void Construct(IGameStateMachine stateMachine, IUINavigation uiNavigation, ITImeProvider timeProvider,
+            IInputModel inputModel)
         {
             _gameStateMachine = stateMachine;
 
             _statePresenters = new List<IGameStatePresenter>
             {
                 { new BootStatePresenter() },
-                { new PlayingStatePresenter(uiNavigation, _levelRoot) },
+                { new PlayingStatePresenter(uiNavigation, _levelRoot, timeProvider, inputModel) },
                 { new FinishGameStatePresenter(uiNavigation) }
             };
 
