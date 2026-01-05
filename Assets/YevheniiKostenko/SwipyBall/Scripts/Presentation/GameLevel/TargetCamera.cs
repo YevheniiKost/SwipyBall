@@ -1,6 +1,6 @@
 ﻿using Unity.Cinemachine;
 using UnityEngine;
-using YevheniiKostenko.CoreKit.Scripts.Utils;
+using YevheniiKostenko.CoreKit.Utils;
 
 namespace YevheniiKostenko.SwipyBall.Presentation.GameLevel
 {

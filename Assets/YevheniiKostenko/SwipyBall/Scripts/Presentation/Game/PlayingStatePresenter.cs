@@ -1,5 +1,8 @@
 ﻿using Cysharp.Threading.Tasks;
+using YevheniiKostenko.SwipyBall.Core.Time;
+using YevheniiKostenko.SwipyBall.Data.Input;
 using YevheniiKostenko.SwipyBall.Domain.GameStateMachine.States;
+using YevheniiKostenko.SwipyBall.Domain.Input;
 using YevheniiKostenko.SwipyBall.Presentation.GameLevel;
 
 namespace YevheniiKostenko.SwipyBall.Presentation.Game
@@ -8,11 +11,18 @@ namespace YevheniiKostenko.SwipyBall.Presentation.Game
     {
         private readonly IUINavigation _uiNavigation;
         private readonly ILevelRoot _levelRoot;
+        
+        private IInputProvider _pcInputProvider;
+        private IInputModel _inputModel;
 
-        public PlayingStatePresenter(IUINavigation uiNavigation, ILevelRoot levelRoot)
+        public PlayingStatePresenter(IUINavigation uiNavigation, ILevelRoot levelRoot, ITImeProvider timeProvider,
+            IInputModel inputModel)
         {
             _uiNavigation = uiNavigation;
             _levelRoot = levelRoot;
+            _inputModel = inputModel;
+
+            _pcInputProvider = new PCInputProvider(timeProvider);
         }
 
         protected override async UniTask OnEnterAsync(IPlayingState state)
@@ -37,11 +47,13 @@ namespace YevheniiKostenko.SwipyBall.Presentation.Game
 
             _uiNavigation.OpenInputPanel();
             _uiNavigation.OpenGameScreen();
+            _inputModel.RegisterInputProvider(_pcInputProvider);
         }
 
         protected override UniTask OnExitAsync(IPlayingState state)
         {
             _uiNavigation.CloseAllWindows();
+            _inputModel.ClearInputProvider(_pcInputProvider);
             
             return UniTask.CompletedTask;
         }

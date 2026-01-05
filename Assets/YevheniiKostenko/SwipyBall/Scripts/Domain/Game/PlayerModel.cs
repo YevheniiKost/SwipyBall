@@ -23,6 +23,7 @@ namespace YevheniiKostenko.SwipyBall.Domain.Game
 
         public event Action<PlayerForceMoveHandler> Jumped;
         public event Action<PlayerForceMoveHandler> Pushed;
+        public event Action Landed;
 
         public void Swipe(float angle)
         {
@@ -32,7 +33,7 @@ namespace YevheniiKostenko.SwipyBall.Domain.Game
 
             if (CanPush(angle))
             {
-                Push(angle);
+                PushByAngle(angle);
             }
         }
 
@@ -40,7 +41,7 @@ namespace YevheniiKostenko.SwipyBall.Domain.Game
         {
             if (isGrounded && !_isGrounded)
             {
-                Landed();
+                OnLand();
             }
             
             _isGrounded = isGrounded;
@@ -61,9 +62,15 @@ namespace YevheniiKostenko.SwipyBall.Domain.Game
             }
         }
 
-        private void Landed()
+        public void Move(InputDirection direction)
+        {
+            PushByInputDirection(direction);
+        }
+
+        private void OnLand()
         {
             _jumpCount = 0;
+            Landed?.Invoke();
         }
 
         private void Jump(float swipeAngle)
@@ -86,17 +93,27 @@ namespace YevheniiKostenko.SwipyBall.Domain.Game
             _lastJumpTime = Time.time;
         }
         
-        private void Push(float swipeAngle)
+        private void PushByAngle(float swipeAngle)
         {
             // we can push only left or right
             bool isRight = Mathf.Abs(swipeAngle) < 90;
             Vector2 pushForceDirection = isRight ? Vector2.right : Vector2.left;
+            Push(pushForceDirection);
+        }
+        
+        private void PushByInputDirection(InputDirection direction)
+        {
+            Vector2 pushForceDirection = direction == InputDirection.Right ? Vector2.right : Vector2.left;
+            Push(pushForceDirection);
+        }
+
+        private void Push(Vector2 pushForceDirection)
+        {
             pushForceDirection *= _config.PushForce;
-            
             Pushed?.Invoke(new PlayerForceMoveHandler(pushForceDirection));
         }
 
-        
+
         private bool CanJump(float swipeAngle)
         {
             if (swipeAngle > _config.MaxAngle || swipeAngle < 0)

@@ -14,6 +14,7 @@ namespace YevheniiKostenko.SwipyBall.Presentation.GameLevel
         private PlayerAnimator _animator;
         
         private IPlayerController _playerController;
+        private Vector2 _requestedPushForce;
         
         public event Action<int> OnHit
         {
@@ -32,7 +33,6 @@ namespace YevheniiKostenko.SwipyBall.Presentation.GameLevel
         public void Jump(Vector2 direction)
         {
             _rigidbody.linearVelocityY = 0; // Reset vertical velocity before applying jump force
-           // _rigidbody.linearVelocityX = 0;
             _rigidbody.AddForce(direction, ForceMode2D.Impulse);
             
             DrawJumpVector(direction);
@@ -40,7 +40,7 @@ namespace YevheniiKostenko.SwipyBall.Presentation.GameLevel
         
         public void Push(Vector2 direction)
         {
-            _rigidbody.AddForce(direction, ForceMode2D.Impulse);
+            _requestedPushForce = direction;
         }
 
         public void Hit(int damage, Vector2 hitDirection)
@@ -57,6 +57,21 @@ namespace YevheniiKostenko.SwipyBall.Presentation.GameLevel
         public void ShowDamageEffect()
         {
             _animator.PlayDamageAnimation();
+        }
+
+        public void ShowLandedEffect()
+        {
+            VfxManager.Instance.Play(VfxType.Landing, GetLandingPosition());
+        }
+
+        private Vector3 GetLandingPosition()
+        {
+            RaycastHit2D hit = Physics2D.Raycast(_rigidbody.position, Vector2.down, 10f, _groundMask);
+            if (hit.collider != null)
+            {
+                return hit.point;
+            }
+            return _rigidbody.position;
         }
 
         public void Destroy()
@@ -76,6 +91,16 @@ namespace YevheniiKostenko.SwipyBall.Presentation.GameLevel
         private void Update()
         {
             _playerController?.Tick(Time.deltaTime);
+        }
+        
+        private void FixedUpdate()
+        {
+            if (_requestedPushForce != Vector2.zero)
+            {
+                _rigidbody.AddForce(_requestedPushForce, ForceMode2D.Force);
+                _rigidbody.linearVelocityX = Mathf.Clamp(_rigidbody.linearVelocityX, -10, 10);
+                _requestedPushForce = Vector2.zero;
+            }
         }
 
         private void OnDestroy()
