@@ -5,6 +5,7 @@
         public float MaxAngleDeviation { get; }
         public float MaxAngle { get; }
         public float TimeBetweenJumps { get; }
+        public float TimeBetweenHits { get; }
         
         public float JumpForce { get; }
         public float PushForce { get; }
@@ -17,6 +18,7 @@
             float maxAngleDeviation,
             float maxAngle,
             float timeBetweenJumps,
+            float timeBetweenHits,
             float jumpForce,
             float pushForce,
             float hitPushForce,
@@ -33,6 +35,7 @@
             GroundCheckDistance = groundCheckDistance;
             MaxJumpCount = maxJumpCount;
             NextJumpDecreaseFactor = nextJumpDecreaseFactor;
+            TimeBetweenHits = timeBetweenHits;
         }
     }
 }

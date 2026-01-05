@@ -14,13 +14,7 @@ namespace YevheniiKostenko.SwipyBall.Presentation.GameLevel
         private PlayerAnimator _animator;
         
         private IPlayerController _playerController;
-        private Vector2 _requestedPushForce;
-        
-        public event Action<int> OnHit
-        {
-            add => _playerController.OnHit += value; 
-            remove => _playerController.OnHit -= value;
-        }
+        private Vector2 _requestedMoveForce;
         
         public Transform Transform => transform;
         
@@ -40,7 +34,12 @@ namespace YevheniiKostenko.SwipyBall.Presentation.GameLevel
         
         public void Push(Vector2 direction)
         {
-            _requestedPushForce = direction;
+            _rigidbody.AddForce(direction, ForceMode2D.Impulse);
+        }
+
+        public void Move(Vector2 direction)
+        {
+            _requestedMoveForce = direction;
         }
 
         public void Hit(int damage, Vector2 hitDirection)
@@ -95,11 +94,11 @@ namespace YevheniiKostenko.SwipyBall.Presentation.GameLevel
         
         private void FixedUpdate()
         {
-            if (_requestedPushForce != Vector2.zero)
+            if (_requestedMoveForce != Vector2.zero)
             {
-                _rigidbody.AddForce(_requestedPushForce, ForceMode2D.Force);
+                _rigidbody.AddForce(_requestedMoveForce, ForceMode2D.Force);
                 _rigidbody.linearVelocityX = Mathf.Clamp(_rigidbody.linearVelocityX, -10, 10);
-                _requestedPushForce = Vector2.zero;
+                _requestedMoveForce = Vector2.zero;
             }
         }
 

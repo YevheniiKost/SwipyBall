@@ -7,8 +7,11 @@ namespace YevheniiKostenko.SwipyBall.Presentation.UI
         event Action<float> OnSwipe;
         
         event Action LeftButtonUp;
-        event Action LeftButtonDown;
+        event Action LeftButton;
         event Action RightButtonUp;
-        event Action RightButtonDown;
+        event Action RightButton;
+        
+        void SetLeftButtonPressedVisual(bool isPressed);
+        void SetRightButtonPressedVisual(bool isPressed);
     }
 }

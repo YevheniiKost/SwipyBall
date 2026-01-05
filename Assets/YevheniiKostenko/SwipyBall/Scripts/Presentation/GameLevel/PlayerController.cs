@@ -11,15 +11,16 @@ namespace YevheniiKostenko.SwipyBall.Presentation.GameLevel
         private readonly IPlayerView _playerView;
         private readonly IInputModel _inputModel;
         private readonly IPlayerModel _playerModel;
+        private readonly IGameModel _gameModel;
         
-        public PlayerController(IPlayerView playerView, IInputModel inputModel, IPlayerModel playerModel)
+        public PlayerController(IPlayerView playerView, IInputModel inputModel, IPlayerModel playerModel,
+            IGameModel gameModel)
         {
             _playerView = playerView;
             _inputModel = inputModel;
             _playerModel = playerModel;
+            _gameModel = gameModel;
         }
-
-        public event Action<int> OnHit;
 
         public void Initialize()
         {
@@ -29,6 +30,7 @@ namespace YevheniiKostenko.SwipyBall.Presentation.GameLevel
             _playerModel.Jumped += OnJumped;
             _playerModel.Pushed += OnPushed;
             _playerModel.Landed += OnLanded;
+            _playerModel.Moved += OnMoved;
         }
 
         public void Tick(float deltaTime)
@@ -45,9 +47,12 @@ namespace YevheniiKostenko.SwipyBall.Presentation.GameLevel
 
         public void RegisterHit(int damage, Vector2 hitDirection)
         {
-            OnHit?.Invoke(damage);
-            _playerModel.RegisterHit(damage, hitDirection);
-            _playerView?.ShowDamageEffect();
+            if (_playerModel.CanBeHit())
+            {
+                _gameModel.HitPlayer(damage);
+                _playerModel.RegisterHit(damage, hitDirection);
+                _playerView?.ShowDamageEffect();
+            }
         }
 
         public void Dispose()
@@ -57,6 +62,7 @@ namespace YevheniiKostenko.SwipyBall.Presentation.GameLevel
             _playerModel.Jumped -= OnJumped;
             _playerModel.Pushed -= OnPushed;
             _playerModel.Landed -= OnLanded;
+            _playerModel.Moved -= OnMoved;
         }
 
         private void OnLanded()
@@ -82,6 +88,11 @@ namespace YevheniiKostenko.SwipyBall.Presentation.GameLevel
         private void OnPushed(PlayerForceMoveHandler handler)
         {
             _playerView.Push(handler.MoveForce);
+        }
+        
+        private void OnMoved(PlayerForceMoveHandler handler)
+        {
+            _playerView.Move(handler.MoveForce);
         }
     }
 }

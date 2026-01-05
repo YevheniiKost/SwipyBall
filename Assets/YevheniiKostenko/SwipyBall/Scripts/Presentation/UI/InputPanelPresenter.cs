@@ -24,11 +24,15 @@ namespace YevheniiKostenko.SwipyBall.Presentation.UI
             _view = view;
             
             _inputModel.RegisterInputProvider(this);
+            
             view.OnSwipe += OnSwipe;
             view.LeftButtonUp += OnLeftButtonUp;
             view.RightButtonUp += OnRightButtonUp;
-            view.LeftButtonUp += OnLeftButtonDown;
-            view.RightButtonDown += OnRightButtonDown;
+            view.LeftButton += OnLeftButton;
+            view.RightButton += OnRightButton;
+            
+            _inputModel.DirectionInputDown += OnDirectionInputDown;
+            _inputModel.DirectionInputUp += OnDirectionInputUp;
         }
 
         public void DetachView()
@@ -40,8 +44,8 @@ namespace YevheniiKostenko.SwipyBall.Presentation.UI
             _view.OnSwipe -= OnSwipe;
             _view.LeftButtonUp -= OnLeftButtonUp;
             _view.RightButtonUp -= OnRightButtonUp;
-            _view.LeftButtonUp -= OnLeftButtonDown;
-            _view.RightButtonDown -= OnRightButtonDown;
+            _view.LeftButtonUp -= OnLeftButton;
+            _view.RightButton -= OnRightButton;
             
             _view = null;
         }
@@ -51,11 +55,24 @@ namespace YevheniiKostenko.SwipyBall.Presentation.UI
         }
 
         private void OnLeftButtonUp() => DirectionInputUp?.Invoke(InputDirection.Left);
-
         private void OnRightButtonUp() =>  DirectionInputUp?.Invoke(InputDirection.Right);
+        private void OnRightButton() => DirectionInputDown?.Invoke(InputDirection.Right);
+        private void OnLeftButton() => DirectionInputDown?.Invoke(InputDirection.Left);
         
-        private void OnRightButtonDown() => DirectionInputDown?.Invoke(InputDirection.Right);
+        private void OnDirectionInputDown(InputDirection direction)
+        {
+            if(direction == InputDirection.Left)
+                _view?.SetLeftButtonPressedVisual(true);
+            else if(direction == InputDirection.Right)
+                _view?.SetRightButtonPressedVisual(true);
+        }
 
-        private void OnLeftButtonDown() => DirectionInputDown?.Invoke(InputDirection.Left);
+        private void OnDirectionInputUp(InputDirection direction)
+        {
+            if(direction == InputDirection.Left)
+                _view?.SetLeftButtonPressedVisual(false);
+            else if(direction == InputDirection.Right)
+                _view?.SetRightButtonPressedVisual(false);
+        }
     }
 }

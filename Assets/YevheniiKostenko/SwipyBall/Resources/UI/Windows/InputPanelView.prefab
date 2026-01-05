@@ -182,6 +182,9 @@ MonoBehaviour:
   _onPointerUpEvent:
     m_PersistentCalls:
       m_Calls: []
+  _onPointerEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1699902639516142886
 GameObject:
   m_ObjectHideFlags: 0
@@ -247,7 +250,7 @@ MonoBehaviour:
   _rightButton: {fileID: 4968629768510896448}
   _leftButtonImage: {fileID: 1707216831585673869}
   _rightButtonImage: {fileID: 5245052370149828836}
-  _pressedColor: {r: 1, g: 1, b: 1, a: 1}
+  _pressedColor: {r: 1, g: 1, b: 1, a: 0.8}
   _unpressedColor: {r: 1, g: 1, b: 1, a: 0.2}
   _fadeSpeed: 12
 --- !u!1 &4068465466006517056
@@ -342,5 +345,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   _onPointerUpEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  _onPointerEvent:
     m_PersistentCalls:
       m_Calls: []

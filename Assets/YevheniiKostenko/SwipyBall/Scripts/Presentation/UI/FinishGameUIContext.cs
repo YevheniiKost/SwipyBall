@@ -8,13 +8,13 @@ namespace YevheniiKostenko.SwipyBall.Presentation.UI
     {
         public readonly GameResult GameResult;
         public readonly Action RestartButtonClick;  
-        public readonly Action ExitButtonClick;
+        public readonly Action NextLevelButtonClick;
 
-        public FinishGameUIContext(GameResult gameResult, Action restartButtonClick, Action exitButtonClick)
+        public FinishGameUIContext(GameResult gameResult, Action restartButtonClick, Action nextLevelButtonClick)
         {
             GameResult = gameResult;
             RestartButtonClick = restartButtonClick;
-            ExitButtonClick = exitButtonClick;
+            NextLevelButtonClick = nextLevelButtonClick;
         }
     }
 }

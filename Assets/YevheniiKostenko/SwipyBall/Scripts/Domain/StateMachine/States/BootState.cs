@@ -22,7 +22,7 @@ namespace YevheniiKostenko.SwipyBall.Domain.GameStateMachine.States
             Container container = Context.Container;
             container.InjectIntoAllSceneMonos();
           
-            StateMachine.ChangeState<PlayingState>();
+            StateMachine.ChangeState<PlayingState>(new PlayingStateArgs(1));
         }
 
         public override void Exit()

@@ -18,6 +18,7 @@ namespace YevheniiKostenko.SwipyBall.Data.config
                 _globalGameConfig.MaxAngleDeviation,
                 _globalGameConfig.MaxAngle,
                 _globalGameConfig.TimeBetweenJumps,
+                _globalGameConfig.TimeBetweenHits,
                 _globalGameConfig.JumpForce,
                 _globalGameConfig.PushForce,
                 _globalGameConfig.HitPushForce,

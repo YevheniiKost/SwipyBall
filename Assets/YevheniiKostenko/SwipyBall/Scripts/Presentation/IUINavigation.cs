@@ -9,6 +9,6 @@ namespace YevheniiKostenko.SwipyBall.Presentation
         void CloseAllWindows();
         void OpenInputPanel();
         void OpenGameScreen();
-        void OpenFinishGameWindow(GameResult gameResult, Action onRestartButtonClick, Action onExitButtonClick);
+        void OpenFinishGameWindow(GameResult gameResult, Action onRestartButtonClick, Action onNextLevelButtonClick);
     }
 }

@@ -1,4 +1,5 @@
-﻿using YevheniiKostenko.SwipyBall.Domain.Game;
+﻿using YevheniiKostenko.SwipyBall.Core.Entities;
+using YevheniiKostenko.SwipyBall.Domain.Game;
 
 namespace YevheniiKostenko.SwipyBall.Presentation.UI
 {
@@ -18,20 +19,21 @@ namespace YevheniiKostenko.SwipyBall.Presentation.UI
         public void AttachView(IFinishGameWindowView view)
         {
             _view = view;
-            
-            // _view.RestartButtonClick += OnRestartButtonClick;
+
+            _view.Create += OnCreate;
         }
         
         public void DetachView()
         {
-            // _view.RestartButtonClick -= OnRestartButtonClick;
+            _view.Create -= OnCreate;
+            
             _view = null;
         }
-
-        private void OnRestartButtonClick()
+        
+        private void OnCreate(GameResult result)
         {
-            _uiNavigation.CloseTopWindow();
-            _gameModel.StartGame();
+            _view.SetGameResult(result.IsPlayerWon);
+            _view.SetNextLevelButtonActive(result.IsPlayerWon);
         }
     }
 }

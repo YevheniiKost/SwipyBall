@@ -38,9 +38,11 @@ namespace YevheniiKostenko.SwipyBall.Application
             _manager.OpenWindowAsync<GameScreen>().Forget();
         }
 
-        public void OpenFinishGameWindow(GameResult gameResult, Action onRestartButtonClick, Action onExitButtonClick)
+        public void OpenFinishGameWindow(GameResult gameResult, Action onRestartButtonClick,
+            Action onNextLevelButtonClick)
         {
-            _manager.OpenWindowAsync<FinishGameWindow>(new FinishGameUIContext(gameResult, onRestartButtonClick, onExitButtonClick)).Forget();
+            _manager.OpenWindowAsync<FinishGameWindow>(new FinishGameUIContext(gameResult, onRestartButtonClick,
+                onNextLevelButtonClick)).Forget();
         }
     }
 }

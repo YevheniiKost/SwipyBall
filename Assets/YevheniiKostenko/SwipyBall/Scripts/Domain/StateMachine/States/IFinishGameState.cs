@@ -8,5 +8,6 @@ namespace YevheniiKostenko.SwipyBall.Domain.GameStateMachine.States
 
         void Restart();
         void ExitToMenu();
+        void OpenNextLevel();
     }
 }

@@ -40,11 +40,10 @@ namespace YevheniiKostenko.SwipyBall.Presentation.GameLevel
             ActivateViews();
         }
         
-        private void OnGameEnded(GameResult result)
+        private void OnGameEnded(bool isPlayerWon)
         {
             if (_playerInstance != null)
             {
-                _playerInstance.OnHit -= OnPlayerHit;
                 _playerInstance.Destroy();
                 _playerInstance = null;
                 TargetCamera.Instance.ResetCameraTarget();
@@ -86,7 +85,6 @@ namespace YevheniiKostenko.SwipyBall.Presentation.GameLevel
         private void SpawnPlayer()
         {
             _playerInstance = _playerFactory.Create(_spawnPoint.position);
-            _playerInstance.OnHit += OnPlayerHit;
 
             TargetCamera.Instance.SetCameraTarget(_playerInstance.Transform);
         }
@@ -102,11 +100,6 @@ namespace YevheniiKostenko.SwipyBall.Presentation.GameLevel
         private void OnPlayerEnterPortal()
         {
             _gameModel?.PlayerReachGoal();
-        }
-
-        private void OnPlayerHit(int damage)
-        {
-            _gameModel?.HitPlayer(damage);
         }
     }
 }

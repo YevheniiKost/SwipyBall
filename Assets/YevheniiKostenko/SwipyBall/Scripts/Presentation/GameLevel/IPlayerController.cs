@@ -7,8 +7,6 @@ namespace YevheniiKostenko.SwipyBall.Presentation.GameLevel
 {
     public interface IPlayerController : IDisposable
     {
-        event Action<int> OnHit;
-
         void Initialize();
         void Tick(float deltaTime);
         void InteractWithCollectable(ICollectable collectable);

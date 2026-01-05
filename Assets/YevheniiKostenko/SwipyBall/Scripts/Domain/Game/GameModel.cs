@@ -1,6 +1,5 @@
 ﻿using System;
 using UnityEngine;
-using YevheniiKostenko.SwipyBall.Core.Entities;
 using Logger = YeKostenko.CoreKit.Logging.Logger;
 
 namespace YevheniiKostenko.SwipyBall.Domain.Game
@@ -13,13 +12,13 @@ namespace YevheniiKostenko.SwipyBall.Domain.Game
         private int _hitPoints;
         private int _gameScore;
         
-        public event Action<float> Swipe;
         public event Action LivesUpdated;
         public event Action GameStarted;
-        public event Action<GameResult> GameEnded;
+        public event Action<bool> GameEnded;
         public event Action ScoreUpdated;
 
         public bool IsGameStarted => _isGameStarted;
+        public int MaxLives => MaxHitpoints;
         public int Lives => _hitPoints;
         public int GameScore => _gameScore;
 
@@ -116,7 +115,7 @@ namespace YevheniiKostenko.SwipyBall.Domain.Game
         {
             Logger.Log($"Game ended. Player won: {isPlayerWon}");
             _isGameStarted = false;
-            GameEnded?.Invoke(new GameResult(isPlayerWon));
+            GameEnded?.Invoke(isPlayerWon);
         }
 
         private void UpdateHitPoints(int hitPoints)

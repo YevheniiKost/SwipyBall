@@ -6,11 +6,12 @@ namespace YevheniiKostenko.SwipyBall.Domain.Game
     public interface IGameModel
     {
         event Action GameStarted;
-        event Action<GameResult> GameEnded;
+        event Action<bool> GameEnded;
         event Action ScoreUpdated;
         event Action LivesUpdated;
         
         bool IsGameStarted { get; }
+        int MaxLives { get; }
         int Lives { get; }
         int GameScore { get; }
 

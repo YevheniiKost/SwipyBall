@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 using Cysharp.Threading.Tasks;
-
+using DG.Tweening;
 using YeKostenko.CoreKit.DI;
 using YeKostenko.CoreKit.Input;
 using YeKostenko.CoreKit.UI;
@@ -34,20 +34,23 @@ namespace YevheniiKostenko.SwipyBall.Presentation.UI
         
         private IInputPanelPresenter _inputPanelPresenter;
         
+        private Tween _leftButtonTween;
+        private Tween _rightButtonTween;
+        
         public event Action<float> OnSwipe;
         public event Action LeftButtonUp;
-        public event Action LeftButtonDown;
+        public event Action LeftButton;
         public event Action RightButtonUp;
-        public event Action RightButtonDown;
+        public event Action RightButton;
 
         [Inject]
         public void Construct(IInputPanelPresenter presenter)
         {
             _swipeDetector.OnSwipe += SwipeHandler;
             
-            _leftButton.OnPointerDownEvent += OnLeftButtonDown;
+            _leftButton.OnPointerEvent += OnLeftButton;
             _leftButton.OnPointerUpEvent += OnLeftButtonUp;
-            _rightButton.OnPointerDownEvent += OnRightButtonDown;
+            _rightButton.OnPointerEvent += OnRightButton;
             _rightButton.OnPointerUpEvent += OnRightButtonUp;
             
             _inputPanelPresenter = presenter;
@@ -63,41 +66,45 @@ namespace YevheniiKostenko.SwipyBall.Presentation.UI
             }
             
             _swipeDetector.OnSwipe -= SwipeHandler;
-            _leftButton.OnPointerDownEvent -= OnLeftButtonDown;
+            _leftButton.OnPointerEvent -= OnLeftButton;
             _leftButton.OnPointerUpEvent -= OnLeftButtonUp;
-            _rightButton.OnPointerDownEvent -= OnRightButtonDown;
+            _rightButton.OnPointerEvent -= OnRightButton;
             _rightButton.OnPointerUpEvent -= OnRightButtonUp;
             
             return base.OnCloseAsync();
+        }
+        
+        public void SetLeftButtonPressedVisual(bool isPressed)
+        {
+            Color color = isPressed ? _pressedColor : _unpressedColor;
+            _leftButtonTween?.Kill();
+            _leftButtonTween = _leftButtonImage.DOColor(color, 0.1f);
+            _leftButtonTween.onComplete = () => _leftButtonTween = null;
+        }
+
+        public void SetRightButtonPressedVisual(bool isPressed)
+        {
+            Color color = isPressed ? _pressedColor : _unpressedColor;
+            _rightButtonTween?.Kill();
+            _rightButtonTween = _rightButtonImage.DOColor(color, 0.1f);
+            _rightButtonTween.onComplete = () => _rightButtonTween = null;
         }
         
         private void SwipeHandler(float angle)
         {
             OnSwipe?.Invoke(angle);
         }
-
-        private void Update()
-        {
-            bool leftDown = _leftButton.IsPointerDown;
-            bool rightDown = _rightButton.IsPointerDown;
-
-            // Smooth fade of button images
-            FadeButton(_leftButtonImage, leftDown);
-            FadeButton(_rightButtonImage, rightDown);
-        }
         
-        private void OnRightButtonDown() => RightButtonDown?.Invoke();
-        private void OnLeftButtonDown() => LeftButtonDown?.Invoke();
+        private void OnRightButton() => RightButton?.Invoke();
+        private void OnLeftButton() => LeftButton?.Invoke();
         private void OnRightButtonUp() => RightButtonUp?.Invoke();
         private void OnLeftButtonUp() => LeftButtonUp?.Invoke();
 
         private void FadeButton(Image image, bool isPressed)
         {
-            if (image == null) return;
+            Color target = isPressed ? _pressedColor : _unpressedColor;
 
-            var target = isPressed ? _pressedColor : _unpressedColor;
-
-            var t = 1f - Mathf.Exp(-_fadeSpeed * Time.deltaTime);
+            float t = 1f - Mathf.Exp(-_fadeSpeed * Time.deltaTime);
             image.color = Color.Lerp(image.color, target, t);
         }
     }

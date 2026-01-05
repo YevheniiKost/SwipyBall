@@ -9,6 +9,7 @@ namespace YevheniiKostenko.SwipyBall.Domain.Game
         private readonly PlayerConfig _config;
         
         private float _lastJumpTime;
+        private float _lastHitTime;
         private int _jumpCount = 0;
         private bool _isGrounded;
         
@@ -22,8 +23,14 @@ namespace YevheniiKostenko.SwipyBall.Domain.Game
         public PlayerConfig Config => _config;
 
         public event Action<PlayerForceMoveHandler> Jumped;
+        public event Action<PlayerForceMoveHandler> Moved;
         public event Action<PlayerForceMoveHandler> Pushed;
         public event Action Landed;
+
+        public bool CanBeHit()
+        {
+            return Time.time - _lastHitTime >= _config.TimeBetweenHits;
+        }
 
         public void Swipe(float angle)
         {
@@ -49,6 +56,10 @@ namespace YevheniiKostenko.SwipyBall.Domain.Game
 
         public void RegisterHit(int damage, Vector2 direction)
         {
+            if(!CanBeHit())
+                return;
+            
+            _lastHitTime = Time.time;
             Vector2 oppositeDirection = -direction.normalized;
             Pushed?.Invoke(new PlayerForceMoveHandler(oppositeDirection * _config.HitPushForce));
         }
@@ -64,7 +75,7 @@ namespace YevheniiKostenko.SwipyBall.Domain.Game
 
         public void Move(InputDirection direction)
         {
-            PushByInputDirection(direction);
+            MoveByInputDirection(direction);
         }
 
         private void OnLand()
@@ -98,19 +109,19 @@ namespace YevheniiKostenko.SwipyBall.Domain.Game
             // we can push only left or right
             bool isRight = Mathf.Abs(swipeAngle) < 90;
             Vector2 pushForceDirection = isRight ? Vector2.right : Vector2.left;
-            Push(pushForceDirection);
+            Move(pushForceDirection);
         }
         
-        private void PushByInputDirection(InputDirection direction)
+        private void MoveByInputDirection(InputDirection direction)
         {
             Vector2 pushForceDirection = direction == InputDirection.Right ? Vector2.right : Vector2.left;
-            Push(pushForceDirection);
+            Move(pushForceDirection);
         }
 
-        private void Push(Vector2 pushForceDirection)
+        private void Move(Vector2 pushForceDirection)
         {
             pushForceDirection *= _config.PushForce;
-            Pushed?.Invoke(new PlayerForceMoveHandler(pushForceDirection));
+            Moved?.Invoke(new PlayerForceMoveHandler(pushForceDirection));
         }
 
 

@@ -12,7 +12,10 @@ namespace YevheniiKostenko.SwipyBall.Domain.Game
 
         event Action<PlayerForceMoveHandler> Jumped;
         event Action<PlayerForceMoveHandler> Pushed;
+        event Action<PlayerForceMoveHandler> Moved;
         event Action Landed;
+        
+        bool CanBeHit();
         
         void Swipe(float angle);
         void SetGroundedState(bool isGrounded);

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
 using YevheniiKostenko.SwipyBall.Presentation.Animation;
@@ -20,6 +21,8 @@ namespace YevheniiKostenko.SwipyBall.Presentation.GameLevel
         [SerializeField]
         private PlayerAnimationsParams _params;
         
+        private List<Tween> _activeTweens = new List<Tween>();
+        
         public void PlayDamageAnimation()
         {
             Sequence sequence = DOTween.Sequence();
@@ -38,7 +41,22 @@ namespace YevheniiKostenko.SwipyBall.Presentation.GameLevel
                 sequence.Join(sequencePart);
             }
             
+            _activeTweens.Add(sequence);
+            sequence.AppendCallback(() =>
+            {
+                _activeTweens.Remove(sequence);
+            });
             sequence.Play();
+        }
+        
+        private void OnDestroy()
+        {
+            foreach (var tween in _activeTweens)
+            {
+                tween.Kill();
+            }
+            
+            _activeTweens.Clear();
         }
     }
 }

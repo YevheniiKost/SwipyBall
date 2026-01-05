@@ -1,23 +1,33 @@
 ﻿using System;
-using Cysharp.Threading.Tasks;
+
 using UnityEngine;
-using UnityEngine.UI;
+
+using Cysharp.Threading.Tasks;
+
 using YeKostenko.CoreKit.DI;
 using YeKostenko.CoreKit.UI;
+
 using YevheniiKostenko.SwipyBall.Core.Entities;
+using YevheniiKostenko.SwipyBall.Presentation.UI.Common;
 
 namespace YevheniiKostenko.SwipyBall.Presentation.UI
 {
     public class FinishGameWindow : UIWindow, IFinishGameWindowView
     {
         [SerializeField]
-        private Button _restartButton;
+        private ButtonView _restartButton;
+        [SerializeField]
+        private ButtonView _nextLevelButton;
+        
+        [SerializeField]
+        private GameObject _playerWonView;
+        [SerializeField]
+        private GameObject _playerLostView;
         
         private IFinishGameWindowPresenter _presenter;
         private FinishGameUIContext _context;
         
         public event Action<GameResult> Create;
-        public event Action RestartButtonClick;
 
         [Inject]
         public void Construct(IFinishGameWindowPresenter presenter)
@@ -31,23 +41,10 @@ namespace YevheniiKostenko.SwipyBall.Presentation.UI
             _context = context as FinishGameUIContext ?? throw new ArgumentException("Invalid context type for FinishGameWindow");
 
             Bind();
-            
             Create?.Invoke(_context.GameResult);
-            
             return base.OnCreateAsync(context);
         }
-
-        private void Bind()
-        {
-            _restartButton.onClick.AddListener(() =>
-            {
-                if (_context != null)
-                {
-                    _context.RestartButtonClick?.Invoke();
-                }
-            });
-        }
-
+        
         public override UniTask OnCloseAsync()
         {
             if (_presenter != null)
@@ -55,7 +52,43 @@ namespace YevheniiKostenko.SwipyBall.Presentation.UI
                 _presenter.DetachView();
                 _presenter = null;
             }
+            
+            _restartButton.OnButtonClick = null;
+            _nextLevelButton.OnButtonClick = null;
+            
             return base.OnCloseAsync();
+        }
+        
+        public void SetRestartButtonActive(bool isActive)
+        {
+            _restartButton.gameObject.SetActive(isActive);
+        }
+
+        public void SetNextLevelButtonActive(bool isActive)
+        {
+            _nextLevelButton.gameObject.SetActive(isActive);
+        }
+
+        public void SetGameResult(bool isPlayerWon)
+        {
+            _playerWonView.SetActive(isPlayerWon);
+            _playerLostView.SetActive(!isPlayerWon);
+        }
+
+        private void Bind()
+        {
+            _restartButton.OnButtonClick = OnRestartButtonClick;
+            _nextLevelButton.OnButtonClick = OnNextLevelButtonClick;
+        }
+
+        private void OnNextLevelButtonClick()
+        {
+            _context?.NextLevelButtonClick?.Invoke();
+        }
+
+        private void OnRestartButtonClick()
+        {
+            _context?.RestartButtonClick?.Invoke();
         }
     }
 }
