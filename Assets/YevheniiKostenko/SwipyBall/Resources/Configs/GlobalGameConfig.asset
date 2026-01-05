@@ -15,8 +15,8 @@ MonoBehaviour:
   _maxAngleDeviation: 500
   _maxAngle: 180
   _timeBetweenJumps: 0.1
-  _jumpForce: 15
-  _pushForce: 4
+  _jumpForce: 13
+  _pushForce: 5
   _hitPushForce: 8
   _groundCheckDistance: 0.7
   _maxJumpCount: 2
