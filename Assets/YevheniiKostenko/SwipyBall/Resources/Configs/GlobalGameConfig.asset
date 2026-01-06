@@ -17,7 +17,7 @@ MonoBehaviour:
   _timeBetweenJumps: 0.1
   _timeBetweenHits: 1
   _jumpForce: 13
-  _pushForce: 5
+  _pushForce: 6
   _hitPushForce: 8
   _groundCheckDistance: 0.7
   _maxJumpCount: 2
@@ -32,3 +32,6 @@ MonoBehaviour:
   - _levelId: 1
   - _levelId: 2
   - _levelId: 3
+  _linkedinUrl: https://www.linkedin.com/in/yevhenii-kostenko-3a68b7204/
+  _githubUrl: https://github.com/YevheniiKost
+  _itchIoUrl: https://yevhenii-kostenko.itch.io/

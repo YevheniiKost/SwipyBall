@@ -12,7 +12,7 @@ using YevheniiKostenko.SwipyBall.Presentation.UI.Common;
 
 namespace YevheniiKostenko.SwipyBall.Presentation.UI
 {
-    public class GameScreen : UIWindow, IGameScreen
+    public class GameScreenView : UIWindow, IGameScreenView
     {
         [SerializeField]
         private TextComponent _scoreTextComponent;

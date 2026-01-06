@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using YevheniiKostenko.SwipyBall.Data.config;
+using YevheniiKostenko.SwipyBall.Data.Config;
 using YevheniiKostenko.SwipyBall.Domain.Game;
 using YevheniiKostenko.SwipyBall.Domain.Input;
 

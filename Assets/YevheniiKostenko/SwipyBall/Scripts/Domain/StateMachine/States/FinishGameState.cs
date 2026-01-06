@@ -1,7 +1,6 @@
 ﻿using YeKostenko.CoreKit.StateMachine;
 using YevheniiKostenko.SwipyBall.Core.Entities;
-using YevheniiKostenko.SwipyBall.Data.config;
-using YevheniiKostenko.SwipyBall.Scripts.Data.Config;
+using YevheniiKostenko.SwipyBall.Data.Config;
 
 namespace YevheniiKostenko.SwipyBall.Domain.GameStateMachine.States
 {

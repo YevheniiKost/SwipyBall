@@ -1,8 +1,9 @@
 ﻿using YeKostenko.CoreKit.DI;
 using YeKostenko.CoreKit.App;
 using YeKostenko.CoreKit.UI;
+
 using YevheniiKostenko.SwipyBall.Core.Time;
-using YevheniiKostenko.SwipyBall.Data.config;
+using YevheniiKostenko.SwipyBall.Data.Config;
 using YevheniiKostenko.SwipyBall.Domain.Game;
 using YevheniiKostenko.SwipyBall.Domain.GameStateMachine;
 using YevheniiKostenko.SwipyBall.Domain.GameStateMachine.States;
@@ -35,6 +36,7 @@ namespace YevheniiKostenko.SwipyBall.Application
             container.Bind<IInputPanelPresenter>().To<InputPanelPresenter>().AsTransient();
             container.Bind<IFinishGameWindowPresenter>().To<FinishGameWindowPresenter>().AsTransient();
             container.Bind<IGameScreenPresenter>().To<GameScreenPresenter>().AsTransient();
+            container.Bind<IMainMenuPresenter>().To<MainMenuPresenter>().AsTransient();
             
             container.Bind<IPlayerFactory>().To<PlayerFactory>().AsSingleton();
             container.Bind<ICollectableFactory>().To<CollectableFactory>().AsSingleton();

@@ -1,5 +1,4 @@
-﻿using System;
-using YevheniiKostenko.SwipyBall.Core.Entities;
+﻿using YevheniiKostenko.SwipyBall.Presentation.UI;
 
 namespace YevheniiKostenko.SwipyBall.Presentation
 {
@@ -9,6 +8,7 @@ namespace YevheniiKostenko.SwipyBall.Presentation
         void CloseAllWindows();
         void OpenInputPanel();
         void OpenGameScreen();
-        void OpenFinishGameWindow(GameResult gameResult, Action onRestartButtonClick, Action onNextLevelButtonClick);
+        void OpenFinishGameWindow(FinishGameUIContext context);
+        void OpenMainMenu(MainMenuUIContext context);
     }
 }

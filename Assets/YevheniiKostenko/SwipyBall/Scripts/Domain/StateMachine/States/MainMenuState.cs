@@ -2,7 +2,7 @@
 
 namespace YevheniiKostenko.SwipyBall.Domain.GameStateMachine.States
 {
-    public class MainMenuState : BaseGameState
+    public class MainMenuState : BaseGameState, IMainMenuState
     {
         public MainMenuState(StateMachine<GameStateContext> stateMachine) : base(stateMachine)
         {
@@ -10,17 +10,19 @@ namespace YevheniiKostenko.SwipyBall.Domain.GameStateMachine.States
 
         public override void Prepare(object payload = null)
         {
-            throw new System.NotImplementedException();
         }
 
         public override void Enter(object payload = null)
         {
-            throw new System.NotImplementedException();
         }
 
         public override void Exit()
         {
-            throw new System.NotImplementedException();
+        }
+
+        public void StartGame()
+        {
+            StateMachine.ChangeState<PlayingState>(new PlayingStateArgs(1));
         }
     }
 }

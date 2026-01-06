@@ -59,6 +59,14 @@ namespace YevheniiKostenko.SwipyBall.Data.Config
         [SerializeField]
         private SerializableLevelConfig[] _levelConfigs;
         
+        [Header("App Config")]
+        [SerializeField]
+        private string _linkedinUrl;
+        [SerializeField]
+        private string _githubUrl;
+        [SerializeField]
+        private string _itchIoUrl;
+        
         public float MaxAngleDeviation => _maxAngleDeviation;
         public float MaxAngle => _maxAngle;
         public float TimeBetweenJumps => _timeBetweenJumps;
@@ -76,5 +84,8 @@ namespace YevheniiKostenko.SwipyBall.Data.Config
         public float BombExplosionRadius => _bombExplosionRadius;
         public float BombExplosionDelay => _bombExplosionDelay;
         public List<SerializableLevelConfig> LevelConfigs => new List<SerializableLevelConfig>(_levelConfigs);
+        public string LinkedinUrl => _linkedinUrl;
+        public string GithubUrl => _githubUrl;
+        public string ItchIoUrl => _itchIoUrl;
     }
 }

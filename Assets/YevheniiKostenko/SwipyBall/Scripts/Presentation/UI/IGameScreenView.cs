@@ -2,7 +2,7 @@
 
 namespace YevheniiKostenko.SwipyBall.Presentation.UI
 {
-    public interface IGameScreen
+    public interface IGameScreenView
     {
         event Action Create;
         

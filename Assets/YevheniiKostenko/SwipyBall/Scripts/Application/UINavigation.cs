@@ -1,9 +1,6 @@
-﻿using System;
-using Cysharp.Threading.Tasks;
+﻿using Cysharp.Threading.Tasks;
 
 using YeKostenko.CoreKit.UI;
-
-using YevheniiKostenko.SwipyBall.Core.Entities;
 using YevheniiKostenko.SwipyBall.Presentation;
 using YevheniiKostenko.SwipyBall.Presentation.UI;
 
@@ -35,14 +32,17 @@ namespace YevheniiKostenko.SwipyBall.Application
 
         public void OpenGameScreen()
         {
-            _manager.OpenWindowAsync<GameScreen>().Forget();
+            _manager.OpenWindowAsync<GameScreenView>().Forget();
         }
 
-        public void OpenFinishGameWindow(GameResult gameResult, Action onRestartButtonClick,
-            Action onNextLevelButtonClick)
+        public void OpenFinishGameWindow(FinishGameUIContext context)
         {
-            _manager.OpenWindowAsync<FinishGameWindow>(new FinishGameUIContext(gameResult, onRestartButtonClick,
-                onNextLevelButtonClick)).Forget();
+            _manager.OpenWindowAsync<FinishGameWindow>(context).Forget();
+        }
+
+        public void OpenMainMenu(MainMenuUIContext context)
+        {
+            _manager.OpenWindowAsync<MainMenuScreen>(context).Forget();
         }
     }
 }
