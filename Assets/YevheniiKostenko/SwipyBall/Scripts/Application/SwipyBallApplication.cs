@@ -24,9 +24,9 @@ namespace YevheniiKostenko.SwipyBall.Application
             
             UIRoot.Instance.Initialize(new MonoBehDependencyInjector(container));
             LevelRoot.Instance.Initialize(new MonoBehDependencyInjector(container));
-            ITImeProvider timeProvider = UnityTimeProvider.Instance;
+            ITimeProvider timeProvider = UnityTimeProvider.Instance;
             
-            container.Bind<ITImeProvider>().ToInstance(timeProvider);
+            container.Bind<ITimeProvider>().ToInstance(timeProvider);
             container.Bind<IConfigProvider>().To<ConfigProvider>().AsSingleton();
             
             container.Bind<IGameModel>().To<GameModel>().AsSingleton();

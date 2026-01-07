@@ -87,11 +87,6 @@ namespace YevheniiKostenko.SwipyBall.Presentation.GameLevel
             }
         }
         
-        private void Update()
-        {
-            _playerController?.Tick(Time.deltaTime);
-        }
-        
         private void FixedUpdate()
         {
             if (_requestedMoveForce != Vector2.zero)

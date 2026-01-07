@@ -15,7 +15,7 @@ namespace YevheniiKostenko.SwipyBall.Presentation.Game
         private readonly IInputProvider _pcInputProvider;
         private readonly IInputModel _inputModel;
 
-        public PlayingStatePresenter(IUINavigation uiNavigation, ILevelRoot levelRoot, ITImeProvider timeProvider,
+        public PlayingStatePresenter(IUINavigation uiNavigation, ILevelRoot levelRoot, ITimeProvider timeProvider,
             IInputModel inputModel)
         {
             _uiNavigation = uiNavigation;

@@ -16,11 +16,11 @@ MonoBehaviour:
   _maxAngle: 180
   _timeBetweenJumps: 0.1
   _timeBetweenHits: 1
-  _jumpForce: 13
+  _jumpForce: 8
   _pushForce: 6
   _hitPushForce: 8
   _groundCheckDistance: 0.7
-  _maxJumpCount: 2
+  _maxJumpCount: 1
   _nextJumpDecreaseFactor: 0.5
   _playerPrefab: {fileID: 5348968077799727659, guid: 06e40587de71d4545b026478fd9d6586, type: 3}
   _coinValue: 1

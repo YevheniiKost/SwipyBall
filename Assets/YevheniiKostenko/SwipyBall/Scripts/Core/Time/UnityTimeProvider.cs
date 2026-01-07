@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
-using UnityEngine;
 using YevheniiKostenko.CoreKit.Utils;
 
 namespace YevheniiKostenko.SwipyBall.Core.Time
 {
-    public class UnityTimeProvider : SingletonMonoBehaviour<UnityTimeProvider>, ITImeProvider
+    public class UnityTimeProvider : SingletonMonoBehaviour<UnityTimeProvider>, ITimeProvider
     {
         private readonly List<ITimeListener> _timeListeners = new();
+
+        protected override bool PersistBetweenScenes => true;
 
         public void RegisterTimeListener(ITimeListener listener)
         {
@@ -22,6 +23,11 @@ namespace YevheniiKostenko.SwipyBall.Core.Time
                 return;
 
             _timeListeners.Remove(listener);
+        }
+
+        public void SetTimeScale(float timeScale)
+        {
+            UnityEngine.Time.timeScale = timeScale;
         }
 
         private void Update()

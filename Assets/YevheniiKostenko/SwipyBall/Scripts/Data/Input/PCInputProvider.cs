@@ -6,9 +6,9 @@ namespace YevheniiKostenko.SwipyBall.Data.Input
 {
     public class PCInputProvider : IInputProvider, ITimeListener
     {
-        private readonly ITImeProvider _timeProvider;
+        private readonly ITimeProvider _timeProvider;
 
-        public PCInputProvider(ITImeProvider timeProvider)
+        public PCInputProvider(ITimeProvider timeProvider)
         {
             _timeProvider = timeProvider;
             _timeProvider.RegisterTimeListener(this);
