@@ -1,4 +1,4 @@
-﻿using YevheniiKostenko.SwipyBall.Data.config;
+﻿using YevheniiKostenko.SwipyBall.Data.Config;
 using YevheniiKostenko.SwipyBall.Domain.Game;
 
 namespace YevheniiKostenko.SwipyBall.Presentation.GameLevel

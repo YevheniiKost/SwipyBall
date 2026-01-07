@@ -18,6 +18,8 @@ namespace YevheniiKostenko.SwipyBall.Presentation.UI
         private ButtonView _restartButton;
         [SerializeField]
         private ButtonView _nextLevelButton;
+        [SerializeField]
+        private ButtonView _returnToMenuButton;
         
         [SerializeField]
         private GameObject _playerWonView;
@@ -79,8 +81,9 @@ namespace YevheniiKostenko.SwipyBall.Presentation.UI
         {
             _restartButton.OnButtonClick = OnRestartButtonClick;
             _nextLevelButton.OnButtonClick = OnNextLevelButtonClick;
+            _returnToMenuButton.OnButtonClick = OnReturnToMenuButtonClick;
         }
-
+        
         private void OnNextLevelButtonClick()
         {
             _context?.NextLevelButtonClick?.Invoke();
@@ -89,6 +92,11 @@ namespace YevheniiKostenko.SwipyBall.Presentation.UI
         private void OnRestartButtonClick()
         {
             _context?.RestartButtonClick?.Invoke();
+        }
+        
+        private void OnReturnToMenuButtonClick()
+        {
+            _context?.ReturnToMenuButtonClick?.Invoke();
         }
     }
 }

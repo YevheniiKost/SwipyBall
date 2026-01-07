@@ -28,9 +28,10 @@ namespace YevheniiKostenko.SwipyBall.Presentation.Game
 
             _statePresenters = new List<IGameStatePresenter>
             {
-                { new BootStatePresenter() },
-                { new PlayingStatePresenter(uiNavigation, _levelRoot, timeProvider, inputModel) },
-                { new FinishGameStatePresenter(uiNavigation) }
+                new BootStatePresenter(),
+                new PlayingStatePresenter(uiNavigation, _levelRoot, timeProvider, inputModel),
+                new FinishGameStatePresenter(uiNavigation),
+                new MainMenuStatePresenter(uiNavigation)
             };
 
             _gameStateMachine.OnStateChanged += OnGameStateChanged;

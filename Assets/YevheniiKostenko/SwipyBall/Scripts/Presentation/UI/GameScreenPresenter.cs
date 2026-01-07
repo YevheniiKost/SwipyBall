@@ -6,38 +6,38 @@ namespace YevheniiKostenko.SwipyBall.Presentation.UI
     {
         private readonly IGameModel _gameModel;
 
-        private IGameScreen _gameScreen;
+        private IGameScreenView _gameScreenView;
 
         public GameScreenPresenter(IGameModel gameModel)
         {
             _gameModel = gameModel;
         }
 
-        public void AttachView(IGameScreen view)
+        public void AttachView(IGameScreenView view)
         {
-            _gameScreen = view;
+            _gameScreenView = view;
 
-            _gameScreen.Create += OnCreate;
+            _gameScreenView.Create += OnCreate;
             _gameModel.LivesUpdated += OnLivesUpdated;
             _gameModel.GameStarted += OnLivesUpdated;
         }
 
         public void DetachView()
         {
-            _gameScreen.Create -= OnCreate;
-            _gameScreen = null;
+            _gameScreenView.Create -= OnCreate;
+            _gameScreenView = null;
 
             _gameModel.LivesUpdated -= OnLivesUpdated;
         }
 
         private void OnCreate()
         {
-            _gameScreen.UpdateLives(_gameModel.Lives, _gameModel.MaxLives);
+            _gameScreenView.UpdateLives(_gameModel.Lives, _gameModel.MaxLives);
         }
 
         private void OnLivesUpdated()
         {
-            _gameScreen?.UpdateLives(_gameModel.Lives, _gameModel.MaxLives);
+            _gameScreenView?.UpdateLives(_gameModel.Lives, _gameModel.MaxLives);
         }
     }
 }

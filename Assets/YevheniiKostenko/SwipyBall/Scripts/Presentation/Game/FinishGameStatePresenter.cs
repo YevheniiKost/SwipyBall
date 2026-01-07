@@ -1,5 +1,6 @@
 ﻿using Cysharp.Threading.Tasks;
 using YevheniiKostenko.SwipyBall.Domain.GameStateMachine.States;
+using YevheniiKostenko.SwipyBall.Presentation.UI;
 
 namespace YevheniiKostenko.SwipyBall.Presentation.Game
 {
@@ -17,10 +18,12 @@ namespace YevheniiKostenko.SwipyBall.Presentation.Game
         protected override UniTask OnEnterAsync(IFinishGameState state)
         {
             _state = state;
-            _uiNavigation.OpenFinishGameWindow(state.GameResult, OnRestartButtonClick, OnNextLevelButtonClick);
-            
+            _uiNavigation.OpenFinishGameWindow(new FinishGameUIContext(state.GameResult, OnRestartButtonClick,
+                OnNextLevelButtonClick, OnReturnToMenuButtonClick));
+
             return UniTask.CompletedTask;
         }
+        
 
         protected override UniTask OnExitAsync(IFinishGameState state)
         {
@@ -49,6 +52,18 @@ namespace YevheniiKostenko.SwipyBall.Presentation.Game
             catch (System.Exception e)
             {
                 UnityEngine.Debug.LogError($"Failed to restart level: {e}");
+            }
+        }
+        
+        private void OnReturnToMenuButtonClick()
+        {
+            try
+            {
+                _state.ExitToMenu();
+            }
+            catch (System.Exception e)
+            {
+                UnityEngine.Debug.LogError($"Failed to return to main menu: {e}");
             }
         }
     }

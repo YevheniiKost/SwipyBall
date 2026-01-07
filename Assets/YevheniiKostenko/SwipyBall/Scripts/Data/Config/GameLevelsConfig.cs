@@ -2,7 +2,7 @@
 using YeKostenko.CoreKit.Logging;
 using YevheniiKostenko.SwipyBall.Core.Entities;
 
-namespace YevheniiKostenko.SwipyBall.Scripts.Data.Config
+namespace YevheniiKostenko.SwipyBall.Data.Config
 {
     public class GameLevelsConfig
     {

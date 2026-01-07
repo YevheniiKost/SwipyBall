@@ -680,7 +680,7 @@ GameObject:
   - component: {fileID: 9031199048077295739}
   - component: {fileID: 3347245276645230398}
   m_Layer: 5
-  m_Name: GameScreen
+  m_Name: GameScreenView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

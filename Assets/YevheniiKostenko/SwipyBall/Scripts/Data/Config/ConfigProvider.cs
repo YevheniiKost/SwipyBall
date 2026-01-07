@@ -1,10 +1,8 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using YevheniiKostenko.SwipyBall.Core.Entities;
-using YevheniiKostenko.SwipyBall.Data.Config;
-using YevheniiKostenko.SwipyBall.Scripts.Data.Config;
 
-namespace YevheniiKostenko.SwipyBall.Data.config
+namespace YevheniiKostenko.SwipyBall.Data.Config
 {
     internal class ConfigProvider : IConfigProvider
     {
@@ -51,6 +49,16 @@ namespace YevheniiKostenko.SwipyBall.Data.config
             }
             
             return new GameLevelsConfig(levelConfigs);
+        }
+
+        public AppConfig GetAppConfig()
+        {
+            GetConfigIsNeeded();
+            
+            return new AppConfig( UnityEngine.Application.version,
+                _globalGameConfig.LinkedinUrl,
+                _globalGameConfig.GithubUrl,
+                _globalGameConfig.ItchIoUrl);
         }
 
         public GameObject GetPlayerPrefab()

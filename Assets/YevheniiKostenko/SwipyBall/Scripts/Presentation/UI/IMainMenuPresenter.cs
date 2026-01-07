@@ -1,8 +1,8 @@
 ﻿namespace YevheniiKostenko.SwipyBall.Presentation.UI
 {
-    public interface IGameScreenPresenter
+    public interface IMainMenuPresenter
     {
-        void AttachView(IGameScreenView view);
+        void AttachView(IMainMenuView view);
         void DetachView();
     }
 }
