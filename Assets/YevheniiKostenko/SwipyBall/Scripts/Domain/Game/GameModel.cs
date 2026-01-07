@@ -111,7 +111,7 @@ namespace YevheniiKostenko.SwipyBall.Domain.Game
             UpdateHitPoints(Mathf.Min(_hitPoints + health, MaxHitpoints));
         }
 
-        private void EndGame(bool isPlayerWon)
+        public void EndGame(bool isPlayerWon)
         {
             Logger.Log($"Game ended. Player won: {isPlayerWon}");
             _isGameStarted = false;

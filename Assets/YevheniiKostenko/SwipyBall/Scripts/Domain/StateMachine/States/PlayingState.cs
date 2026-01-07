@@ -42,6 +42,20 @@ namespace YevheniiKostenko.SwipyBall.Domain.GameStateMachine.States
             _gameModel.GameEnded -= OnGameEnded;
         }
         
+        public void GoToMainMenu()
+        {
+            _gameModel.GameEnded -= OnGameEnded;
+            _gameModel.EndGame(false);
+            StateMachine.ChangeState<MainMenuState>();
+        }
+
+        public void RestartLevel()
+        {
+            _gameModel.GameEnded -= OnGameEnded;
+            _gameModel.EndGame(false);
+            StateMachine.ChangeState<PlayingState>(new PlayingStateArgs(_levelIndex));
+        }
+        
         private void OnGameEnded(bool isPlayerWon)
         {
             StateMachine.ChangeState<FinishGameState>(

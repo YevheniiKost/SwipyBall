@@ -7,7 +7,8 @@ namespace YevheniiKostenko.SwipyBall.Presentation
         void CloseTopWindow();
         void CloseAllWindows();
         void OpenInputPanel();
-        void OpenGameScreen();
+        void OpenPauseWindow(PauseUIContext context);
+        void OpenGameScreen(GameScreenUIContext context);
         void OpenFinishGameWindow(FinishGameUIContext context);
         void OpenMainMenu(MainMenuUIContext context);
     }

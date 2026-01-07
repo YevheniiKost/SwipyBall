@@ -7,6 +7,7 @@ namespace YevheniiKostenko.SwipyBall.Presentation.UI
         private readonly IGameModel _gameModel;
 
         private IGameScreenView _gameScreenView;
+        private GameScreenUIContext _gameScreenUIContext;
 
         public GameScreenPresenter(IGameModel gameModel)
         {
@@ -18,6 +19,8 @@ namespace YevheniiKostenko.SwipyBall.Presentation.UI
             _gameScreenView = view;
 
             _gameScreenView.Create += OnCreate;
+            _gameScreenView.PauseClick += OnPauseClick;
+            
             _gameModel.LivesUpdated += OnLivesUpdated;
             _gameModel.GameStarted += OnLivesUpdated;
         }
@@ -25,13 +28,21 @@ namespace YevheniiKostenko.SwipyBall.Presentation.UI
         public void DetachView()
         {
             _gameScreenView.Create -= OnCreate;
+            _gameScreenView.PauseClick -= OnPauseClick;
+            
             _gameScreenView = null;
-
             _gameModel.LivesUpdated -= OnLivesUpdated;
+            _gameModel.GameStarted -= OnLivesUpdated;
         }
 
-        private void OnCreate()
+        private void OnPauseClick()
         {
+            _gameScreenUIContext?.PauseButtonClicked?.Invoke();
+        }
+
+        private void OnCreate(GameScreenUIContext gameScreenUIContext)
+        {
+            _gameScreenUIContext = gameScreenUIContext;
             _gameScreenView.UpdateLives(_gameModel.Lives, _gameModel.MaxLives);
         }
 

@@ -30,9 +30,14 @@ namespace YevheniiKostenko.SwipyBall.Application
             _manager.OpenWindowAsync<InputPanelView>().Forget();
         }
 
-        public void OpenGameScreen()
+        public void OpenPauseWindow(PauseUIContext context)
         {
-            _manager.OpenWindowAsync<GameScreenView>().Forget();
+            _manager.OpenWindowAsync<PauseWindow>(context).Forget();
+        }
+
+        public void OpenGameScreen(GameScreenUIContext context)
+        {
+            _manager.OpenWindowAsync<GameScreenView>(context).Forget();
         }
 
         public void OpenFinishGameWindow(FinishGameUIContext context)

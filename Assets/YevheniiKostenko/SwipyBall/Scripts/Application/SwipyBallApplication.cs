@@ -37,6 +37,7 @@ namespace YevheniiKostenko.SwipyBall.Application
             container.Bind<IFinishGameWindowPresenter>().To<FinishGameWindowPresenter>().AsTransient();
             container.Bind<IGameScreenPresenter>().To<GameScreenPresenter>().AsTransient();
             container.Bind<IMainMenuPresenter>().To<MainMenuPresenter>().AsTransient();
+            container.Bind<IPausePresenter>().To<PausePresenter>().AsTransient();
             
             container.Bind<IPlayerFactory>().To<PlayerFactory>().AsSingleton();
             container.Bind<ICollectableFactory>().To<CollectableFactory>().AsSingleton();

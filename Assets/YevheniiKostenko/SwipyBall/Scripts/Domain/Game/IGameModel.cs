@@ -17,6 +17,7 @@ namespace YevheniiKostenko.SwipyBall.Domain.Game
 
         bool CanStartGame();
         void StartGame();
+        void EndGame(bool isPlayerWon);
         void HitPlayer(int damage);
         void PlayerReachGoal();
         void AddScore(int score);
