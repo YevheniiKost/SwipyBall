@@ -1,0 +1,55 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ffc77968e974c199dd82befac728de1, type: 3}
+  m_Name: RotationLoopMovement_3
+  m_EditorClassIdentifier: 
+  _steps:
+  - rid: 7874035042113028173
+  _playParallel: 0
+  _loopCount: -1
+  _loopMode: 1
+  references:
+    version: 2
+    RefIds:
+    - rid: 7874035042113028173
+      type: {class: RotateStep, ns: YevheniiKostenko.CoreKit.Animation, asm: YeKostenko.CoreKit}
+      data:
+        _duration: 3
+        _delay: 0
+        _ease: 0
+        _useCurve: 0
+        _easeCurve:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 1
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 1
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        _toEuler: {x: 0, y: 0, z: 359}
+        _relative: 0

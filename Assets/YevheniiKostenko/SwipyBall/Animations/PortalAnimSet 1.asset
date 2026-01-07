@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d86c3fabbd5b4642ae1afd19f8a9030c, type: 3}
-  m_Name: CollectableItemAnimSet
+  m_Name: PortalAnimSet 1
   m_EditorClassIdentifier: 
   _show: {fileID: 11400000, guid: 898e47b2d918f6946a18ebed186f20c1, type: 2}
   _hide: {fileID: 11400000, guid: fb1b2b64d9b2ba245a98928e788e34d8, type: 2}
-  _idle: {fileID: 11400000, guid: 2803508d548aa0a47aafb9ce6fafb8bb, type: 2}
+  _idle: {fileID: 11400000, guid: c0c23f38595f4484d815663914d71956, type: 2}
   _extra: []
