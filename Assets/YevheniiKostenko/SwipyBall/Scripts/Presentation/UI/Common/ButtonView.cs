@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.UI;
+using YellowTape.AudioEngine;
 
 namespace YevheniiKostenko.SwipyBall.Presentation.UI.Common
 {
@@ -33,6 +34,7 @@ namespace YevheniiKostenko.SwipyBall.Presentation.UI.Common
         private void HandleButtonClick()
         {
             OnButtonClick?.Invoke();
+            MyAudio.Engine.PlayClip(SoundType.UISound, "button_1");
         }
     }
 }

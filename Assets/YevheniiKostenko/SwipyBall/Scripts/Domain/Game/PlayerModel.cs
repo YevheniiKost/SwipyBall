@@ -132,9 +132,8 @@ namespace YevheniiKostenko.SwipyBall.Domain.Game
             
             if (Time.time - _lastJumpTime < _config.TimeBetweenJumps)
                 return false;
-            
-            if(_isGrounded)
-                return true;
+
+            return _isGrounded;
             
             return CanJumpMore();
         }

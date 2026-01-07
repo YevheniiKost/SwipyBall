@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8274602387276879625}
   - component: {fileID: 4390283254024153471}
   - component: {fileID: 261574252892538759}
+  - component: {fileID: 2454327107832921945}
   m_Layer: 0
   m_Name: Spike
   m_TagString: Untagged
@@ -47,6 +48,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6de96095f35649f68f5b67b1edb685ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _hitSound: {fileID: 2454327107832921945}
 --- !u!61 &4390283254024153471
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -120,6 +122,20 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &2454327107832921945
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7655355584440714754}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc6c8f257e873d24995413e5ba14b4a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SoundType: 2
+  Name: spike
 --- !u!1 &9037693307847522221
 GameObject:
   m_ObjectHideFlags: 0

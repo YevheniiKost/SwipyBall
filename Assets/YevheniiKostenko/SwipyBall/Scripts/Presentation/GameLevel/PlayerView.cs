@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using YellowTape.AudioEngine;
 using YevheniiKostenko.SwipyBall.Presentation.Vfx;
 
 namespace YevheniiKostenko.SwipyBall.Presentation.GameLevel
@@ -12,6 +13,9 @@ namespace YevheniiKostenko.SwipyBall.Presentation.GameLevel
         private LayerMask _groundMask;
         [SerializeField]
         private PlayerAnimator _animator;
+
+        [SerializeField]
+        private MultiSoundComponent _multiSoundComponent;
         
         private IPlayerController _playerController;
         private Vector2 _requestedMoveForce;
@@ -30,6 +34,7 @@ namespace YevheniiKostenko.SwipyBall.Presentation.GameLevel
             _rigidbody.AddForce(direction, ForceMode2D.Impulse);
             
             DrawJumpVector(direction);
+            _multiSoundComponent.PlayByIndex(0);
         }
         
         public void Push(Vector2 direction)

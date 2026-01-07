@@ -19,9 +19,6 @@ namespace YevheniiKostenko.SwipyBall.Domain.GameStateMachine.States
         {
             Logger.Log("Booting application...");
 
-            Container container = Context.Container;
-            container.InjectIntoAllSceneMonos();
-          
             StateMachine.ChangeState<MainMenuState>();
         }
 
