@@ -12,5 +12,6 @@ namespace YevheniiKostenko.SwipyBall.Presentation.UI
         event Action ItchIoButtonClick;
         
         void SetAppVersion(string version);
+        void SetNextLevelNumber(int number);
     }
 }

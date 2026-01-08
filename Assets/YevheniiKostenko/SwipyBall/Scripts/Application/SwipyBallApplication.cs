@@ -17,6 +17,7 @@ using YevheniiKostenko.SwipyBall.Presentation.UI;
 using YevheniiKostenko.SwipyBall.Domain.Input;
 using YevheniiKostenko.SwipyBall.Presentation.Game;
 using YevheniiKostenko.SwipyBall.Data.Progress;
+using YevheniiKostenko.SwipyBall.Domain.Player;
 
 namespace YevheniiKostenko.SwipyBall.Application
 {
@@ -45,6 +46,7 @@ namespace YevheniiKostenko.SwipyBall.Application
             
             _container.Bind<IGameModel>().To<GameModel>().AsSingleton();
             _container.Bind<IInputModel>().To<InputModel>().AsSingleton();
+            _container.Bind<IGetNextLevelUseCase>().To<GetNextLevelUseCase>().AsTransient();
 
             _container.Bind<IUINavigation>().ToInstance(new UINavigation(UIRoot.Instance.UIManager));
             _container.Bind<IInputPanelPresenter>().To<InputPanelPresenter>().AsTransient();
@@ -77,6 +79,7 @@ namespace YevheniiKostenko.SwipyBall.Application
 
         protected override void OnAppDestroy()
         {
+            _container.Dispose();
         }
     }
 }

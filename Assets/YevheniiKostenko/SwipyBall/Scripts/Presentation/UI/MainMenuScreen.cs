@@ -25,6 +25,8 @@ namespace YevheniiKostenko.SwipyBall.Presentation.UI
         
         [SerializeField]
         private TextComponent _versionTextComponent;
+        [SerializeField]
+        private TextComponent _levelNumberTextComponent;
         
         private IMainMenuPresenter _presenter;
         
@@ -71,6 +73,11 @@ namespace YevheniiKostenko.SwipyBall.Presentation.UI
         public void SetAppVersion(string version)
         {
             _versionTextComponent.SetText($"App Version: {version}");
+        }
+
+        public void SetNextLevelNumber(int number)
+        {
+            _levelNumberTextComponent.SetText($"Level {number}");
         }
     }
 }

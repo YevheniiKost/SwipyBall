@@ -74,5 +74,9 @@ namespace YevheniiKostenko.SwipyBall.Data.Progress
             }
         }
 
+        public void Dispose()
+        {
+            _saveService.UnregisterModule(this);
+        }
     }
 }

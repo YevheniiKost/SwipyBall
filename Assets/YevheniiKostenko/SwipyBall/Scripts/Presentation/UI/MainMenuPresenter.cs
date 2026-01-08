@@ -1,18 +1,22 @@
 ﻿using YevheniiKostenko.SwipyBall.Data.Config;
+using YevheniiKostenko.SwipyBall.Data.Progress;
+using YevheniiKostenko.SwipyBall.Domain.Player;
 
 namespace YevheniiKostenko.SwipyBall.Presentation.UI
 {
     public class MainMenuPresenter : IMainMenuPresenter
     {
         private readonly IConfigProvider _configProvider;
+        private readonly IGetNextLevelUseCase _getNextLevelUseCase;
 
         private IMainMenuView _view;
         private MainMenuUIContext _uiContext;
         private AppConfig _appConfig;
 
-        public MainMenuPresenter(IConfigProvider configProvider)
+        public MainMenuPresenter(IConfigProvider configProvider, IGetNextLevelUseCase getNextLevelUseCase)
         {
             _configProvider = configProvider;
+            _getNextLevelUseCase = getNextLevelUseCase;
         }
 
         public void AttachView(IMainMenuView view)
@@ -43,6 +47,9 @@ namespace YevheniiKostenko.SwipyBall.Presentation.UI
         {
             _uiContext = context;
             _appConfig = _configProvider.GetAppConfig();
+            _view.SetAppVersion(_appConfig.AppVersion);
+            int nextLevel = _getNextLevelUseCase.Execute();
+            _view.SetNextLevelNumber(nextLevel);
         }
 
         private void OnPlayButtonClick()
