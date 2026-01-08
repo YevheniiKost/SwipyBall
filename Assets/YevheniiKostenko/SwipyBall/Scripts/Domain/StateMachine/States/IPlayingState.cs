@@ -3,5 +3,7 @@
     public interface IPlayingState : IGameState
     {
         int CurrentLevelIndex { get; }
+        void GoToMainMenu();
+        void RestartLevel();
     }
 }

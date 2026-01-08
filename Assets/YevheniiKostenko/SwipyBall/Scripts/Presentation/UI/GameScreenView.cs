@@ -21,30 +21,34 @@ namespace YevheniiKostenko.SwipyBall.Presentation.UI
         private Transform _livesContainer;
         [SerializeField]
         private GameObject _lifeIconPrefab;
+        [SerializeField]
+        private ButtonView _pauseButton;
         
         private IGameScreenPresenter _presenter;
         private SimpleObjectsAdapter _livesAdapter;
         
-        public event Action Create;
+        public event Action<GameScreenUIContext> Create;
+        public event Action PauseClick;
 
         [Inject]
         public void Construct(IGameScreenPresenter presenter)
         {
             _livesAdapter = new SimpleObjectsAdapter(_livesContainer, _lifeIconPrefab);
             _presenter = presenter;
-            _presenter.AttachView(this); 
         }
 
         public override UniTask OnCreateAsync(IUIContext context)
         {
-            Create?.Invoke();
-            
+            GameScreenUIContext gameScreenUIContext =
+                context as GameScreenUIContext ?? throw new ArgumentException("context");
+            Bind();
+            Create?.Invoke(gameScreenUIContext);
             return base.OnCreateAsync(context);
         }
 
         public override UniTask OnCloseAsync()
         {
-            _presenter.DetachView();
+            Unbind();
             return base.OnCloseAsync();
         }
 
@@ -57,6 +61,18 @@ namespace YevheniiKostenko.SwipyBall.Presentation.UI
         {
             _livesContainer.gameObject.SetActive(lives > 0);
             _livesAdapter.SetItemCount(lives);
+        }
+
+        private void Bind()
+        {
+            _pauseButton.OnButtonClick += () => PauseClick?.Invoke();
+            _presenter.AttachView(this); 
+        }
+
+        private void Unbind()
+        {
+            _pauseButton.OnButtonClick -= () => PauseClick?.Invoke();
+            _presenter.DetachView();
         }
     }
 }

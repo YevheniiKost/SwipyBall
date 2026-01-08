@@ -25,21 +25,22 @@ namespace YevheniiKostenko.SwipyBall.Application
         {
             _container = new Container();
             
-            UIRoot.Instance.Initialize(new MonoBehDependencyInjector(_container));
-            LevelRoot.Instance.Initialize(new MonoBehDependencyInjector(_container));
-            ITImeProvider timeProvider = UnityTimeProvider.Instance;
+            UIRoot.Instance.Initialize(new MonoBehDependencyInjector(container));
+            LevelRoot.Instance.Initialize(new MonoBehDependencyInjector(container));
+            ITimeProvider timeProvider = UnityTimeProvider.Instance;
             
-            _container.Bind<ITImeProvider>().ToInstance(timeProvider);
-            _container.Bind<IConfigProvider>().To<ConfigProvider>().AsSingleton();
+            container.Bind<ITimeProvider>().ToInstance(timeProvider);
+            container.Bind<IConfigProvider>().To<ConfigProvider>().AsSingleton();
             
             _container.Bind<IGameModel>().To<GameModel>().AsSingleton();
             _container.Bind<IInputModel>().To<InputModel>().AsSingleton();
 
-            _container.Bind<IUINavigation>().ToInstance(new UINavigation(UIRoot.Instance.UIManager));
-            _container.Bind<IInputPanelPresenter>().To<InputPanelPresenter>().AsTransient();
-            _container.Bind<IFinishGameWindowPresenter>().To<FinishGameWindowPresenter>().AsTransient();
-            _container.Bind<IGameScreenPresenter>().To<GameScreenPresenter>().AsTransient();
-            _container.Bind<IMainMenuPresenter>().To<MainMenuPresenter>().AsTransient();
+            container.Bind<IUINavigation>().ToInstance(new UINavigation(UIRoot.Instance.UIManager));
+            container.Bind<IInputPanelPresenter>().To<InputPanelPresenter>().AsTransient();
+            container.Bind<IFinishGameWindowPresenter>().To<FinishGameWindowPresenter>().AsTransient();
+            container.Bind<IGameScreenPresenter>().To<GameScreenPresenter>().AsTransient();
+            container.Bind<IMainMenuPresenter>().To<MainMenuPresenter>().AsTransient();
+            container.Bind<IPausePresenter>().To<PausePresenter>().AsTransient();
             
             _container.Bind<IPlayerFactory>().To<PlayerFactory>().AsSingleton();
             _container.Bind<ICollectableFactory>().To<CollectableFactory>().AsSingleton();

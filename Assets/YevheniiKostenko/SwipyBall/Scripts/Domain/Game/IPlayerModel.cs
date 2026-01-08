@@ -4,7 +4,7 @@ using YevheniiKostenko.SwipyBall.Core.Entities;
 
 namespace YevheniiKostenko.SwipyBall.Domain.Game
 {
-    public interface IPlayerModel
+    public interface IPlayerModel : IDisposable
     {
         Vector2 Position { get; }
         bool IsGrounded { get; }
@@ -16,11 +16,10 @@ namespace YevheniiKostenko.SwipyBall.Domain.Game
         event Action Landed;
         
         bool CanBeHit();
-        
-        void Swipe(float angle);
+
+        void Initialize();
         void SetGroundedState(bool isGrounded);
         void RegisterHit(int damage, Vector2 direction);
-        void Tick(float deltaTime);
         void Move(InputDirection direction);
     }
 }

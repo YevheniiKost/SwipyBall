@@ -21,7 +21,7 @@ namespace YevheniiKostenko.SwipyBall.Presentation.Game
         private UniTask _transitionTask = UniTask.CompletedTask;
 
         [Inject]
-        private void Construct(IGameStateMachine stateMachine, IUINavigation uiNavigation, ITImeProvider timeProvider,
+        private void Construct(IGameStateMachine stateMachine, IUINavigation uiNavigation, ITimeProvider timeProvider,
             IInputModel inputModel)
         {
             _gameStateMachine = stateMachine;

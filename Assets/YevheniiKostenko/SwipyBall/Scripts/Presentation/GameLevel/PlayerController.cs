@@ -1,43 +1,47 @@
 ﻿using System;
 using UnityEngine;
 using YevheniiKostenko.SwipyBall.Core.Entities;
+using YevheniiKostenko.SwipyBall.Core.Time;
 using YevheniiKostenko.SwipyBall.Domain.Game;
 using YevheniiKostenko.SwipyBall.Domain.Input;
 
 namespace YevheniiKostenko.SwipyBall.Presentation.GameLevel
 {
-    internal class PlayerController : IPlayerController
+    internal class PlayerController : IPlayerController, ITimeListener
     {
         private readonly IPlayerView _playerView;
         private readonly IInputModel _inputModel;
         private readonly IPlayerModel _playerModel;
         private readonly IGameModel _gameModel;
+        private readonly ITimeProvider _timeProvider;
         
         public PlayerController(IPlayerView playerView, IInputModel inputModel, IPlayerModel playerModel,
-            IGameModel gameModel)
+            IGameModel gameModel, ITimeProvider timeProvider)
         {
             _playerView = playerView;
             _inputModel = inputModel;
             _playerModel = playerModel;
             _gameModel = gameModel;
+            _timeProvider = timeProvider;
         }
 
         public void Initialize()
         {
-            _inputModel.Swipe += OnSwipe;
             _inputModel.DirectionInputDown += OnDirectionInputDown;
             
             _playerModel.Jumped += OnJumped;
             _playerModel.Pushed += OnPushed;
             _playerModel.Landed += OnLanded;
             _playerModel.Moved += OnMoved;
+            
+            _timeProvider.RegisterTimeListener(this);
+            _playerModel.Initialize();
         }
-
-        public void Tick(float deltaTime)
+        
+        public void Update(float deltaTime)
         {
             bool isGrounded = _playerView.IsGrounded(_playerModel.Config.GroundCheckDistance);
             _playerModel.SetGroundedState(isGrounded);
-            _playerModel.Tick(deltaTime);
         }
 
         public void InteractWithCollectable(ICollectable collectable)
@@ -57,22 +61,20 @@ namespace YevheniiKostenko.SwipyBall.Presentation.GameLevel
 
         public void Dispose()
         {
-            _inputModel.Swipe -= OnSwipe;
+            _inputModel.DirectionInputDown -= OnDirectionInputDown;
             
             _playerModel.Jumped -= OnJumped;
             _playerModel.Pushed -= OnPushed;
             _playerModel.Landed -= OnLanded;
             _playerModel.Moved -= OnMoved;
+            
+            _timeProvider.ClearTimeListener(this);
+            _playerModel.Dispose();
         }
 
         private void OnLanded()
         {
             _playerView.ShowLandedEffect();
-        }
-
-        private void OnSwipe(float angle)
-        {
-            _playerModel.Swipe(angle);
         }
         
         private void OnDirectionInputDown(InputDirection direction)

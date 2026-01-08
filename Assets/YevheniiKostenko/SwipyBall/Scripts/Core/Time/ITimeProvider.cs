@@ -1,8 +1,10 @@
 ﻿namespace YevheniiKostenko.SwipyBall.Core.Time
 {
-    public interface ITImeProvider
+    public interface ITimeProvider
     {
         void RegisterTimeListener(ITimeListener listener);
         void ClearTimeListener(ITimeListener listener);
+        
+        void SetTimeScale(float timeScale);
     }
 }
