@@ -1,15 +1,10 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-
-using YeKostenko.CoreKit.DI;
-
-using YevheniiKostenko.SwipyBall.Core.Entities;
 using YevheniiKostenko.SwipyBall.Domain.Game;
-using Logger = YeKostenko.CoreKit.Logging.Logger;
 
 namespace YevheniiKostenko.SwipyBall.Presentation.GameLevel
 {
-    public class GameLevelView : MonoBehaviour
+    public class GameLevelView : MonoBehaviour, IGameLevelView
     {
         [SerializeField]
         private Transform _spawnPoint;
@@ -17,42 +12,20 @@ namespace YevheniiKostenko.SwipyBall.Presentation.GameLevel
         private ExitPortal _exitPortal;
         
         private IPlayerView _playerInstance;
-        private IGameModel _gameModel;
         private IPlayerFactory _playerFactory;
+        private IGameLevelController _controller;
         
         private Dictionary<ICollectable, ICollectableView> _collectables = new();
-        
         private List<IActivatableView> _activatableViews = new();
-        
-        [Inject]
-        private void Construct(IGameModel gameModel, IPlayerFactory playerFactory)
+
+        public void Init(IGameLevelController controller, IPlayerFactory playerFactory)
         {
-            _gameModel = gameModel;
+            _controller = controller;
             _playerFactory = playerFactory;
             
-            _gameModel.GameEnded += OnGameEnded;
+            _controller.Initialize();
         }
         
-        public void OnGameStarted()
-        {
-            SpawnPlayer();
-
-            _exitPortal.OnExitPortalEntered += OnPlayerEnterPortal;
-            ActivateViews();
-        }
-        
-        private void OnGameEnded(bool isPlayerWon)
-        {
-            if (_playerInstance != null)
-            {
-                _playerInstance.Destroy();
-                _playerInstance = null;
-                TargetCamera.Instance.ResetCameraTarget();
-            }
-            
-            _exitPortal.OnExitPortalEntered -= OnPlayerEnterPortal;
-        }
-
         private void Start()
         {
             foreach (ICollectableView view in GetComponentsInChildren<ICollectableView>(true))
@@ -65,32 +38,35 @@ namespace YevheniiKostenko.SwipyBall.Presentation.GameLevel
             {
                 _activatableViews.Add(activatableView);
             }
+            
+            _exitPortal.OnEnter += OnEnterPortal;
         }
 
-        private void OnCollected(ICollectable collectable)
+        private void OnDestroy()
         {
-            if (_gameModel?.IsGameStarted == true)
-            {
-                if(collectable.Type == CollectableType.Coin)
-                    _gameModel.AddScore(collectable.Value);
-                else if(collectable.Type == CollectableType.Hp)
-                    _gameModel.AddHealth(collectable.Value);
-                
-                if (_collectables.TryGetValue(collectable, out ICollectableView view))
-                {
-                    view.Deactivate();
-                }
-            }
+            _exitPortal.OnEnter -= OnEnterPortal;
+            
+            _controller.Dispose(); 
+            _controller = null;
         }
-
-        private void SpawnPlayer()
+        
+        public void SpawnPlayer()
         {
             _playerInstance = _playerFactory.Create(_spawnPoint.position);
-
             TargetCamera.Instance.SetCameraTarget(_playerInstance.Transform);
         }
 
-        private void ActivateViews()
+        public void DestroyPlayer()
+        {
+            if (_playerInstance != null)
+            {
+                _playerInstance.Destroy();
+                _playerInstance = null;
+                TargetCamera.Instance.ResetCameraTarget();
+            }
+        }
+        
+        public void ActivateViews()
         {
             foreach (IActivatableView view in _activatableViews)
             {
@@ -98,16 +74,27 @@ namespace YevheniiKostenko.SwipyBall.Presentation.GameLevel
             }
         }
 
-        private void OnPlayerEnterPortal()
+        public void DeactivateCollectable(ICollectable collectable)
         {
-            try
+            if (_collectables.TryGetValue(collectable, out ICollectableView view))
             {
-                _gameModel?.PlayerReachGoal();
+                view.Deactivate();
             }
-            catch (System.Exception ex)
-            {
-                Logger.LogError($"Error while processing player entering portal: {ex}");
-            }
+        }
+
+        public void Destroy()
+        {
+            Destroy(gameObject);
+        }
+
+        private void OnCollected(ICollectable collectable)
+        {
+            _controller.RegisterCollectableInteraction(collectable);
+        }
+
+        private void OnEnterPortal()
+        {
+            _controller.RegisterPlayerReachedFinish();
         }
     }
 }

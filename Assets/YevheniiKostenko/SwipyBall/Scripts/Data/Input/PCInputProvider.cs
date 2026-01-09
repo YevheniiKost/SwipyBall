@@ -4,7 +4,7 @@ using YevheniiKostenko.SwipyBall.Core.Time;
 
 namespace YevheniiKostenko.SwipyBall.Data.Input
 {
-    public class PCInputProvider : IInputProvider, ITimeListener
+    public class PCInputProvider : IInputProvider, ITimeListener, IDisposable
     {
         private readonly ITimeProvider _timeProvider;
 
@@ -42,6 +42,11 @@ namespace YevheniiKostenko.SwipyBall.Data.Input
             {
                 DirectionInputUp?.Invoke(InputDirection.Right);
             }
+        }
+
+        public void Dispose()
+        {
+            _timeProvider.ClearTimeListener(this);
         }
     }
 }

@@ -2,6 +2,7 @@
 using YeKostenko.CoreKit.Logging;
 using YevheniiKostenko.SwipyBall.Core.Time;
 using YevheniiKostenko.SwipyBall.Data.Input;
+using YevheniiKostenko.SwipyBall.Domain.Game;
 using YevheniiKostenko.SwipyBall.Domain.GameStateMachine.States;
 using YevheniiKostenko.SwipyBall.Domain.Input;
 using YevheniiKostenko.SwipyBall.Presentation.GameLevel;
@@ -19,7 +20,9 @@ namespace YevheniiKostenko.SwipyBall.Presentation.Game
 
         private IPlayingState _state;
 
-        public PlayingStatePresenter(IUINavigation uiNavigation, ILevelRoot levelRoot, ITimeProvider timeProvider,
+        public PlayingStatePresenter(IUINavigation uiNavigation,
+            ILevelRoot levelRoot, 
+            ITimeProvider timeProvider,
             IInputModel inputModel)
         {
             _uiNavigation = uiNavigation;
@@ -32,7 +35,6 @@ namespace YevheniiKostenko.SwipyBall.Presentation.Game
         protected override async UniTask OnEnterAsync(IPlayingState state)
         {
             _state = state;
-            GameLevelView levelView = null;
             
             int levelIndex = state.CurrentLevelIndex;
             Logger.Log($"Level started: {levelIndex}");
@@ -40,17 +42,7 @@ namespace YevheniiKostenko.SwipyBall.Presentation.Game
             if (state.CurrentLevelIndex != _levelRoot.LoadedLevelIndex)
             {
                 _levelRoot.UnloadCurrentLevel();
-                levelView = await _levelRoot.LoadLevel(state.CurrentLevelIndex);
-            }
-            else
-            {
-                levelView = _levelRoot.LoadedLevelView;
-            }
-
-            //if we need to start game 
-            if (levelView != null)
-            {
-                levelView.OnGameStarted();
+                await _levelRoot.LoadLevel(state.CurrentLevelIndex);
             }
 
             _uiNavigation.OpenInputPanel();

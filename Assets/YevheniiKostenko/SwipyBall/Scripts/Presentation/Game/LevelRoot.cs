@@ -4,6 +4,7 @@ using Cysharp.Threading.Tasks;
 
 using YeKostenko.CoreKit.DI;
 using YevheniiKostenko.CoreKit.Utils;
+using YevheniiKostenko.SwipyBall.Domain.Game;
 using YevheniiKostenko.SwipyBall.Presentation.GameLevel;
 
 namespace YevheniiKostenko.SwipyBall.Presentation.Game
@@ -14,44 +15,45 @@ namespace YevheniiKostenko.SwipyBall.Presentation.Game
         [SerializeField]
         private Transform _levelRoot;
 
+        private ILevelFactory _levelFactory;
         private IDependencyInjector _dependencyInjector;
 
-        private int _levelIndex;
-        private GameLevelView _currentLevelInstance;
+        private int _levelIndex = -1;
+        private IGameLevelView _currentLevelInstance;
 
         public int LoadedLevelIndex => _levelIndex;
-        public GameLevelView LoadedLevelView => _currentLevelInstance;
-
+        
         public void Initialize(IDependencyInjector dependencyInjector)
         {
             _dependencyInjector = dependencyInjector;
         }
-
-        public async UniTask<GameLevelView> LoadLevel(int levelIndex)
+        
+        [Inject]
+        public void Construct(ILevelFactory levelFactory)
+        {
+            _levelFactory = levelFactory;
+        }
+        
+        public async UniTask<IGameLevelView> LoadLevel(int levelIndex)
         {
             if (levelIndex == _levelIndex && _currentLevelInstance != null)
             {
                 return null;
             }
 
-            if (_currentLevelInstance != null)
-            {
-                Destroy(_currentLevelInstance);
-            }
-            
+            UnloadCurrentLevel();
+
             try
             {
-                Object resource = await Resources.LoadAsync<GameObject>($"Levels/Level_{levelIndex}");
-                GameObject levelPrefab = resource as GameObject;
-                if(levelPrefab == null)
-                    throw new System.Exception();
+                IGameLevelView levelView = await _levelFactory.Create(levelIndex, _levelRoot);
                 
-                _currentLevelInstance = Instantiate(levelPrefab, _levelRoot).GetComponent<GameLevelView>();
+                _dependencyInjector.Inject(levelView);
+                _dependencyInjector.InjectIntoHierarchy(levelView);
+                
                 _levelIndex = levelIndex;
-                _dependencyInjector.Inject(_currentLevelInstance);
-                _dependencyInjector.InjectIntoHierarchy(_currentLevelInstance);
-
-                return _currentLevelInstance;
+                _currentLevelInstance = levelView;
+                
+                return levelView;
             }
             catch
             {
@@ -65,7 +67,7 @@ namespace YevheniiKostenko.SwipyBall.Presentation.Game
         {
             if (_currentLevelInstance != null)
             {
-                Destroy(_currentLevelInstance.gameObject);
+                _currentLevelInstance.Destroy();
                 _currentLevelInstance = null;
             }
         }

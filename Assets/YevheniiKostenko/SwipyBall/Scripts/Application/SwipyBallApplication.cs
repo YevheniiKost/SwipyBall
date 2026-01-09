@@ -56,6 +56,7 @@ namespace YevheniiKostenko.SwipyBall.Application
             _container.Bind<IPausePresenter>().To<PausePresenter>().AsTransient();
             
             _container.Bind<IPlayerFactory>().To<PlayerFactory>().AsSingleton();
+            _container.Bind<ILevelFactory>().To<LevelFactory>().AsSingleton();
             _container.Bind<ICollectableFactory>().To<CollectableFactory>().AsSingleton();
             _container.Bind<IDamageSourceFactory>().To<DamageSourceFactory>().AsSingleton();
             
