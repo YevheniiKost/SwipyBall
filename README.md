@@ -1,48 +1,43 @@
 # SwipyBall
 
-Educational hypercasual Unity project.
+Unity gameplay-focused project demonstrating production-level architecture, system design, and performance-aware development.
 
-## Project structure
-Root content lives in `Assets\YevheniiKostenko\SwipyBall`:
+## Overview
+This project is a 2D hypercasual platformer game built to explore scalable gameplay systems and clean Unity architecture.
+The goal is not content volume, but robust, extensible engineering solutions applicable to real production environments.
 
-- `Animations\` \- animation sets and animation steps assets.
-- `Audio\` \- sound effects (e.g., jump).
-- `Materials\` \- physics/material assets and VFX materials.
-- `Prefabs\` \- gameplay and UI prefabs:
-    - `Prefabs\Player.prefab` \- player prefab.
-    - `Prefabs\Level_Base.prefab` \- base level prefab.
-    - `Prefabs\Decor\`, `Prefabs\Enrvironment\`, `Prefabs\Interactables\`, `Prefabs\UI\`, `Prefabs\VFX\` \- categorized prefab groups.
-- `Resources\` \- resource\-loaded content:
-    - `Resources\Configs\` \- configuration assets.
-    - `Resources\Levels\` \- level data/assets.
-    - `Resources\UI\` \- UI resources.
-- `Scenes\` \- Unity scenes:
-    - `Scenes\GameScene.unity` \- main scene.
-- `Scripts\` \- source code (C\#), organized by layers:
-    - `Scripts\Application\`, `Scripts\Core\`, `Scripts\Data\`, `Scripts\Domain\`, `Scripts\Presentation\`.
+![Gameplay Demo](Media/gameplay_2.gif)
 
-## How to run
-1. Open the project in Unity.
-2. Open `Assets\YevheniiKostenko\SwipyBall\Scenes\GameScene.unity`.
-3. Press Play.
+## Techincal Stack
+- Unity 6000.0.58f
+- Language: C#
+- Architecture: modular, system-oriented design
+- Target: PC/Android/Web
 
-## Requirements
-- Unity: \[fill in version\]
-- Platforms: \[Windows/Android/iOS\]
-- Render pipeline: \[Built\-in/URP\]
-- Input: \[Legacy/New Input System\]
+## Architecture Notes
+Key principles used throughout the project:
+- separation of data, logic, and presentation
+- minimal dependencies between systems
+- systems designed for extension, not modification
+- avoidance of “God objects” and tightly coupled MonoBehaviours
+The project intentionally avoids quick hacks in favor of maintainable long-term solutions.
 
-## Gameplay
-- Goal: \[describe objective\]
-- Controls: \[swipe/drag/tap\]
-- Fail conditions: \[describe\]
+## Tooling & Debugging
+- custom editor tools for faster iteration
+- runtime debug overlays
+- configurable gameplay data via ScriptableObjects
 
-## Troubleshooting
-- If UI/levels do not load, verify assets exist under `Resources\...` and paths match code.
-- If nothing runs, ensure `GameScene.unity` is opened and required bootstrap objects exist in the scene.
+## Visuals
 
+![Gameplay Screenshot](Media/screenshot_1.png)
+![Main Menu Screenshot](Media/main_menu.png)
+![Gameplay Demo](Media/gameplay_1.gif)
 
-## Notes
-- Assets and code are organized under `Assets\YevheniiKostenko\SwipyBall` to keep project content isolated.
-- `Resources\` content is intended to be loaded at runtime via Unity `Resources` API.
+## Why This Project Exists
+This repository reflects how I approach Unity development:
+- engineering-first mindset
+- ownership of technical decisions
+- readiness for production-scale projects
 
+## Status
+Actively developed and refactored as a long-term systems playground.
