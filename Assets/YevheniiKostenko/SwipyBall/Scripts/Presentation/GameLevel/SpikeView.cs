@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using YeKostenko.CoreKit.DI;
 using YellowTape.AudioEngine;
 using YevheniiKostenko.SwipyBall.Domain.Game;
@@ -19,6 +18,7 @@ namespace YevheniiKostenko.SwipyBall.Presentation.GameLevel
         public void Construct(IDamageSourceFactory damageSourceFactory)
         {
             _model = damageSourceFactory.CreateSpike();
+            _model.Initialize();
         }
 
         private void OnCollisionEnter2D(Collision2D other)
@@ -31,10 +31,10 @@ namespace YevheniiKostenko.SwipyBall.Presentation.GameLevel
                 _hitSound.Play();
             }
         }
-
-        private void Update()
+        
+        private void OnDestroy()
         {
-            _model?.Tick(Time.deltaTime);
+            _model.Dispose();
         }
     }
 }

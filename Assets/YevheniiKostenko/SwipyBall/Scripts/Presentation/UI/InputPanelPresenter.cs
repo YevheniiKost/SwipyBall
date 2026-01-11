@@ -21,7 +21,12 @@ namespace YevheniiKostenko.SwipyBall.Presentation.UI
         
         public void AttachView(IInputPanelView view)
         {
-            _view = view;
+            if (_view != null)
+            {
+                throw new InvalidOperationException("View is already attached.");
+            }
+            
+            _view = view ?? throw new ArgumentNullException(nameof(view), "View cannot be null.");
             
             _inputModel.RegisterInputProvider(this);
             
@@ -37,7 +42,10 @@ namespace YevheniiKostenko.SwipyBall.Presentation.UI
 
         public void DetachView()
         {
-            if (_view == null) return;
+            if (_view == null)
+            {
+                return;
+            }
             
             _inputModel.ClearInputProvider(this);
             
@@ -73,6 +81,10 @@ namespace YevheniiKostenko.SwipyBall.Presentation.UI
                 _view?.SetLeftButtonPressedVisual(false);
             else if(direction == InputDirection.Right)
                 _view?.SetRightButtonPressedVisual(false);
+        }
+
+        public void Dispose()
+        {
         }
     }
 }

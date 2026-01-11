@@ -6,7 +6,6 @@ namespace YevheniiKostenko.SwipyBall.Domain.Input
 {
     internal class InputModel : IInputModel
     {
-        public event Action<float> Swipe;
         public event Action<InputDirection> DirectionInputDown;
         public event Action<InputDirection> DirectionInputUp;
 

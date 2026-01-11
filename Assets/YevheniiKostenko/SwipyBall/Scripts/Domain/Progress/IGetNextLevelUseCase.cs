@@ -1,4 +1,4 @@
-﻿namespace YevheniiKostenko.SwipyBall.Domain.Player
+﻿namespace YevheniiKostenko.SwipyBall.Domain.Progress
 {
     public interface IGetNextLevelUseCase
     {

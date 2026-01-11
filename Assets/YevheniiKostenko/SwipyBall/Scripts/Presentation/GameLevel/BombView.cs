@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using YeKostenko.CoreKit.DI;
 using YevheniiKostenko.SwipyBall.Domain.Game;
 using YevheniiKostenko.SwipyBall.Presentation.Vfx;
@@ -27,11 +26,7 @@ namespace YevheniiKostenko.SwipyBall.Presentation.GameLevel
         public void Construct(IDamageSourceFactory damageSourceFactory)
         {
             _model = damageSourceFactory.CreateBomb();
-        }
-
-        private void Update()
-        {
-            _model?.Tick(Time.deltaTime);
+            _model.Initialize();
         }
 
         private void OnCollisionEnter2D(Collision2D other)
@@ -43,6 +38,12 @@ namespace YevheniiKostenko.SwipyBall.Presentation.GameLevel
                     StartCountDown();
                 }
             }
+        }
+
+        private void OnDestroy()
+        {
+            _model.Dispose();
+            _model = null;
         }
 
         private void StartCountDown()

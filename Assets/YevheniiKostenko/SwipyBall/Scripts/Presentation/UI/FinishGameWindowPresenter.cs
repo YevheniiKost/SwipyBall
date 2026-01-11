@@ -1,30 +1,30 @@
 ﻿using YevheniiKostenko.SwipyBall.Core.Entities;
-using YevheniiKostenko.SwipyBall.Domain.Game;
 
 namespace YevheniiKostenko.SwipyBall.Presentation.UI
 {
     public class FinishGameWindowPresenter : IFinishGameWindowPresenter
     {
-        private readonly IGameModel _gameModel;
-        private readonly IUINavigation _uiNavigation;
-        
         private IFinishGameWindowView _view;
-
-        public FinishGameWindowPresenter(IGameModel gameModel, IUINavigation uiNavigation)
-        {
-            _gameModel = gameModel;
-            _uiNavigation = uiNavigation;
-        }
 
         public void AttachView(IFinishGameWindowView view)
         {
-            _view = view;
+            if (_view != null)
+            {
+                throw new System.InvalidOperationException("View is already attached.");
+            }
+
+            _view = view ?? throw new System.ArgumentNullException(nameof(view), "View cannot be null.");
 
             _view.Create += OnCreate;
         }
         
         public void DetachView()
         {
+            if (_view == null)
+            {
+                return;
+            }
+            
             _view.Create -= OnCreate;
             
             _view = null;

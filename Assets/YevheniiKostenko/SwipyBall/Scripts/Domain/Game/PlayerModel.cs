@@ -1,7 +1,8 @@
 ﻿using System;
 using UnityEngine;
+using YevheniiKostenko.CoreKit.Time;
 using YevheniiKostenko.SwipyBall.Core.Entities;
-using YevheniiKostenko.SwipyBall.Core.Time;
+using YevheniiKostenko.SwipyBall.Data.Config;
 
 namespace YevheniiKostenko.SwipyBall.Domain.Game
 {
@@ -12,7 +13,6 @@ namespace YevheniiKostenko.SwipyBall.Domain.Game
         
         private float _lastJumpTime;
         private float _lastHitTime;
-        private int _jumpCount = 0;
         private bool _isGrounded;
         
         public PlayerModel(PlayerConfig config, ITimeProvider timeProvider)
@@ -21,7 +21,6 @@ namespace YevheniiKostenko.SwipyBall.Domain.Game
             _timeProvider = timeProvider;
         }
 
-        public Vector2 Position { get; }
         public bool IsGrounded => _isGrounded;
         public PlayerConfig Config => _config;
 
@@ -80,7 +79,6 @@ namespace YevheniiKostenko.SwipyBall.Domain.Game
 
         private void OnLand()
         {
-            _jumpCount = 0;
             Landed?.Invoke();
         }
 
@@ -89,15 +87,8 @@ namespace YevheniiKostenko.SwipyBall.Domain.Game
             Vector2 jumpForceDirection = Vector2.up;
             jumpForceDirection *= _config.JumpForce; 
             
-            if (_jumpCount > 0)
-            {
-                // Decrease jump force for subsequent jumps
-                jumpForceDirection *= Mathf.Pow(_config.NextJumpDecreaseFactor, _jumpCount);
-            }
-
             Jumped?.Invoke(new PlayerForceMoveHandler(jumpForceDirection));
             
-            _jumpCount++;
             _lastJumpTime = Time.time;
         }
         
@@ -119,11 +110,6 @@ namespace YevheniiKostenko.SwipyBall.Domain.Game
                 return false;
 
             return _isGrounded;
-        }
-        
-        private bool CanJumpMore()
-        {
-            return _jumpCount <= _config.MaxJumpCount;
         }
     }
 }

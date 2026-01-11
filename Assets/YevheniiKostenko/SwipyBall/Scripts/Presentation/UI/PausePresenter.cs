@@ -1,5 +1,5 @@
 ﻿using System;
-using YevheniiKostenko.SwipyBall.Core.Time;
+using YevheniiKostenko.CoreKit.Time;
 
 namespace YevheniiKostenko.SwipyBall.Presentation.UI
 {
@@ -17,7 +17,12 @@ namespace YevheniiKostenko.SwipyBall.Presentation.UI
 
         public void AttachView(IPauseView view)
         {
-            _view = view ?? throw new ArgumentNullException(nameof(view));
+            if (_view != null)
+            {
+                throw new InvalidOperationException("View is already attached.");
+            }
+            
+            _view = view ?? throw new ArgumentNullException(nameof(view), "View cannot be null.");
             
             _view.Create += OnCreate;
             _view.GoToMenuClick += OnGoToMenuClick;
@@ -27,6 +32,11 @@ namespace YevheniiKostenko.SwipyBall.Presentation.UI
 
         public void DetachView()
         {
+            if (_view == null)
+            {
+                return;
+            }
+            
             _view.Create -= OnCreate;
             _view.GoToMenuClick -= OnGoToMenuClick;
             _view.ResumeClick -= OnResumeClick;

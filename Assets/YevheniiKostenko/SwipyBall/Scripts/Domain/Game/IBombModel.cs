@@ -2,7 +2,7 @@
 
 namespace YevheniiKostenko.SwipyBall.Domain.Game
 {
-    public interface IBombModel : IDamageSource
+    public interface IBombModel : IDamageSource, IDisposable
     {
         float ExplosionRadius { get; }
         float TimeToExplosion { get; }
@@ -10,7 +10,7 @@ namespace YevheniiKostenko.SwipyBall.Domain.Game
         
         event Action Exploded;
         
+        void Initialize();
         bool RegisterHit();
-        void Tick(float deltaTime);
     }
 }

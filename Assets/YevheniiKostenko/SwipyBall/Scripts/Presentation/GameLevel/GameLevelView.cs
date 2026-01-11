@@ -2,6 +2,8 @@
 using UnityEngine;
 using YevheniiKostenko.SwipyBall.Domain.Game;
 
+using Logger = YeKostenko.CoreKit.Logging.Logger;
+
 namespace YevheniiKostenko.SwipyBall.Presentation.GameLevel
 {
     public class GameLevelView : MonoBehaviour, IGameLevelView

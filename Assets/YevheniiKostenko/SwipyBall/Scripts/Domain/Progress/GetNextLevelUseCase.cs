@@ -2,7 +2,7 @@
 using YevheniiKostenko.SwipyBall.Data.Config;
 using YevheniiKostenko.SwipyBall.Data.Progress;
 
-namespace YevheniiKostenko.SwipyBall.Domain.Player
+namespace YevheniiKostenko.SwipyBall.Domain.Progress
 {
     public class GetNextLevelUseCase : IGetNextLevelUseCase
     {
@@ -20,7 +20,7 @@ namespace YevheniiKostenko.SwipyBall.Domain.Player
             _progressStorage.Init();
             
             GameLevelsConfig levelsConfig = _configProvider.GetLevelsConfig();
-            PlayerProgress progress = _progressStorage.Progress;
+            Core.Entities.PlayerProgress progress = _progressStorage.Progress;
             
             int highestCompletedLevel = 0;
             foreach (var levelConfig in levelsConfig.LevelConfigs)

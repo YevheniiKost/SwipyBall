@@ -1,6 +1,6 @@
 ﻿using Cysharp.Threading.Tasks;
 using YeKostenko.CoreKit.Logging;
-using YevheniiKostenko.SwipyBall.Core.Time;
+using YevheniiKostenko.CoreKit.Time;
 using YevheniiKostenko.SwipyBall.Data.Input;
 using YevheniiKostenko.SwipyBall.Domain.Game;
 using YevheniiKostenko.SwipyBall.Domain.GameStateMachine.States;

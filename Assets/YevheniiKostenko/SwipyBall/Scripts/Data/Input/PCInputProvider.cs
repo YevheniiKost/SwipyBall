@@ -1,6 +1,6 @@
 ﻿using System;
+using YevheniiKostenko.CoreKit.Time;
 using YevheniiKostenko.SwipyBall.Core.Entities;
-using YevheniiKostenko.SwipyBall.Core.Time;
 
 namespace YevheniiKostenko.SwipyBall.Data.Input
 {

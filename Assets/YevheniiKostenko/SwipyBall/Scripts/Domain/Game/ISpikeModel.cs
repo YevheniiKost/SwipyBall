@@ -1,10 +1,12 @@
-﻿namespace YevheniiKostenko.SwipyBall.Domain.Game
+﻿using System;
+
+namespace YevheniiKostenko.SwipyBall.Domain.Game
 {
-    public interface ISpikeModel : IDamageSource
+    public interface ISpikeModel : IDamageSource, IDisposable
     {
         bool CanHit { get; }
         
-        void Tick(float deltaTime);
+        void Initialize();
         void RegisterHit();
     }
 }

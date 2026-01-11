@@ -1,9 +1,11 @@
 ﻿using System;
+using YevheniiKostenko.CoreKit.Time;
 
 namespace YevheniiKostenko.SwipyBall.Domain.Game
 {
-    public class BombModel : IBombModel
+    public class BombModel : IBombModel, ITimeListener
     {
+        private readonly ITimeProvider _timeProvider;
         private readonly int _damage;
         private readonly float _explosionRadius;
         private readonly float _explosionDelay;
@@ -11,7 +13,7 @@ namespace YevheniiKostenko.SwipyBall.Domain.Game
         private float _timeToExplosion;
         private bool _isTicking;
 
-        public BombModel(int damage, float explosionRadius, float explosionDelay)
+        public BombModel(int damage, float explosionRadius, float explosionDelay, ITimeProvider timeProvider)
         {
             _damage = damage;
             _explosionRadius = explosionRadius;
@@ -19,6 +21,7 @@ namespace YevheniiKostenko.SwipyBall.Domain.Game
             
             _timeToExplosion = 0f;
             _isTicking = false;
+            _timeProvider = timeProvider;
         }
 
         public int Damage => _damage;
@@ -28,6 +31,11 @@ namespace YevheniiKostenko.SwipyBall.Domain.Game
         public float ExplosionDelay => _explosionDelay;
 
         public event Action Exploded;
+
+        public void Initialize()
+        {
+            _timeProvider.RegisterTimeListener(this);
+        }
 
         public bool RegisterHit()
         {
@@ -40,8 +48,8 @@ namespace YevheniiKostenko.SwipyBall.Domain.Game
             
             return false;
         }
-
-        public void Tick(float deltaTime)
+        
+        public void Update(float deltaTime)
         {
             if (_isTicking)
             {
@@ -53,6 +61,11 @@ namespace YevheniiKostenko.SwipyBall.Domain.Game
                     _timeToExplosion = 0f;
                 }
             }
+        }
+
+        public void Dispose()
+        {
+            _timeProvider.ClearTimeListener(this);
         }
     }
 }

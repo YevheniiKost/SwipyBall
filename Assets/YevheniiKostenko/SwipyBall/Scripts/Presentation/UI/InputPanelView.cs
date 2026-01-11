@@ -99,13 +99,5 @@ namespace YevheniiKostenko.SwipyBall.Presentation.UI
         private void OnLeftButton() => LeftButton?.Invoke();
         private void OnRightButtonUp() => RightButtonUp?.Invoke();
         private void OnLeftButtonUp() => LeftButtonUp?.Invoke();
-
-        private void FadeButton(Image image, bool isPressed)
-        {
-            Color target = isPressed ? _pressedColor : _unpressedColor;
-
-            float t = 1f - Mathf.Exp(-_fadeSpeed * Time.deltaTime);
-            image.color = Color.Lerp(image.color, target, t);
-        }
     }
 }

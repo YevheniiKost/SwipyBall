@@ -5,7 +5,7 @@ using YeKostenko.CoreKit.App;
 using YeKostenko.CoreKit.Scripts.Saving;
 using YeKostenko.CoreKit.UI;
 
-using YevheniiKostenko.SwipyBall.Core.Time;
+using YevheniiKostenko.CoreKit.Time;
 using YevheniiKostenko.SwipyBall.Data.Config;
 using YevheniiKostenko.SwipyBall.Domain.Game;
 using YevheniiKostenko.SwipyBall.Domain.GameStateMachine;
@@ -17,7 +17,7 @@ using YevheniiKostenko.SwipyBall.Presentation.UI;
 using YevheniiKostenko.SwipyBall.Domain.Input;
 using YevheniiKostenko.SwipyBall.Presentation.Game;
 using YevheniiKostenko.SwipyBall.Data.Progress;
-using YevheniiKostenko.SwipyBall.Domain.Player;
+using YevheniiKostenko.SwipyBall.Domain.Progress;
 
 namespace YevheniiKostenko.SwipyBall.Application
 {
@@ -73,9 +73,17 @@ namespace YevheniiKostenko.SwipyBall.Application
 
         protected override void OnAppStart()
         {
-            _container.InjectIntoAllSceneMonos();
-            _gameStateMachine.ChangeState<BootState>();
-            base.OnAppStart();
+            try
+            {
+                _container.InjectIntoAllSceneMonos();
+                _gameStateMachine.ChangeState<BootState>();
+                base.OnAppStart();
+            }
+            catch (System.Exception e)
+            {
+                UnityEngine.Debug.LogError($"Application start failed: {e}");
+                throw;
+            }
         }
 
         protected override void OnAppDestroy()
