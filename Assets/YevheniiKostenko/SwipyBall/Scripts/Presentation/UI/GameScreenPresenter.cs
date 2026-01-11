@@ -6,7 +6,7 @@ namespace YevheniiKostenko.SwipyBall.Presentation.UI
     {
         private readonly IGameModel _gameModel;
 
-        private IGameScreenView _gameScreenView;
+        private IGameScreenView _view;
         private GameScreenUIContext _gameScreenUIContext;
 
         public GameScreenPresenter(IGameModel gameModel)
@@ -16,10 +16,15 @@ namespace YevheniiKostenko.SwipyBall.Presentation.UI
 
         public void AttachView(IGameScreenView view)
         {
-            _gameScreenView = view;
+            if (_view != null)
+            {
+                throw new System.InvalidOperationException("View is already attached.");
+            }
+            
+            _view = view ?? throw new System.ArgumentNullException(nameof(view), "View cannot be null.");
 
-            _gameScreenView.Create += OnCreate;
-            _gameScreenView.PauseClick += OnPauseClick;
+            _view.Create += OnCreate;
+            _view.PauseClick += OnPauseClick;
             
             _gameModel.LivesUpdated += OnLivesUpdated;
             _gameModel.GameStarted += OnLivesUpdated;
@@ -27,10 +32,15 @@ namespace YevheniiKostenko.SwipyBall.Presentation.UI
 
         public void DetachView()
         {
-            _gameScreenView.Create -= OnCreate;
-            _gameScreenView.PauseClick -= OnPauseClick;
+            if (_view == null)
+            {
+                return;
+            }
             
-            _gameScreenView = null;
+            _view.Create -= OnCreate;
+            _view.PauseClick -= OnPauseClick;
+            
+            _view = null;
             _gameModel.LivesUpdated -= OnLivesUpdated;
             _gameModel.GameStarted -= OnLivesUpdated;
         }
@@ -43,12 +53,12 @@ namespace YevheniiKostenko.SwipyBall.Presentation.UI
         private void OnCreate(GameScreenUIContext gameScreenUIContext)
         {
             _gameScreenUIContext = gameScreenUIContext;
-            _gameScreenView.UpdateLives(_gameModel.Lives, _gameModel.MaxLives);
+            _view.UpdateLives(_gameModel.Lives, _gameModel.MaxLives);
         }
 
         private void OnLivesUpdated()
         {
-            _gameScreenView?.UpdateLives(_gameModel.Lives, _gameModel.MaxLives);
+            _view?.UpdateLives(_gameModel.Lives, _gameModel.MaxLives);
         }
     }
 }

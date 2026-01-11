@@ -1,9 +1,12 @@
 ﻿using System;
+
 using UnityEngine;
+
 using YevheniiKostenko.SwipyBall.Core.Entities;
-using YevheniiKostenko.SwipyBall.Core.Time;
+using YevheniiKostenko.CoreKit.Time;
 using YevheniiKostenko.SwipyBall.Domain.Game;
 using YevheniiKostenko.SwipyBall.Domain.Input;
+
 using Logger = YeKostenko.CoreKit.Logging.Logger;
 
 namespace YevheniiKostenko.SwipyBall.Presentation.GameLevel

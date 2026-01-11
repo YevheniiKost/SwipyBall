@@ -5,9 +5,9 @@ namespace YevheniiKostenko.SwipyBall.Presentation.UI
 {
     public class PauseUIContext : IUIContext
     {
-        public Action GoToMenuClicked { get; }
-        public Action ResumeClicked { get; }
-        public Action RestartClicked { get; }
+        public readonly Action GoToMenuClicked;
+        public readonly Action ResumeClicked;
+        public readonly Action RestartClicked;
         
         public PauseUIContext(Action goToMenuClicked, Action resumeClicked, Action restartClicked)
         {

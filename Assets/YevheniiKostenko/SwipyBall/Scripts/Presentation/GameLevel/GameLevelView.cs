@@ -5,6 +5,7 @@ using YeKostenko.CoreKit.DI;
 
 using YevheniiKostenko.SwipyBall.Core.Entities;
 using YevheniiKostenko.SwipyBall.Domain.Game;
+
 using Logger = YeKostenko.CoreKit.Logging.Logger;
 
 namespace YevheniiKostenko.SwipyBall.Presentation.GameLevel

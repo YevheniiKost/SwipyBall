@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using YevheniiKostenko.CoreKit.Utils;
 
 namespace YevheniiKostenko.SwipyBall.Presentation.Vfx
 {
-    public class VfxManager : MonoBehaviour
+    public class VfxManager : SingletonMonoBehaviour<VfxManager>
     {
         [SerializeField]
         private Transform _vfxRoot;
@@ -13,18 +14,11 @@ namespace YevheniiKostenko.SwipyBall.Presentation.Vfx
 
         private Dictionary<VfxType, Queue<GameObject>> _pools;
         private Dictionary<VfxType, GameObject> _prefabs;
-        
-        public static VfxManager Instance { get; private set; }
 
-        private void Awake()
+        protected override void Awake()
         {
-            if (Instance != null && Instance != this)
-            {
-                Destroy(gameObject);
-                return;
-            }
-
-            Instance = this;
+            base.Awake();
+            
             InitPools();
         }
 

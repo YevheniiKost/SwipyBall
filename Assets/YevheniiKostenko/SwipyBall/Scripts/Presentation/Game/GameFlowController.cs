@@ -1,11 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+
 using Cysharp.Threading.Tasks;
+
 using UnityEngine;
+
 using YeKostenko.CoreKit.DI;
-using YevheniiKostenko.SwipyBall.Core.Time;
+
+using YevheniiKostenko.CoreKit.Time;
 using YevheniiKostenko.SwipyBall.Domain.GameStateMachine;
-using YevheniiKostenko.SwipyBall.Domain.GameStateMachine.States;
 using YevheniiKostenko.SwipyBall.Domain.Input;
 
 namespace YevheniiKostenko.SwipyBall.Presentation.Game

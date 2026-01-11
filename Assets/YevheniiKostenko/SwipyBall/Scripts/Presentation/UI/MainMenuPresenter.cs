@@ -1,6 +1,5 @@
 ﻿using YevheniiKostenko.SwipyBall.Data.Config;
-using YevheniiKostenko.SwipyBall.Data.Progress;
-using YevheniiKostenko.SwipyBall.Domain.Player;
+using YevheniiKostenko.SwipyBall.Domain.Progress;
 
 namespace YevheniiKostenko.SwipyBall.Presentation.UI
 {
@@ -21,7 +20,12 @@ namespace YevheniiKostenko.SwipyBall.Presentation.UI
 
         public void AttachView(IMainMenuView view)
         {
-            _view = view ?? throw new System.ArgumentNullException(nameof(view));
+            if (_view != null)
+            {
+                throw new System.InvalidOperationException("View is already attached.");
+            }
+            
+            _view = view ?? throw new System.ArgumentNullException(nameof(view), "View cannot be null.");
 
             _view.Create += OnCreate;
             _view.PlayButtonClick += OnPlayButtonClick;
@@ -32,7 +36,10 @@ namespace YevheniiKostenko.SwipyBall.Presentation.UI
 
         public void DetachView()
         {
-            if (_view == null) return;
+            if (_view == null)
+            {
+                return;
+            }
 
             _view.Create -= OnCreate;
             _view.PlayButtonClick -= OnPlayButtonClick;

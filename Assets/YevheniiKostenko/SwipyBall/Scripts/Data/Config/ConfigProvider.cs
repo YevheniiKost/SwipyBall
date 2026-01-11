@@ -23,9 +23,7 @@ namespace YevheniiKostenko.SwipyBall.Data.Config
                 _globalGameConfig.JumpForce,
                 _globalGameConfig.PushForce,
                 _globalGameConfig.HitPushForce,
-                _globalGameConfig.GroundCheckDistance,
-                _globalGameConfig.MaxJumpCount,
-                _globalGameConfig.NextJumpDecreaseFactor);
+                _globalGameConfig.GroundCheckDistance);
         }
 
         public GameConfig GetGameConfig()

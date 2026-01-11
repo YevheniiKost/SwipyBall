@@ -1,8 +1,5 @@
 ﻿using YeKostenko.CoreKit.StateMachine;
-
-using YevheniiKostenko.SwipyBall.Data.Config;
-using YevheniiKostenko.SwipyBall.Data.Progress;
-using YevheniiKostenko.SwipyBall.Domain.Player;
+using YevheniiKostenko.SwipyBall.Domain.Progress;
 
 namespace YevheniiKostenko.SwipyBall.Domain.GameStateMachine.States
 {

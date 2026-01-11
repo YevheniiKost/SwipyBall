@@ -1,5 +1,4 @@
 ﻿using Cysharp.Threading.Tasks;
-
 using YevheniiKostenko.SwipyBall.Presentation.GameLevel;
 
 namespace YevheniiKostenko.SwipyBall.Presentation.Game

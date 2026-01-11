@@ -1,12 +1,12 @@
 ﻿using System;
 using UnityEngine;
 using YevheniiKostenko.SwipyBall.Core.Entities;
+using YevheniiKostenko.SwipyBall.Data.Config;
 
 namespace YevheniiKostenko.SwipyBall.Domain.Game
 {
     public interface IPlayerModel : IDisposable
     {
-        Vector2 Position { get; }
         bool IsGrounded { get; }
         PlayerConfig Config { get; }
 
