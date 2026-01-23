@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
+
+using YeKostenko.AudioEngine;
 using YeKostenko.CoreKit.DI;
-using YellowTape.AudioEngine;
 using YevheniiKostenko.SwipyBall.Domain.Game;
 
 namespace YevheniiKostenko.SwipyBall.Presentation.GameLevel
@@ -8,10 +9,10 @@ namespace YevheniiKostenko.SwipyBall.Presentation.GameLevel
     public class SpikeView : MonoBehaviour, IDamageSourceView
     {
         [SerializeField]
-        private SoundComponent _hitSound;
-        
+        private SoundComponent2D _hitSound;
+
         private ISpikeModel _model;
-        
+
         public IDamageSource DamageSource  => _model;
 
         [Inject]
@@ -23,7 +24,7 @@ namespace YevheniiKostenko.SwipyBall.Presentation.GameLevel
 
         private void OnCollisionEnter2D(Collision2D other)
         {
-            if (other.collider.TryGetComponent<IPlayerView>(out var player) && _model.CanHit)
+            if (other.collider.TryGetComponent<IPlayerView>(out IPlayerView player) && _model.CanHit)
             {
                 Vector2 hitDirection = (transform.position - player.Transform.position).normalized;
                 player.Hit(_model.Damage, hitDirection);
@@ -31,10 +32,7 @@ namespace YevheniiKostenko.SwipyBall.Presentation.GameLevel
                 _hitSound.Play();
             }
         }
-        
-        private void OnDestroy()
-        {
-            _model.Dispose();
-        }
+
+        private void OnDestroy() => _model.Dispose();
     }
 }

@@ -18,8 +18,8 @@ namespace YevheniiKostenko.SwipyBall.Presentation.UI
         [SerializeField]
         private PointerArea _leftButton;
         [SerializeField]
-        private PointerArea _rightButton;  
-        
+        private PointerArea _rightButton;
+
         [Header("Visuals")]
         [SerializeField]
         private Image _leftButtonImage;
@@ -31,12 +31,12 @@ namespace YevheniiKostenko.SwipyBall.Presentation.UI
         private Color _unpressedColor;
         [SerializeField, Min(0.01f)]
         private float _fadeSpeed = 12f;
-        
+
         private IInputPanelPresenter _inputPanelPresenter;
-        
+
         private Tween _leftButtonTween;
         private Tween _rightButtonTween;
-        
+
         public event Action<float> OnSwipe;
         public event Action LeftButtonUp;
         public event Action LeftButton;
@@ -47,12 +47,12 @@ namespace YevheniiKostenko.SwipyBall.Presentation.UI
         public void Construct(IInputPanelPresenter presenter)
         {
             _swipeDetector.OnSwipe += SwipeHandler;
-            
+
             _leftButton.OnPointerEvent += OnLeftButton;
             _leftButton.OnPointerUpEvent += OnLeftButtonUp;
             _rightButton.OnPointerEvent += OnRightButton;
             _rightButton.OnPointerUpEvent += OnRightButtonUp;
-            
+
             _inputPanelPresenter = presenter;
             _inputPanelPresenter.AttachView(this);
         }
@@ -64,16 +64,16 @@ namespace YevheniiKostenko.SwipyBall.Presentation.UI
                 _inputPanelPresenter.DetachView();
                 _inputPanelPresenter = null;
             }
-            
+
             _swipeDetector.OnSwipe -= SwipeHandler;
             _leftButton.OnPointerEvent -= OnLeftButton;
             _leftButton.OnPointerUpEvent -= OnLeftButtonUp;
             _rightButton.OnPointerEvent -= OnRightButton;
             _rightButton.OnPointerUpEvent -= OnRightButtonUp;
-            
+
             return base.OnCloseAsync();
         }
-        
+
         public void SetLeftButtonPressedVisual(bool isPressed)
         {
             Color color = isPressed ? _pressedColor : _unpressedColor;
@@ -89,12 +89,9 @@ namespace YevheniiKostenko.SwipyBall.Presentation.UI
             _rightButtonTween = _rightButtonImage.DOColor(color, 0.1f);
             _rightButtonTween.onComplete = () => _rightButtonTween = null;
         }
-        
-        private void SwipeHandler(float angle)
-        {
-            OnSwipe?.Invoke(angle);
-        }
-        
+
+        private void SwipeHandler(float angle) => OnSwipe?.Invoke(angle);
+
         private void OnRightButton() => RightButton?.Invoke();
         private void OnLeftButton() => LeftButton?.Invoke();
         private void OnRightButtonUp() => RightButtonUp?.Invoke();

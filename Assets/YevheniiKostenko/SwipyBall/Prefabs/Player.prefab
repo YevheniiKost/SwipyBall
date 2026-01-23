@@ -133,7 +133,6 @@ GameObject:
   - component: {fileID: 6874038855020889486}
   - component: {fileID: 1888853604188423410}
   - component: {fileID: 1882688226206411912}
-  - component: {fileID: 1455097086579111800}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -156,6 +155,7 @@ Transform:
   m_Children:
   - {fileID: 6916872269759406138}
   - {fileID: 6360447482313914730}
+  - {fileID: 2797222493386851468}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &9223092588279979385
@@ -293,22 +293,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   _animator: {fileID: 6825047306507410365}
-  _multiSoundComponent: {fileID: 1455097086579111800}
---- !u!114 &1455097086579111800
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5348968077799727659}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d8c3b0e22334e02b4e3fc636d26a535, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SoundComponentEntities:
-  - SoundType: 2
-    Name: jump
+  _playerSounds: {fileID: 1447589249658209630}
 --- !u!1 &5654162971490645709
 GameObject:
   m_ObjectHideFlags: 0
@@ -457,6 +442,70 @@ TrailRenderer:
   m_Autodestruct: 0
   m_Emitting: 1
   m_ApplyActiveColorSpace: 1
+--- !u!1 &6042274193757706276
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2797222493386851468}
+  - component: {fileID: 1447589249658209630}
+  - component: {fileID: 1562652818121405544}
+  m_Layer: 0
+  m_Name: Player Sound
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2797222493386851468
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6042274193757706276}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3590506858609486925}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1447589249658209630
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6042274193757706276}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdf168bac61540349191ddfe3df3e989, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _jumpSound: {fileID: 1562652818121405544}
+--- !u!114 &1562652818121405544
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6042274193757706276}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f06c1bee9d54eadbaad3b2a9693abc1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _audioEvent: {fileID: 11400000, guid: 18d1d88812262694e972472a58c47ef8, type: 2}
+  _playOnStart: 0
+  _volumeMultiplier: 1
+  _pitchMultiplier: 1
+  _delay: 0
+  _priority: -1
 --- !u!1 &9035079612227625524
 GameObject:
   m_ObjectHideFlags: 0

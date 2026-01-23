@@ -1,0 +1,46 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afdda9d903ce4720b9fe2b0ca799e709, type: 3}
+  m_Name: HitAudioEvent
+  m_EditorClassIdentifier: 
+  _clips:
+  - {fileID: 8300000, guid: 14492a485be187741af8be17d97aeb4b, type: 3}
+  - {fileID: 8300000, guid: a559f503f66b6604ea37cb246bd32f4f, type: 3}
+  _soundBus: 3
+  _mixerRoute:
+    _output: {fileID: 0}
+    _snapshot: {fileID: 0}
+  _cooldown: 1
+  _volumeMin: 1
+  _volumeMax: 1
+  _pitchMax: 1.0272727
+  _pitchMin: 0.9818182
+  _loop: 0
+  _maxVoices: 0
+  _fadeSettings:
+    _mode: 0
+    _in: 0
+    _out: 0
+  _spatialSettings:
+    _mode: 0
+    _spatialBlend: 0
+    _minDistance: 0.5
+    _maxDistance: 20
+    _rolloff: 0
+    _dopplerLevel: 0
+    _spread: 0
+  _prioritySettings:
+    _priority: 256
+    _steal: 0
+    _isCritical: 0
+    _minLifetime: 0.5
+  _debugName: 

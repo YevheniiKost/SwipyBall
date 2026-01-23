@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4ba6162fd0b45d4a4d5680480cf734d, type: 3}
+  m_Name: SoundSettings
+  m_EditorClassIdentifier: 
+  _prewarmSources: 10
+  _masterGroup: {fileID: 24300002, guid: b1de8e7771e9db746b8e02c96eb28082, type: 2}
+  _defaultSfxGroup: {fileID: -2980932358157563002, guid: b1de8e7771e9db746b8e02c96eb28082, type: 2}
+  _defaultUiGroup: {fileID: 6308434651724371779, guid: b1de8e7771e9db746b8e02c96eb28082, type: 2}
+  _defaultAmbienceGroup: {fileID: 5213486687548514994, guid: b1de8e7771e9db746b8e02c96eb28082, type: 2}
+  _defaultVoiceGroup: {fileID: -2722749919301544191, guid: b1de8e7771e9db746b8e02c96eb28082, type: 2}
+  _defaultMusicGroup: {fileID: 6992801463660439498, guid: b1de8e7771e9db746b8e02c96eb28082, type: 2}
+  _defaultMusicFade: 0.35
+  _defaultMusicCrossfade: 2

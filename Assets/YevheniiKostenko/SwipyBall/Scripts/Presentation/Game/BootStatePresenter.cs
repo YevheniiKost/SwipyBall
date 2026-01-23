@@ -1,6 +1,6 @@
 ﻿using Cysharp.Threading.Tasks;
-using YellowTape.AudioEngine;
 using YevheniiKostenko.SwipyBall.Domain.GameStateMachine.States;
+using YevheniiKostenko.SwipyBall.Presentation.Audio;
 
 namespace YevheniiKostenko.SwipyBall.Presentation.Game
 {
@@ -9,8 +9,8 @@ namespace YevheniiKostenko.SwipyBall.Presentation.Game
         protected override async UniTask OnEnterAsync(IBootState state)
         {
             await UniTask.Delay(100);
-            MyAudio.Engine.PlayClip(SoundType.Background, "clip_1", true);
-            // Implement boot state enter logic here
+
+            Music.Instance.Play();
         }
 
         protected override UniTask OnExitAsync(IBootState state)

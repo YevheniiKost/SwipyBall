@@ -34,7 +34,7 @@ namespace YevheniiKostenko.SwipyBall.Presentation.GameLevel
                     _gameModel.AddScore(collectable.Value);
                 else if(collectable.Type == CollectableType.Hp)
                     _gameModel.AddHealth(collectable.Value);
-                
+
                 _levelView.DeactivateCollectable(collectable);
             }
         }
@@ -58,6 +58,8 @@ namespace YevheniiKostenko.SwipyBall.Presentation.GameLevel
         {
             _gameModel.GameStarted -= OnGameStarted;
             _gameModel.GameEnded -= OnGameEnded;
+
+            _levelView.DestroyPlayer();
         }
 
         private void OnGameStarted()

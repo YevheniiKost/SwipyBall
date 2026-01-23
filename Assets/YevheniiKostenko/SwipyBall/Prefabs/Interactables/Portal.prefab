@@ -128,6 +128,7 @@ GameObject:
   - component: {fileID: 5879158645146411647}
   - component: {fileID: 4472230607820616826}
   - component: {fileID: 1905587550609326706}
+  - component: {fileID: 3094629611951126506}
   m_Layer: 0
   m_Name: Portal
   m_TagString: Untagged
@@ -255,6 +256,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed107b007ad94e478cfebb666927b0d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _enterSound: {fileID: 3094629611951126506}
+--- !u!114 &3094629611951126506
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3559476499079891313}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f06c1bee9d54eadbaad3b2a9693abc1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _audioEvent: {fileID: 11400000, guid: 7c2ccba42d0ce564f8167a885b1d59ad, type: 2}
+  _playOnStart: 0
+  _volumeMultiplier: 1
+  _pitchMultiplier: 1
+  _delay: 0
+  _priority: -1
 --- !u!1 &3579852748716647720
 GameObject:
   m_ObjectHideFlags: 0

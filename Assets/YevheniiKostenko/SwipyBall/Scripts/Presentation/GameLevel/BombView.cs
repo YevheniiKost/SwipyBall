@@ -1,4 +1,6 @@
 ﻿using UnityEngine;
+
+using YeKostenko.AudioEngine;
 using YeKostenko.CoreKit.DI;
 using YevheniiKostenko.SwipyBall.Domain.Game;
 using YevheniiKostenko.SwipyBall.Presentation.Vfx;
@@ -17,11 +19,17 @@ namespace YevheniiKostenko.SwipyBall.Presentation.GameLevel
 
         [SerializeField]
         private Sprite _fusedSprite;
-        
+
+        [SerializeField]
+        private SoundComponent2D _explosionSound;
+        [SerializeField]
+        private SoundComponent2D _tickSound;
+
         private IBombModel _model;
-        
+        private PlayHandle _tickHandle;
+
         public IDamageSource DamageSource => _model;
-        
+
         [Inject]
         public void Construct(IDamageSourceFactory damageSourceFactory)
         {
@@ -48,6 +56,7 @@ namespace YevheniiKostenko.SwipyBall.Presentation.GameLevel
 
         private void StartCountDown()
         {
+            _tickHandle = _tickSound.Play();
             _model.Exploded += OnExploded;
             _spriteRenderer.sprite = _fusedSprite;
         }
@@ -56,8 +65,10 @@ namespace YevheniiKostenko.SwipyBall.Presentation.GameLevel
         {
             VfxManager.Instance.Play(VfxType.BombExplosion, transform.position);
             _animator.PlayExplosion(_model.ExplosionRadius, Deactivate);
+            _tickHandle.Stop();
+            _explosionSound.Play();
             _model.Exploded -= OnExploded;
-            
+
             Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, _model.ExplosionRadius);
             foreach (var collider in colliders)
             {

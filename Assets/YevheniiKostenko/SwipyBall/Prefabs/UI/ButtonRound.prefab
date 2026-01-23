@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5546036977979028424}
   - component: {fileID: 5546036977979028427}
   - component: {fileID: 5918470891068672529}
+  - component: {fileID: 1559982349422882106}
   m_Layer: 5
   m_Name: ButtonRound
   m_TagString: Untagged
@@ -135,6 +136,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _button: {fileID: 5546036977979028427}
+  _soundComponent: {fileID: 1559982349422882106}
+--- !u!114 &1559982349422882106
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5546036977979028429}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f06c1bee9d54eadbaad3b2a9693abc1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _audioEvent: {fileID: 11400000, guid: 813703427a278004fa6d04ed8bb461a3, type: 2}
+  _playOnStart: 0
+  _volumeMultiplier: 1
+  _pitchMultiplier: 1
+  _delay: 0
+  _priority: -1
 --- !u!1 &5546036978431101093
 GameObject:
   m_ObjectHideFlags: 0

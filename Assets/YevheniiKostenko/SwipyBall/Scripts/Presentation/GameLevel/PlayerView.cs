@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using YellowTape.AudioEngine;
 using YevheniiKostenko.SwipyBall.Presentation.Vfx;
 
 namespace YevheniiKostenko.SwipyBall.Presentation.GameLevel
@@ -12,60 +11,45 @@ namespace YevheniiKostenko.SwipyBall.Presentation.GameLevel
         private LayerMask _groundMask;
         [SerializeField]
         private PlayerAnimator _animator;
-
         [SerializeField]
-        private MultiSoundComponent _multiSoundComponent;
-        
+        private PlayerSounds _playerSounds;
+
         private IPlayerController _playerController;
         private Vector2 _requestedMoveForce;
-        
+
         public Transform Transform => transform;
-        
-        public void Init(IPlayerController playerController) 
+
+        public void Init(IPlayerController playerController)
         {
             _playerController = playerController;
             _playerController.Initialize();
         }
-        
+
         public void Jump(Vector2 direction)
         {
             _rigidbody.linearVelocityY = 0; // Reset vertical velocity before applying jump force
             _rigidbody.AddForce(direction, ForceMode2D.Impulse);
-            
+
             DrawJumpVector(direction);
-            _multiSoundComponent.PlayByIndex(0);
-        }
-        
-        public void Push(Vector2 direction)
-        {
-            _rigidbody.AddForce(direction, ForceMode2D.Impulse);
+            _playerSounds.PlayJumpSound();
         }
 
-        public void Move(Vector2 direction)
-        {
-            _requestedMoveForce = direction;
-        }
+        public void Push(Vector2 direction) => _rigidbody.AddForce(direction, ForceMode2D.Impulse);
 
-        public void Hit(int damage, Vector2 hitDirection)
-        {
-            _playerController.RegisterHit(damage, hitDirection);
-        }
+        public void Move(Vector2 direction) => _requestedMoveForce = direction;
+
+        public void Hit(int damage, Vector2 hitDirection) => _playerController.RegisterHit(damage, hitDirection);
 
         public bool IsGrounded(float groundCheckDistance)
         {
-            Debug.DrawLine(_rigidbody.position, _rigidbody.position + Vector2.down * groundCheckDistance, Color.green, 0.01f);
+            Debug.DrawLine(_rigidbody.position, _rigidbody.position + (Vector2.down * groundCheckDistance), Color.green,
+                0.01f);
             return Physics2D.Raycast(_rigidbody.position, Vector2.down, groundCheckDistance, _groundMask);
         }
 
-        public void ShowDamageEffect()
-        {
-            _animator.PlayDamageAnimation();
-        }
+        public void ShowDamageEffect() => _animator.PlayDamageAnimation();
 
-        public void ShowLandedEffect()
-        {
-            VfxManager.Instance.Play(VfxType.Landing, GetLandingPosition());
-        }
+        public void ShowLandedEffect() => VfxManager.Instance.Play(VfxType.Landing, GetLandingPosition());
 
         private Vector3 GetLandingPosition()
         {
@@ -74,6 +58,7 @@ namespace YevheniiKostenko.SwipyBall.Presentation.GameLevel
             {
                 return hit.point;
             }
+
             return _rigidbody.position;
         }
 
@@ -85,12 +70,12 @@ namespace YevheniiKostenko.SwipyBall.Presentation.GameLevel
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.TryGetComponent<ICollectableView>(out var view))
+            if (other.TryGetComponent(out ICollectableView view))
             {
                 _playerController?.InteractWithCollectable(view.Collectable);
             }
         }
-        
+
         private void FixedUpdate()
         {
             if (_requestedMoveForce != Vector2.zero)
@@ -107,9 +92,7 @@ namespace YevheniiKostenko.SwipyBall.Presentation.GameLevel
             _playerController = null;
         }
 
-        private void DrawJumpVector(Vector2 forceDirection)
-        {
-            Debug.DrawLine(_rigidbody.position, _rigidbody.position + forceDirection, Color.red, 0.5f);
-        }
+        private void DrawJumpVector(Vector2 forceDirection) => Debug.DrawLine(_rigidbody.position,
+            _rigidbody.position + forceDirection, Color.red, 0.5f);
     }
 }

@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.UI;
-using YellowTape.AudioEngine;
+using YeKostenko.AudioEngine;
 
 namespace YevheniiKostenko.SwipyBall.Presentation.UI.Common
 {
@@ -10,18 +10,14 @@ namespace YevheniiKostenko.SwipyBall.Presentation.UI.Common
     {
         [SerializeField]
         private Button _button;
-        
-        public Action OnButtonClick { get; set; }
-        
-        private void Awake()
-        {
-            _button.onClick.AddListener(HandleButtonClick);
-        }
+        [SerializeField]
+        private SoundComponent2D _soundComponent;
 
-        private void OnDestroy()
-        {
-            _button.onClick.RemoveListener(HandleButtonClick);
-        }
+        public Action OnButtonClick { get; set; }
+
+        private void Awake() => _button.onClick.AddListener(HandleButtonClick);
+
+        private void OnDestroy() => _button.onClick.RemoveListener(HandleButtonClick);
 
         private void OnValidate()
         {
@@ -30,11 +26,11 @@ namespace YevheniiKostenko.SwipyBall.Presentation.UI.Common
                 _button = GetComponent<Button>();
             }
         }
-        
+
         private void HandleButtonClick()
         {
             OnButtonClick?.Invoke();
-            MyAudio.Engine.PlayClip(SoundType.UISound, "button_1");
+            _soundComponent.Play();
         }
     }
 }
